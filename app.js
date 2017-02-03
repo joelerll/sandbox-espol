@@ -1,16 +1,35 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
+var express      = require('express');
+var path         = require('path');
+var favicon      = require('serve-favicon');
+var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var exphbs  = require('express-handlebars');
+var bodyParser   = require('body-parser');
+var exphbs       = require('express-handlebars');
+var uglify       = require('uglify-js');
+var fs           = require('fs');
 
-var index = require('./app_server/routes/index');
-var users = require('./app_server/routes/users');
+// routes
+var index         = require('./app_server/routes/index');
+var users         = require('./app_server/routes/users');
 var documentacion = require('./app_server/routes/documentacion')
 
 var app = express();
+
+// uglify configuracion
+var appFiles = [
+  'app_client/app.module.js'
+]
+var uglifyApp = uglify.minify(appFiles, {
+  compress: false
+});
+fs.writeFile('public/angular/uglify.js',
+uglifyApp.code, function (err) {
+  if(err) {
+    console.log(err);
+  } else {
+    console.log("App minified con el nombre uglify.js")
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, './app_server/views'));
@@ -22,6 +41,7 @@ app.engine('.hbs', exphbs({
         partialsDir:'./app_server/views/_partials'
 }));
 app.set('view engine', '.hbs');
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -30,7 +50,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+// angular files static
+app.use(express.static(path.join(__dirname,'app_client')))
+
+// set up routes
+//app.use('/', index);
 app.use('/users', users);
 app.use('/docs', documentacion);
 

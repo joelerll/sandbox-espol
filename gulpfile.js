@@ -14,12 +14,12 @@ gulp.task('default', ['browser-sync','watch'], function () {
 gulp.task('browser-sync', ['nodemon'], function() {
 	browserSync.init(null, {
 		proxy: "http://localhost:3000",
-        files: ["app_server/views/**", "public/**"],
+        files: ["app_server/views/**", "app_client/**"],
         browser: "default",
         port: 7000,
         tunnel: false,
         online: true,
-        open: "external",
+        open: "local",
         injectChanges: true,
 	});
 });

@@ -1,5 +1,5 @@
 {
-  "name": "sandox-app",
+  "name": "sandbox-app",
   "description": "Sandbox pagina fundamentos de programacion",
   "main": "app.js",
   "authors": [
@@ -13,7 +13,6 @@
     "daw"
   ],
   "homepage": "https://github.com/joelerll/sandbox-espol",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -23,13 +22,13 @@
     "tests"
   ],
   "dependencies": {
-    "angular-animate": "^1.6.1",
     "angular-bootstrap": "^2.5.0",
-    "angular-ui-router": "ui-router#^0.4.2",
-    "angular-datatables": "^2.0.1",
-    "font-awesome": "^4.7.0",
+    "angular-ui-router": "^0.4.2",
     "angular-css": "^1.0.8",
+    "angular": "angularjs#^1.6.1",
     "bootstrap": "^3.3.7",
-    "restangular": "^1.6.1"
+    "font-awesome": "^4.7.0",
+    "restangular": "^1.6.1",
+    "ng-table": "^4.0.0"
   }
 }

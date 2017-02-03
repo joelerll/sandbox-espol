@@ -1,0 +1,1 @@
+angular.module("sandoxApp",[]).controller("appController",["$scope",function(o){o.nombre="jeasdl";log("[c='color: red']sdads[c]")}]);
