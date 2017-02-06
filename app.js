@@ -17,7 +17,9 @@ var app = express();
 
 // uglify configuracion
 var appFiles = [
-  'app_client/app.module.js'
+  'app_sandbox/app.module.js',
+  'app_sandbox/app.routes.js',
+  'app_sandbox/admin/admin.controller.js'
 ]
 var uglifyApp = uglify.minify(appFiles, {
   compress: false
@@ -32,15 +34,15 @@ uglifyApp.code, function (err) {
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, './app_server/views'));
-app.set('views', path.join(__dirname, './app_server/views'));
+/*
+app.set('views', path.join(__dirname, './app_sandbox'));
 app.engine('.hbs', exphbs({
         defaultLayout: 'layout',
         extname: '.hbs',
         layoutsDir:'./app_server/views',
         partialsDir:'./app_server/views/_partials'
 }));
-app.set('view engine', '.hbs');
+app.set('view engine', '.hbs');*/
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -51,7 +53,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // angular files static
-app.use(express.static(path.join(__dirname,'app_client')))
+app.use(express.static(path.join(__dirname,'app_sandbox')))
 
 // set up routes
 //app.use('/', index);

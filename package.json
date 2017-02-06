@@ -8,7 +8,9 @@
     "gulp": "gulp",
     "start": "npm install && npm run bower install && npm run gulp",
     "bower": "bower",
-    "aglio": "aplio"
+    "aglio": "aplio",
+    "webdriver-manager": "webdriver-manager",
+    "protractor": "protractor"
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,7 @@
     "faker": "^3.1.0",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
+    "protractor": "^5.1.0",
     "shelljs": "^0.7.6"
   }
 }
