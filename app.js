@@ -12,9 +12,10 @@ var fs           = require('fs');
 var index         = require('./app_server/routes/index');
 var users         = require('./app_server/routes/users');
 var documentacion = require('./app_server/routes/documentacion')
+var api = require('./app_api/routes/index')
 
 var app = express();
-
+require('./app_api/models/db')
 // uglify configuracion
 var appFiles = [
   'app_sandbox/app.module.js',
@@ -57,6 +58,7 @@ app.use(express.static(path.join(__dirname,'app_sandbox')))
 
 // set up routes
 //app.use('/', index);
+app.use('/api/v1', api)
 app.use('/users', users);
 app.use('/docs', documentacion);
 
