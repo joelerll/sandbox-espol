@@ -3,19 +3,20 @@ var path         = require('path');
 var favicon      = require('serve-favicon');
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var exphbs       = require('express-handlebars');
-var uglify       = require('uglify-js');
-var fs           = require('fs');
+var bodyParser = require('body-parser');
+var exphbs     = require('express-handlebars');
+var uglify     = require('uglify-js');
+var fs         = require('fs');
+var session    = require('express-session');
+var app        = express();
+require('./app_api/models/db')
 
 // routes
 var index         = require('./app_server/routes/index');
 var users         = require('./app_server/routes/users');
 var documentacion = require('./app_server/routes/documentacion')
-var api = require('./app_api/routes/index')
+var api           = require('./app_api/routes/index')
 
-var app = express();
-require('./app_api/models/db')
 // uglify configuracion
 var appFiles = [
   'app_sandbox/app.module.js',
@@ -35,15 +36,14 @@ uglifyApp.code, function (err) {
 });
 
 // view engine setup
-/*
-app.set('views', path.join(__dirname, './app_sandbox'));
+app.set('views', path.join(__dirname, './app_server/views'));
 app.engine('.hbs', exphbs({
         defaultLayout: 'layout',
         extname: '.hbs',
         layoutsDir:'./app_server/views',
         partialsDir:'./app_server/views/_partials'
 }));
-app.set('view engine', '.hbs');*/
+app.set('view engine', '.hbs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -51,6 +51,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret:'somesecrettokenhere'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // angular files static
