@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var dbURI = 'mongodb://localhost:27017:sandbox'
+var dbURI = 'mongodb://localhost/sandbox'
 mongoose.connect(dbURI)
 
 var db = mongoose.connection
@@ -17,3 +17,4 @@ db.on('disconnected', function() {
 });
 
 require('./profesor')
+require('./admin')
