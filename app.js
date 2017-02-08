@@ -5,18 +5,22 @@ var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs     = require('express-handlebars');
-var uglify     = require('uglify-js');
+//var uglify     = require('uglify-js');
 var fs         = require('fs');
 var session    = require('express-session');
 var app        = express();
+var flash = require('connect-flash');
+var passport = require('passport');
+
 require('./app_api/models/db')
 
+
 // routes
-var index         = require('./app_server/routes/index');
-var users         = require('./app_server/routes/users');
-var documentacion = require('./app_server/routes/documentacion')
+var app_web         = require('./app/routes/index');
+var documentacion = require('./app/routes/documentacion');
 var api           = require('./app_api/routes/index')
 
+/*
 // uglify configuracion
 var appFiles = [
   'app_sandbox/app.module.js',
@@ -33,15 +37,15 @@ uglifyApp.code, function (err) {
   } else {
     console.log("App minified con el nombre uglify.js")
   }
-});
+});*/
 
 // view engine setup
-app.set('views', path.join(__dirname, './app_server/views'));
+app.set('views', path.join(__dirname, './app/views'));
 app.engine('.hbs', exphbs({
         defaultLayout: 'layout',
         extname: '.hbs',
-        layoutsDir:'./app_server/views',
-        partialsDir:'./app_server/views/_partials'
+        layoutsDir:'./app/views',
+        partialsDir:'./app/views/_partials'
 }));
 app.set('view engine', '.hbs');
 
@@ -51,16 +55,23 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({secret:'somesecrettokenhere'}));
+app.use(session({secret:'secreto', saveUninitialized: true}));
+
+// Passport init
+app.use(passport.initialize())
+app.use(passport.session())
+
+// flash messages
+app.use(flash());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // angular files static
-app.use(express.static(path.join(__dirname,'app_sandbox')))
+//app.use(express.static(path.join(__dirname,'app_sandbox')))
 
 // set up routes
-//app.use('/', index);
+app.use('/', app_web);
 app.use('/api/v1', api)
-app.use('/users', users);
 app.use('/docs', documentacion);
 
 // catch 404 and forward to error handler
