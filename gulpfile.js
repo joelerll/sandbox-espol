@@ -54,7 +54,7 @@ gulp.task('test', function() {
 
 /*
 gulp.task('apiblueprint', function() {
-  exec("aglio --theme-variables slate -i ./docs/apiblueprint/api.apib  -o ./app/views/documentacion/docs.hbs")
+  exec("aglio --theme-variables slate -i ./docs/apiblueprint/api.apib  -o ./app/views/documentacion/docs.twig")
 })
 
 gulp.task('watch', function() {
