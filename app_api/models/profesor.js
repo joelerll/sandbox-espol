@@ -1,15 +1,15 @@
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 
 var ProfesorSchema = mongoose.Schema({
-  correo: {Type: String},
-  clave: {Type: String},
-  rol: {Type: String},
-  tipo_identificacion: {Type: String},
-  identificacion: {Type: String},
-  nombres: {Type: String},
-  apellidos: {Type: String},
-  creado: {type: Date, default: Date.now},
-  editado: {type: Date, default: Date.now}
-})
-  //desafios: [{ type : ObjectId, ref: 'Desafio' }]
-mongoose.model('Profesores', ProfesorSchema)
+  correo:              {type: String},
+  clave:               {type: String},
+  rol:                 {type: String},
+  tipo_identificacion: {type: String},
+  identificacion:      {type: String},
+  nombres:             {type: String},
+  apellidos:           {type: String},
+  creado:              {type: Date, default: Date.now},
+  editado:             {type: Date, default: Date.now}
+})  //desafios: [{ type : ObjectId, ref: 'Desafio' }]
+
+module.exports = mongoose.model('Profesores', ProfesorSchema)

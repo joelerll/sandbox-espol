@@ -1,84 +1,52 @@
-var express      = require('express');
-var path         = require('path');
-var favicon      = require('serve-favicon');
-var logger       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var exphbs     = require('express-handlebars');
-//var uglify     = require('uglify-js');
-var fs         = require('fs');
-var session    = require('express-session');
-var app        = express();
-var flash = require('connect-flash');
-var passport = require('passport');
-var nunjucks = require('nunjucks')
-require('./app_api/models/db')
-require('./app_api/config/passport')
+var express      = require('express'),
+path             = require('path'),
+logger           = require('morgan'),
+bodyParser       = require('body-parser'),
+fs               = require('fs'),
+passport         = require('passport'),
+nunjucks         = require('nunjucks'),
+cors             = require('cors'),
+expressValidator = require('express-validator'),
+app              = express();
+
+//database
+require('./app_api/models/db');
 
 // routes
-var app_admin         = require('./app/routes/admin');
-var app_users         = require('./app/routes/users');
-var documentacion = require('./app/routes/documentacion');
-var api           = require('./app_api/routes/admin')
+var app_admin = require('./app/routes/admin'),
+app_users     = require('./app/routes/users'),
+documentacion = require('./app/routes/documentacion'),
+api           = require('./app_api/routes/admin');
 
-/*
-// uglify configuracion
-var appFiles = [
-  'app_sandbox/app.module.js',
-  'app_sandbox/app.routes.js',
-  'app_sandbox/admin/admin.controller.js'
-]
-var uglifyApp = uglify.minify(appFiles, {
-  compress: false
-});
-fs.writeFile('public/angular/uglify.js',
-uglifyApp.code, function (err) {
-  if(err) {
-    console.log(err);
-  } else {
-    console.log("App minified con el nombre uglify.js")
-  }
-});*/
-
-// view engine setup
-//app.set('views', path.join(__dirname, './app/views'));
-/*
-app.engine('.hbs', exphbs({
-        defaultLayout: 'layout',
-        extname: '.hbs',
-        layoutsDir:'./app/views',
-        partialsDir:'./app/views/_partials'
-}));*/
-
-/*
-app.set('view engine', 'twig');
-app.disable('view cache');
-*/
+// nunjucks
 nunjucks.configure('./app/views', {
 	autoescape: true,
 	express: app
 });
 app.set('view engine', 'nunjucks');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session({secret:'secreto', saveUninitialized: false}));
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
 
-// Passport init
- app.use(passport.initialize())
-// app.use(passport.session())
-
-// flash messages
-app.use(flash());
-
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+app.use(cors());
+app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// angular files static
-//app.use(express.static(path.join(__dirname,'app_sandbox')))
 
 // set up routes
 app.use('/admin', app_admin);

@@ -1,12 +1,6 @@
-var mongoose = require('mongoose')
-var Profesor = mongoose.model('Profesores')
+var mongoose = require('mongoose'),
+Profesor     = require('../models/estudiantes');
 
-//401 no autorizado
-//204 no encontrado
-//409 ya existe
-//201 creado
-// 200 ok
-// 202 borrado
 module.exports.create = function(req, res, next) {
   //verificar si ya existe el profesores
   // enviar creado
