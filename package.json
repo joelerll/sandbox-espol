@@ -73,6 +73,7 @@
     "mocha": "^3.2.0",
     "protractor": "^5.1.0",
     "shelljs": "^0.7.6",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "webdriverio": "^4.6.2"
   }
 }

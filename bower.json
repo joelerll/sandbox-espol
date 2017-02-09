@@ -13,6 +13,7 @@
     "daw"
   ],
   "homepage": "https://github.com/joelerll/sandbox-espol",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -22,13 +23,16 @@
     "tests"
   ],
   "dependencies": {
+    "angular-route": "^1.6.1",
+    "angular-cookies": "^1.6.2",
+    "angular-sanitize": "^1.6.2",
     "angular-bootstrap": "^2.5.0",
     "angular-ui-router": "^0.4.2",
     "angular-css": "^1.0.8",
-    "angular": "angularjs#^1.6.1",
     "bootstrap": "^3.3.7",
+    "ng-table": "^4.0.0",
     "font-awesome": "^4.7.0",
     "restangular": "^1.6.1",
-    "ng-table": "^4.0.0"
+    "log": "git://github.com/adamschwartz/log#^0.3.0"
   }
 }
