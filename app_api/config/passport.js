@@ -3,23 +3,21 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var Admin = mongoose.model('Admin');
 
-passport.use(new LocalStrategy({
-    usernameField: 'nombre'
+passport.use('admin',new LocalStrategy({
   },
-  function(nombre, password, done) {
-    Admin.findOne({ nombre: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, {
-          message: 'Incorrect username.'
-        });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, {
-          message: 'Incorrect password.'
-        });
-      }
-      return done(null, user);
+  function(username, password, done) {
+    Admin.findOne({ username: username, password: password }, function (err, admin) {
+      done(null, admin)
     });
   }
 ));
+// 
+// passport.serializeUser(function(admin, done) {
+//   done(null, admin.id);
+// });
+//
+// passport.deserializeUser(function(id, done) {
+//   Admin.getUserById(id, function(err, admin) {
+//     done(err, admin)
+//   })
+// });

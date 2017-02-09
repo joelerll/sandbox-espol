@@ -11,14 +11,15 @@ var session    = require('express-session');
 var app        = express();
 var flash = require('connect-flash');
 var passport = require('passport');
-
+var nunjucks = require('nunjucks')
 require('./app_api/models/db')
-
+require('./app_api/config/passport')
 
 // routes
-var app_web         = require('./app/routes/index');
+var app_admin         = require('./app/routes/admin');
+var app_users         = require('./app/routes/users');
 var documentacion = require('./app/routes/documentacion');
-var api           = require('./app_api/routes/index')
+var api           = require('./app_api/routes/admin')
 
 /*
 // uglify configuracion
@@ -40,14 +41,24 @@ uglifyApp.code, function (err) {
 });*/
 
 // view engine setup
-app.set('views', path.join(__dirname, './app/views'));
+//app.set('views', path.join(__dirname, './app/views'));
+/*
 app.engine('.hbs', exphbs({
         defaultLayout: 'layout',
         extname: '.hbs',
         layoutsDir:'./app/views',
         partialsDir:'./app/views/_partials'
-}));
-app.set('view engine', '.hbs');
+}));*/
+
+/*
+app.set('view engine', 'twig');
+app.disable('view cache');
+*/
+nunjucks.configure('./app/views', {
+	autoescape: true,
+	express: app
+});
+app.set('view engine', 'nunjucks');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -55,11 +66,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({secret:'secreto', saveUninitialized: true}));
+app.use(session({secret:'secreto', saveUninitialized: false}));
 
 // Passport init
-app.use(passport.initialize())
-app.use(passport.session())
+ app.use(passport.initialize())
+// app.use(passport.session())
 
 // flash messages
 app.use(flash());
@@ -70,7 +81,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static(path.join(__dirname,'app_sandbox')))
 
 // set up routes
-app.use('/', app_web);
+app.use('/admin', app_admin);
+app.use('/', app_users);
 app.use('/api/v1', api)
 app.use('/docs', documentacion);
 
