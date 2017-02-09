@@ -1,3 +1,13 @@
 {
-  
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "./tests/**"
+  ],
+  "watch": [
+    "./app/views/**"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  }
 }

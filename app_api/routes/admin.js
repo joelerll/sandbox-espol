@@ -1,48 +1,27 @@
-var express = require('express');
-var router = express.Router()
-var passport = require('passport')
-var ProfesorController = require('../controllers/profesores')
-var AdminController = require('../controllers/admin')
-var app = express()
-var jwt = require('express-jwt');
-var auth = jwt({
-  secret: "joeleseljoelsa",
-  userProperty: 'payload'
-});
+var router         = require('express').Router(),
+passport           = require('passport'),
+jwt                = require('jsonwebtoken'),
+ProfesorController = require('../controllers/profesores'),
+AdminController    = require('../controllers/admin');
 
-
-function isAuthenticated (req, res, next) {
-  if (req.isAuthenticated()){
-    return next()
-  }
-  res.redirect('/admin/login');
-}
+var auth = passport.authenticate('admin-jwt', { session: false });
 
 // profesor CRUD
-router.post('/profesores',  ProfesorController.create);
-router.get('/profesores', ProfesorController.read); //?like
-router.put('/profesores/:id', ProfesorController.update);
-router.delete('/profesores/:id', ProfesorController.delete)
-
-//admin dashboard  AdminController.login
-
-//router.get('/admin/login', AdminController.login)
-
-router.post('/admin/login',AdminController.login ) //
-//console.log(req.session.passport.user)
-router.get('/admin/dashboard', auth, AdminController.dashboard)
-router.get('/admin/logout', function(req, res){
-	req.logout();
-	res.redirect('/admin/login');
-})
-
-router.get('/protected',
-  jwt({secret: '123'}),
-  function(req, res) {
-    if (!req.user.admin) return res.sendStatus(401).send('no integado');
-    res.sendStatus(200).send('hola integrado');
-  });
+router.post('/profesores',  ProfesorController.create );
+router.get('/profesores', ProfesorController.read ); //?like
+router.put('/profesores/:id', ProfesorController.update );
+router.delete('/profesores/:id', ProfesorController.delete );
 
 
+// passport strategies
+require('../config/passport.admin.login')( passport );
+require('../config/passport.admin.jwt')( passport );
+
+// admin login
+router.post('/admin/login', AdminController.login );
+router.get('/admin/dashboard', auth , AdminController.dashboard );
+
+//borrar solo de prueba
+router.post('/admin', AdminController.create);
 
 module.exports = router
