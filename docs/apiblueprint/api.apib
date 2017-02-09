@@ -1,26 +1,279 @@
 FORMAT: 1A
+HOST: http://localhost:7000
 
-# The Simpl
-This is one of the simplest APIs written in the **API Blueprint**. One plain
-resource combined with a method and that's it! We will explain what is going on
-in the next installment -
-[Resource and Actions](02.%20Resource%20and%20Actions.md).
+# Api Sandox Espol
+Api con los metodos de sanbox app Espol
 
-**Note:** As we progress through the examples, do not also forget to view the
-[Raw](https://raw.github.com/apiaryio/api-blueprint/master/examples/01.%20Simplest%20API.md)
-code to see what is really going on in the API Blueprint, as opposed to just
-seeing the output of the Github Markdown parser.
+# Group Profesores
+* Gestionado por __Admin__
 
-Also please keep in mind that every single example in this course is a **real
-API Blueprint** and as such you can **parse** it with the
-[API Blueprint parser](https://github.com/apiaryio/drafter) or one of its
-[bindings](https://github.com/apiaryio/drafter#bindings).
+## Profesores en la materia fundamentos programacion [/profesores]
+## Obtener todos lo profesores [GET]
++ Response 200 (application/json)
+  + Attributes (Usuario Base)
+      + id: 250FF (string, required)
+      + created: 1415203908 (number) - Time stamp
 
-## API Blueprint
-+ [This: Raw API Blueprint](https://raw.github.com/apiaryio/api-blueprint/master/examples/01.%20Simplest%20API.md)
-+ [Next: Resource and Actions](02.%20Resource%20and%20Actions.md)
 
-# GET /message
-+ Response 200 (text/plain)
+## Obtener un profesor [GET /profesores/{id}]
+  + Parameters
+    + id: 092315646 (string) ... cedula del profesor
 
-        Hello World!
++ Response 200 (application/json)
+
+
++ Response 404 (application/json)
+  {
+    "mensaje": "no encontrado"
+  }
+
++ Response 401 (application/json)
+  {
+    "mensaje": "no autorizado"
+  }
+
+## Buscar profesor por patron de letra [GET /profesores{?like}]
++ Parameters
+  + like: Angel+R (string,optional) ... Alguna letra
+
++ Response 200 (application/json)
+  + body
+    [
+      {
+        "creado": "2015-06-01",
+        "editado": "2015-07-01",
+        "correo": "joelerll@gmail.com",
+        "contrasena": "123456789456123456",
+        "rol": "profesor",
+        "cedula": "20165465",
+        "identificacion": "fiec54",
+        "nombre": "Angel Roberto",
+        "apellidos": "Rodriguez Llamuca"
+      },
+      {
+        "creado": "2015-06-01",
+        "editado": "2015-07-01",
+        "correo": "joelerll@gmail.com",
+        "contrasena": "123456789456123456",
+        "rol": "profesor",
+        "cedula": "20165465",
+        "identificacion": "fiec54",
+        "nombre": "Angel Roberto",
+        "apellidos": "Ramoz Calo"
+      }
+    ]
++ Response 401 (application/json)
+  {
+    "mensaje": "no autorizado"
+  }
+
+## Crear un profesor [POST]
++ Request (application/json)
+  + Body
+    {
+      "correo": "joelerll@gmail.com",
+      "contrasena": "123456789456123456",
+      "rol": "profesor",
+      "cedula": "20165465",
+      "identificacion": "fiec54564",
+      "nombre": "Joel Eduardo",
+      "apellidos": "Rodriguez Llamuca"
+    }
+
+
++ Response 201 (application/json)
+  + Headers
+    Location: /profesores/1
+  + body
+    {
+      "creado": "2015-06-01",
+      "editado": "2015-06-01",
+      "correo": "joelerll@gmail.com",
+      "contrasena": "123456789456123456",
+      "rol": "profesor",
+      "cedula": "20165465",
+      "identificacion": "fiec54564",
+      "nombre": "Joel Eduardo",
+      "apellidos": "Rodriguez Llamuca"
+    }
+  + Schema
+    {
+      "creado": "date",
+      "editado": "date",
+      "correo": "string",
+      "contrasena": "string",
+      "rol": "string",
+      "cedula": "string",
+      "identificacion": "string",
+      "nombre": "string",
+      "apellidos": "string"
+    }
+
++ Response 401 (application/json)
+  {
+    "mensaje": "no autorizado"
+  }
+
++ Response 409 (application/json)
+  {
+    "mensaje": "ya existe el profesor"
+  }
+
+
+## Editar un profesor [PUT /profesores/{id}]
++ Parameters
+  + id: 0921651465 (string) ... cedula del profesor
+
++ Response 200 (application/json)
+  + body
+    {
+      "creado": "2015-06-01",
+      "editado": "2015-07-01",
+      "correo": "joelerll@gmail.com",
+      "contrasena": "123456789456123456",
+      "rol": "profesor",
+      "cedula": "20165465",
+      "identificacion": "fiec54",
+      "nombre": "Joel Eduardo",
+      "apellidos": "Rodriguez Llamuca"
+    }
+  + Schema
+    {
+      "creado": "date",
+      "editado": "date",
+      "correo": "string",
+      "contrasena": "string",
+      "rol": "string",
+      "cedula": "string",
+      "identificacion": "string",
+      "nombre": "string",
+      "apellidos": "string"
+    }
+
++ Response 204 (application/json)
+  {
+    "mensaje": "no encontrado"
+  }
+
++ Response 401 (application/json)
+  {
+    "mensaje": "no autorizado"
+  }
+
+## Borrar un profesor [DELETE /profesores/{id}]
++ Parameters
+  + id: 092315645 (string) ... cedula profesor
+
++ Response 202 (application/json)
+  {
+    "mensaje": "profesor borrado"
+  }
+
++ Response 204 (application/json)
+  {
+      "mensaje": "no encontrado"
+  }
+
++ Response 401 (application/json)
+  {
+    "mensaje": "no autorizado"
+  }
+
+
+
+# Group Ayudantes
+* Gestionado por __Admin__
+
+## /ayudantes
+
+
+# Group Estudiantes
+* Gestionado por __Admin__
+
+## /estudiantes
+
+
+# Group Cursos
+* Accesible __admin__
+
+## /cursos
+
+# Group Ejercicios
+* Accesible __profesores__ y __ayudantes__
+* Puede resolver __estudiantes__
+
+
+# Group Desafios
+* Accesible __profesores__
+* Resuelve desafios __estudiante__
+
+# Group Admin
+* Accesible __superusuario__
+
+
+# Group Coupons
+
+## Coupon [/coupons/{id}]
+A coupon contains information about a percent-off or amount-off discount you
+might want to apply to a customer.
+
++ Parameters
+    + id (string)
+
+        The ID of the desired coupon.
+
++ Attributes (Coupon Base)
+    + id: 250FF (string, required)
+    + created: 1415203908 (number) - Time stamp
+
+### Retrieve a Coupon [GET]
+Retrieves the coupon with the given ID.
+
++ Response 200 (application/json)
+    + Attributes (Coupon)
+
+## Coupons [/coupons{?limit}]
+
++ Attributes (array[Coupon])
+
+### List all Coupons [GET]
+Returns a list of your coupons.
+
++ Parameters
+    + limit (number, optional)
+
+        A limit on the number of objects to be returned. Limit can range
+        between 1 and 100 items.
+
+        + Default: `10`
+
++ Response 200 (application/json)
+    + Attributes (Coupons)
+
+### Create a Coupon [POST]
+Creates a new Coupon.
+
++ Attributes (Coupon Base)
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (Coupon)
+
+# Data Structures
+
+## Coupon Base (object)
++ percent_off: 25 (number)
+
+    A positive integer between 1 and 100 that represents the discount the
+    coupon will apply.
+
++ redeem_by (number) - Date after which the coupon can no longer be redeemed
+
+## Usuario Base (object)
++ correo (string, required) - Correo de la persona
++ nombres (string, required) - Nombre de la persona
++ apellidos (string, required) - Apellidos de la persona
++ rol (string, required) - enum(profesor, ayudante, estudiante)
++ tipo_identificacion (string,required) - enum(cedula, matricula)
++ identificacion (string, required) - enum(cedula, matricula)

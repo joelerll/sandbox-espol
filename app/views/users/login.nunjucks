@@ -1,0 +1,6 @@
+{% extends 'layout.nunjucks' %}
+
+{% block body %}
+  <h1>{{title}}</h1>
+  <p>Welcome to Users page</p>
+{% endblock %}

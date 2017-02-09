@@ -1,37 +1,57 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var exphbs  = require('express-handlebars');
+var express      = require('express'),
+path             = require('path'),
+logger           = require('morgan'),
+bodyParser       = require('body-parser'),
+fs               = require('fs'),
+passport         = require('passport'),
+nunjucks         = require('nunjucks'),
+cors             = require('cors'),
+expressValidator = require('express-validator'),
+app              = express();
 
-var index = require('./app_server/routes/index');
-var users = require('./app_server/routes/users');
-var documentacion = require('./app_server/routes/documentacion')
+//database
+require('./app_api/models/db');
 
-var app = express();
+// routes
+var app_admin = require('./app/routes/admin'),
+app_users     = require('./app/routes/users'),
+documentacion = require('./app/routes/documentacion'),
+api           = require('./app_api/routes/admin');
 
-// view engine setup
-app.set('views', path.join(__dirname, './app_server/views'));
-app.set('views', path.join(__dirname, './app_server/views'));
-app.engine('.hbs', exphbs({
-        defaultLayout: 'layout',
-        extname: '.hbs',
-        layoutsDir:'./app_server/views',
-        partialsDir:'./app_server/views/_partials'
-}));
-app.set('view engine', '.hbs');
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// nunjucks
+nunjucks.configure('./app/views', {
+	autoescape: true,
+	express: app
+});
+app.set('view engine', 'nunjucks');
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+app.use(cors());
+app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+// set up routes
+app.use('/admin', app_admin);
+app.use('/', app_users);
+app.use('/api/v1', api)
 app.use('/docs', documentacion);
 
 // catch 404 and forward to error handler

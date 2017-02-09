@@ -8,18 +8,18 @@ var nodemon = require('gulp-nodemon');
 reload = browserSync.reload;
 var shelljs = require('shelljs/global')
 
-gulp.task('default', ['browser-sync','watch'], function () {
+gulp.task('default', ['browser-sync','watch'], function () {  //,'watch'
 });
 
 gulp.task('browser-sync', ['nodemon'], function() {
 	browserSync.init(null, {
 		proxy: "http://localhost:3000",
-        files: ["app_server/views/**", "public/**"],
+        files: ["public/angular/**"],  //, "app_sandbox/**"
         browser: "default",
         port: 7000,
         tunnel: false,
         online: true,
-        open: "external",
+        open: "local",
         injectChanges: true,
 	});
 });
@@ -28,10 +28,12 @@ gulp.task('app', function() {
   server.run(['./bin/www']);
 })
 
+
 gulp.task('nodemon', function (cb) {
 	var started = false;
 	return nodemon({
-		script: './bin/www'
+		script: './bin/www',
+    watch: ['app/views/']
 	}).on('start', function () {
 		// to avoid nodemon being started multiple times
 		// thanks @matthisk
@@ -52,10 +54,15 @@ gulp.task('test', function() {
 
 })
 
+/*
 gulp.task('apiblueprint', function() {
-  exec("aglio --theme-variables slate -i ./docs/apiblueprint/api.apib  -o ./app_server/views/documentacion/docs.hbs")
+  exec("aglio --theme-variables slate -i ./docs/apiblueprint/api.apib  -o ./app/views/documentacion/docs.twig")
 })
 
 gulp.task('watch', function() {
   gulp.watch('./docs/apiblueprint/api.apib',['apiblueprint'])
+})*/
+
+gulp.task('watch', function() {
+   gulp.watch('app/views/*',['nodemon'])
 })
