@@ -1,0 +1,10 @@
+{% extends '../admin/layout.nunjucks' %}
+
+{% block body %}
+  <form class="" action="/admin/login" method="post">
+    <input type="text" name="username" value="" placeholder="ususario" ng-model='username'>
+    <input type="text" name="password" value="" placeholder="password" ng-model='password'>
+    <button type="button" name="button" ng-click='submit()'>submit</button>
+  </form>
+  <button type="button" name="button" ng-click='logout()'>logout</button>
+{% endblock %}

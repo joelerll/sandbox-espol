@@ -13,7 +13,11 @@ AdminSchema.methods.generateJwt = function() {
     username: this.username,
     password: this.password,
     exp: parseInt(expiry.getTime() / 1000),
-  },"132" ); // DO NOT KEEP YOUR SECRET IN THE CODE! process.env.JWT_SECRET
+  },"joeleseljoelsa" ); // DO NOT KEEP YOUR SECRET IN THE CODE! process.env.JWT_SECRET
 };
+
+AdminSchema.statics.getUserById = function(id, cb) {
+  return this.model('Admin').findOne({_id: id}, cb)
+}
 
 mongoose.model('Admin', AdminSchema);

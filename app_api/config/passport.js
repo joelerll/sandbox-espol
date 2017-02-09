@@ -11,13 +11,13 @@ passport.use('admin',new LocalStrategy({
     });
   }
 ));
-
-passport.serializeUser(function(admin, done) {
-  done(null, admin.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.getUserById(id, function(err, user) {
-    done(err, admin)
-  })
-});
+// 
+// passport.serializeUser(function(admin, done) {
+//   done(null, admin.id);
+// });
+//
+// passport.deserializeUser(function(id, done) {
+//   Admin.getUserById(id, function(err, admin) {
+//     done(err, admin)
+//   })
+// });

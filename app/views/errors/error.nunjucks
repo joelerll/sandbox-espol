@@ -1,4 +1,4 @@
-{% extends '../layout.twig' %}
+{% extends "../layout.nunjucks" %}
 
 {% block body %}
   <h1>{{message}}</h1>

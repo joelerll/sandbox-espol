@@ -10,12 +10,16 @@ router.get('/', function(req, res, next) {
   }
   console.log(json);
 });*/
-  res.render('admin/index', { title: 'Express' });
+  res.render('admin/login', { title: 'Express' });
 });
 
 /*
 router.get('/administrador', function(req, res, next) {
   res.render('admin/index.html')
 })*/
+
+router.post('/login', function(req, res) {
+  res.send('admin login')
+})
 
 module.exports = router;

@@ -8,13 +8,13 @@ var nodemon = require('gulp-nodemon');
 reload = browserSync.reload;
 var shelljs = require('shelljs/global')
 
-gulp.task('default', ['browser-sync'], function () {  //,'watch'
+gulp.task('default', ['browser-sync','watch'], function () {  //,'watch'
 });
 
 gulp.task('browser-sync', ['nodemon'], function() {
 	browserSync.init(null, {
 		proxy: "http://localhost:3000",
-        files: ["app/views/**"],  //, "app_sandbox/**"
+        files: ["public/angular/**"],  //, "app_sandbox/**"
         browser: "default",
         port: 7000,
         tunnel: false,
@@ -28,10 +28,12 @@ gulp.task('app', function() {
   server.run(['./bin/www']);
 })
 
+
 gulp.task('nodemon', function (cb) {
 	var started = false;
 	return nodemon({
-		script: './bin/www'
+		script: './bin/www',
+    watch: ['app/views/']
 	}).on('start', function () {
 		// to avoid nodemon being started multiple times
 		// thanks @matthisk
@@ -60,3 +62,7 @@ gulp.task('apiblueprint', function() {
 gulp.task('watch', function() {
   gulp.watch('./docs/apiblueprint/api.apib',['apiblueprint'])
 })*/
+
+gulp.task('watch', function() {
+   gulp.watch('app/views/*',['nodemon'])
+})
