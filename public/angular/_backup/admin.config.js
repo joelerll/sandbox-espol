@@ -1,17 +1,22 @@
 angular.module('appAdmin').
-  controller('AdminController', function($scope, $http, $window,$cookies) {
+  controller('AdminController', function($scope, $http, $window,auth,$location) {
     $scope.nombre = 'sadsadswe'
     $scope.username = ''
     $scope.password = ''
+
     $scope.submit = function() {
+
+      /*
       $http.post('/api/v1/admin/login', {username: $scope.username, password: $scope.password}).then(function(respuesta){
           console.log(respuesta)
-          $cookies.put('id', respuesta.data.token)
           $window.localStorage['local'] = respuesta.data.token;
-      })
+      })*/
+      console.log({username: $scope.username, password: $scope.password})
+      auth.login({username: $scope.username, password: $scope.password})
+      //$location.path('/dashboard')
     }
     $scope.logout = function() {
-      $window.localStorage.clear()
+      auth.logout()
     }
 
     $scope.dashboard = function() {
@@ -21,8 +26,13 @@ angular.module('appAdmin').
            })
     }
 
+    $scope.linkExternal = function (url){
+      $window.location.href = url;
+    }
+
+    $scope.cambio = function() {
+
+    }
+
+
   })
-  .config(function($interpolateProvider) {
-    $interpolateProvider.startSymbol('//');
-    $interpolateProvider.endSymbol('//');
-  });

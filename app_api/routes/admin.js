@@ -4,7 +4,7 @@ jwt                = require('jsonwebtoken'),
 ProfesorController = require('../controllers/profesores'),
 AdminController    = require('../controllers/admin');
 
-var auth = passport.authenticate('admin-jwt', { session: false });
+var auth = passport.authenticate('admin-jwt', { session: true });
 
 // profesor CRUD
 router.post('/profesores',  ProfesorController.create );

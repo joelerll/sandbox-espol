@@ -46,7 +46,7 @@ app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // set up routes
-//app.use('/admin', app_admin);
+app.use('/', express.static(path.join(__dirname + "/apps_angular/index.html")));
 app.use('/api/v1', api)
 app.use('/docs', express.static(path.join(__dirname + "/public/documentacion")));
 app.use('/profesores', express.static(path.join(__dirname + "/apps_angular/users/profesores")));
