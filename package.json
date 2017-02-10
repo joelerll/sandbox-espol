@@ -4,6 +4,8 @@
   "description": "Sandbox pagina fundamentos de programacion",
   "main": "app.js",
   "scripts": {
+    "n": "npm run nodemon ./bin/www",
+    "b": "npm run gulp",
     "test-a": "npm run mocha ./tests/api/admin.test.js",
     "test-p": "npm run mocha ./tests/api/profesores.test.js",
     "gulp": "gulp",
@@ -13,6 +15,7 @@
     "webdriver-manager": "webdriver-manager",
     "protractor": "protractor",
     "mocha": "mocha",
+    "browser-sync": "browser-sync",
     "nodemon": "nodemon"
   },
   "repository": {

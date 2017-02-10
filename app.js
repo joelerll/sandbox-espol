@@ -13,13 +13,10 @@ app              = express();
 require('./app_api/models/db');
 
 // routes
-var app_admin = require('./app/routes/admin'),
-app_users     = require('./app/routes/users'),
-documentacion = require('./app/routes/documentacion'),
 api           = require('./app_api/routes/admin');
 
 // nunjucks
-nunjucks.configure('./app/views', {
+nunjucks.configure('./errors/views', {
 	autoescape: true,
 	express: app
 });
@@ -49,10 +46,13 @@ app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // set up routes
-app.use('/admin', app_admin);
-app.use('/', app_users);
+//app.use('/admin', app_admin);
 app.use('/api/v1', api)
-app.use('/docs', documentacion);
+app.use('/docs', express.static(path.join(__dirname + "/public/documentacion")));
+app.use('/profesores', express.static(path.join(__dirname + "/apps_angular/users/profesores")));
+app.use('/ayudantes', express.static(path.join(__dirname + "/apps_angular/users/ayudantes")));
+app.use('/estudiantes', express.static(path.join(__dirname + "/apps_angular/users/estudiantes")));
+app.use('/admin', express.static(path.join(__dirname + "/apps_angular/admin/")));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

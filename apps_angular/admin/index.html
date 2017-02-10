@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app='appAdmin'>
+  <head>
+    <!-- <link rel='stylesheet' href='/css/style.css' /> -->
+  </head>
+  <body ng-controller='AdminController'>
+    <h1>adminsada</h1>
+    <form class="" action="/admin/login" method="post">
+      <input type="text" name="username" value="" placeholder="ususario" ng-model='username'>
+      <input type="text" name="password" value="" placeholder="password" ng-model='password'>
+      <button type="button" name="button" ng-click='submit()'>submit</button>
+    </form>
+    <button type="button" name="button" ng-click='logout()'>logout</button>
+    <button type="button" name="button" ng-click='dashboard()'>dashboard get</button>
+    <a ng-href="/dashboard">ojo</a>
+    <a href="/admin/dashboard">ojo</a>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="./admin.module.js"></script>
+    <script src="./admin.config.js"></script>
+  </body>
+</html>
