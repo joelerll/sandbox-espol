@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-Profesor     = require('../models/estudiantes');
+Profesor     = require('../models/profesor');
 
 module.exports.create = function(req, res, next) {
   //verificar si ya existe el profesores
@@ -12,11 +12,8 @@ module.exports.read = function(req, res, next) {
       res.json({"res": "readLike" + req.query.like})
       //buscar profesor por nombres
   } else {
-    Profesor.find({}, function(err, data) {
-      if(err) {
-        res.send({'error': 'error'})
-      }
-      res.status(200).send(data);
+    Profesor.getProfesores(function(err, profesores) {
+      res.json(profesores)
     })
   }
 }
