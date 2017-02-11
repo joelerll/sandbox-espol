@@ -13,7 +13,7 @@ gulp.task('default', ['browser-sync'], function () {  //,'watch'
 
 gulp.task('browser-sync', function() {
 	browserSync.init(null, {
-		proxy: "http://localhost:3000",
+		proxy: "http://localhost:4000",
         files: ["apps_angular/**"],  //, "app_sandbox/**"
         browser: "default",
         startPath: '/admin',

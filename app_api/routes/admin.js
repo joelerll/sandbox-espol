@@ -4,13 +4,13 @@ jwt                = require('jsonwebtoken'),
 ProfesorController = require('../controllers/profesores'),
 AdminController    = require('../controllers/admin');
 
-var auth = passport.authenticate('admin-jwt', { session: true });
+var auth = passport.authenticate('admin-jwt', { session: false });
 
 // profesor CRUD
-router.post('/profesores',  ProfesorController.create );
-router.get('/profesores', ProfesorController.read ); //?like
-router.put('/profesores/:id', ProfesorController.update );
-router.delete('/profesores/:id', ProfesorController.delete );
+router.post('/profesores', auth, ProfesorController.create );
+router.get('/profesores', auth, ProfesorController.read ); //?like
+router.put('/profesores/:id', auth, ProfesorController.update );
+router.delete('/profesores/:id', auth, ProfesorController.delete );
 
 
 // passport strategies
