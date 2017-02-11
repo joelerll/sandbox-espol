@@ -1,8 +1,8 @@
 angular.module('appAdmin').
-  controller('AdminController', AdminController)
+  controller('LoginController', LoginController)
 
-  AdminController.$inyect = ['$scope', '$http', '$window','auth','$location'];
-  function AdminController($scope, $http, $window,auth,$location) {
+  LoginController.$inyect = ['$http', '$window','auth','$location'];
+  function LoginController($http, $window,auth,$location) {
     var ctrl = this;
 
     // models admin

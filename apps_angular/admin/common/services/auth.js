@@ -2,7 +2,7 @@ angular
   .module('appAdmin')
   .service('auth', authentication);
 
-authentication.$inject = ['$http', '$window',"jwtHelper"];
+authentication.$inject = ['$http', '$window','jwtHelper'];
 function authentication ($http, $window, jwtHelper) {
 
   var saveToken = function (token) {

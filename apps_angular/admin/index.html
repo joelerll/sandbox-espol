@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html ng-app='appAdmin'>
   <head>
-    <link rel='stylesheet' href='./public/css/style.css' />
+    <link rel='stylesheet' href='./css/style.css' />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/bower_components/angular-hotkeys/build/hotkeys.min.css">
     <title> Admin - Sandbox </title>
+    <!-- <base href="/admin" target="_blank"> -->
   </head>
   <body>
-    <div ng-view></div>
-
+    <!-- <div ng-view></div> -->
+    <ui-view></ui-view>
     <!-- dependencias -->
       <script src="/bower_components/jquery/dist/jquery.min.js"></script>
       <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
       <script src="/bower_components/angular/angular.min.js"></script>
-      <script src="/bower_components/angular-route/angular-route.min.js"></script>
+      <!-- <script src="/bower_components/angular-route/angular-route.min.js"></script> -->
       <script src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
       <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
       <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
       <script src="/bower_components/angular-css/angular-css.min.js"></script>
+      <script src="/bower_components/underscore/underscore-min.js"></script>
         <!-- opcionales -->
-      <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
-      <script src="/bower_components/angular-messages/angular-messages.min.js"></script>
-      <script src="/bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
-      <!--<script src="/bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script> -->
+      <!-- <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+      <script src="/bower_components/angular-messages/angular-messages.min.js"></script> -->
+      <!-- <script src="/bower_components/angular-hotkeys/build/hotkeys.min.js"></script> -->
+      <!-- <script src="/bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script> -->
       <script src="/bower_components/log/log.min.js"></script>
     <!-- fin dependencias -->
 
     <!-- config -->
       <script src="./admin.module.js"></script>
-      <script src="./admin.route.js" charset="utf-8"></script>
-    <!-- <script src="./admin.routes.js"></script> -->
+      <script src="./admin.router.js"></script>
     <!-- fin config -->
 
     <!-- services -->
       <script src="./common/services/auth.js"></script>
+      <script src="./common/services/profesores.js"></script>
     <!-- fin services -->
 
     <!-- controllers -->
       <script src="./dashboard/dashboard.controller.js"></script>
       <script src="./login/login.controller.js"></script>
     <!-- fin controllers -->
+
+    <!-- components -->
+      <script src="./common/components/profesores/profesores.module.js"></script>
+      <script src="./common/components/profesores/profesores.component.js"></script>
+    <!-- fin components -->
 
   </body>
 </html>

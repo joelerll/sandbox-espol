@@ -1,4 +1,10 @@
-angular.module('appAdmin',['ui.router','ngRoute','ngCookies','angular-jwt','ui.bootstrap'])
+angular.module('appAdmin',[
+  'ui.router',
+  'angular-jwt',
+  'ui.bootstrap',
+  'angularCSS',
+  'profesoresComponent'
+])
 
-//,'ngCookies','LocalStorageModule'
+//,'ngCookies','LocalStorageModule' ngRoute
 // cambiar cookies por localStorage
