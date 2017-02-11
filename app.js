@@ -7,7 +7,9 @@ passport         = require('passport'),
 nunjucks         = require('nunjucks'),
 cors             = require('cors'),
 expressValidator = require('express-validator'),
-app              = express();
+app              = express(),
+validator        = require('validator'),
+shortid          = require('shortid');
 
 //database
 require('./app_api/models/db');
@@ -39,7 +41,27 @@ app.use(expressValidator({
       msg   : msg,
       value : value
     };
-  }
+  },
+  customValidators: {
+    esCorreo: function(value) {
+        return validator.isEmail(value);
+    },
+    isLower: function(value) {
+      return validator.isLowercase(value);
+    },
+    isLength: function(value) {
+      return validator.isLength(value, {min:5, max: undefined});
+    },
+    empty: function(value) {
+      return !validator.isLength(value, {min:0, max: 0});
+    },
+    notEmpty: function(value) {
+      return !validator.isLength(value, {min:1, max: undefined});
+    },
+    isShortedId: function(value) {
+      return !shortid.isValid(value);
+    }
+ }
 }));
 app.use(cors());
 app.use(passport.initialize());
