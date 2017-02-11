@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var ProfesorSchema = mongoose.Schema({
+var ProfesoresSchema = mongoose.Schema({
   correo:              {type: String},
   clave:               {type: String},
   rol:                 {type: String},
@@ -10,6 +10,10 @@ var ProfesorSchema = mongoose.Schema({
   apellidos:           {type: String},
   creado:              {type: Date, default: Date.now},
   editado:             {type: Date, default: Date.now}
-})  //desafios: [{ type : ObjectId, ref: 'Desafio' }]
+},{collection: 'profesores', versionKey: false})  //desafios: [{ type : ObjectId, ref: 'Desafio' }]
 
-module.exports = mongoose.model('Profesores', ProfesorSchema)
+ProfesoresSchema.statics.getProfesores= function(cb) {
+  return this.model('Profesor').find({},cb);
+}
+
+module.exports = mongoose.model('Profesor', ProfesoresSchema)
