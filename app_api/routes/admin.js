@@ -8,9 +8,11 @@ var auth = passport.authenticate('admin-jwt', { session: false });
 
 // profesor CRUD
 router.post('/profesores', auth, ProfesorController.create );
-router.get('/profesores', auth, ProfesorController.read ); //?like
+router.get('/profesores', auth, ProfesorController.read ); // ?like
 router.put('/profesores/:id', auth, ProfesorController.update );
 router.delete('/profesores/:id', auth, ProfesorController.delete );
+router.get('/profesores/:id', auth, ProfesorController.readOne );
+
 
 
 // passport strategies

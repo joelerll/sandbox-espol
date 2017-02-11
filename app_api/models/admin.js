@@ -1,8 +1,7 @@
 var mongoose = require('mongoose'),
 jwt          = require('jsonwebtoken'),
 config       = require('../config/main'),
-bcrypt       = require('bcryptjs'),
-crypto       = require("crypto-js");
+bcrypt       = require('bcryptjs');
 
 var AdminSchema = mongoose.Schema({
   username: {type: String, required:  [true, 'no hay username']},

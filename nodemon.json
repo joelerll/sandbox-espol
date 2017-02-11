@@ -5,7 +5,8 @@
     "./tests/**"
   ],
   "watch": [
-    "./bin/www"
+    "app_api/**",
+    "./app.js"
   ],
   "env": {
     "NODE_ENV": "development"
