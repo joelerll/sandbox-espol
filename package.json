@@ -16,7 +16,9 @@
     "protractor": "protractor",
     "mocha": "mocha",
     "browser-sync": "browser-sync",
-    "nodemon": "nodemon"
+    "nodemon": "nodemon",
+    "webpack": "webpack",
+    "eslint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -35,9 +37,7 @@
   "homepage": "https://github.com/joelerll/sandbox-espol#readme",
   "dependencies": {
     "bcryptjs": "^2.4.0",
-    "bluebird": "^3.4.7",
     "body-parser": "~1.15.2",
-    "browserify": "^14.1.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.1",
@@ -61,7 +61,7 @@
     "request": "^2.79.0",
     "serve-favicon": "~2.3.0",
     "shortid": "^2.2.6",
-    "uglify-js": "^2.7.5",
+    "style-loader": "^0.13.1",
     "uuid": "^3.0.1",
     "validator": "^6.2.1"
   },
@@ -69,16 +69,26 @@
     "aglio": "^2.3.0",
     "bower": "^1.8.0",
     "browser-sync": "^2.18.7",
+    "browserify": "^14.1.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.15.0",
     "faker": "^3.1.0",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-webpack": "^1.5.0",
     "jsonfile": "^2.4.0",
     "mocha": "^3.2.0",
     "protractor": "^5.1.0",
     "shelljs": "^0.7.6",
     "supertest": "^3.0.0",
-    "webdriverio": "^4.6.2"
+    "uglify-js": "^2.7.5",
+    "uglify-js-plugin": "0.0.6",
+    "unminified-webpack-plugin": "^1.2.0",
+    "webdriverio": "^4.6.2",
+    "webpack": "^2.2.1",
+    "webpack-uglify-js-plugin": "^1.1.9"
   }
 }

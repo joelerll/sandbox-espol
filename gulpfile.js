@@ -7,9 +7,22 @@ var browserSync = require('browser-sync');
 var nodemon = require('gulp-nodemon');
 reload = browserSync.reload;
 var shelljs = require('shelljs/global')
+var webpack = require('gulp-webpack');
+var rename = require("gulp-rename");
 
 gulp.task('default', ['browser-sync'], function () {  //,'watch'
 });
+
+
+gulp.task('webpack', function() {
+  return gulp.src('pruebas/webpack/entry.js')
+    .pipe(webpack(require('./webpack.config.js')))
+    .pipe(gulp.dest('pruebas/webpack/'));
+});
+
+gulp.task('webpack-w', function() {
+  gulp.watch('pruebas/webpack/entry.js',['webpack'])
+})
 
 gulp.task('browser-sync', function() {
 	browserSync.init(null, {
