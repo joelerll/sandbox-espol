@@ -9,15 +9,19 @@ reload = browserSync.reload;
 var shelljs = require('shelljs/global')
 var webpack = require('gulp-webpack');
 var rename = require("gulp-rename");
+var uglify = require('gulp-uglify');
+var pump = require('pump');
+var uglifyJs = require('uglify-js');
+var fs = require('fs')
 
 gulp.task('default', ['browser-sync'], function () {  //,'watch'
 });
 
 
 gulp.task('webpack', function() {
-  return gulp.src('pruebas/webpack/entry.js')
+  return gulp.src('apps_angular/admin/app.w.js')
     .pipe(webpack(require('./webpack.config.js')))
-    .pipe(gulp.dest('pruebas/webpack/'));
+    .pipe(gulp.dest('apps_angular/admin'));
 });
 
 gulp.task('webpack-w', function() {
@@ -65,6 +69,32 @@ gulp.task('nodemon', function (cb) {
 
 gulp.task('test', function() {
 
+})
+
+gulp.task('compress', function (cb) {
+  pump([
+        gulp.src('pruebas/uglify.js/*.js'),
+        uglify(),
+        gulp.dest('pruebas/uglify.js/dist')
+    ],
+    cb
+  );
+});
+
+gulp.task('ugli', function() {
+  var appClientFiles = [
+    'apps_angular/admin/app.module.js',
+    'apps_angular/admin/app.router.js'
+  ]
+  var uglified = uglifyJs.minify(appClientFiles, { compress : false });
+
+  fs.writeFile('apps_angular/admin/app.min.js', uglified.code, function (err){
+    if(err) {
+      console.log(err);
+    } else {
+      console.log("Script generated and saved:", 'loc8r.min.js');
+    }
+  });
 })
 
 /*

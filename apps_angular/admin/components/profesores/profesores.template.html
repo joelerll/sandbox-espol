@@ -1,0 +1,29 @@
+<h1>Profesores</h1>
+<div class="tabla">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Identificacion</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Correo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="profesor in $ctrl.profesores">
+        <td>
+          {{profesor.identificacion}}
+        </td>
+        <td>
+          {{profesor.nombres}}
+        </td>
+        <td>
+          {{profesor.apellidos}}
+        </td>
+        <td>
+          {{profesor.correo}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
