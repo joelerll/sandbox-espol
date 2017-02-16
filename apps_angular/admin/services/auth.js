@@ -1,11 +1,12 @@
 angular.module('adminApp').service('auth', authentication);
 
-authentication.$inject = ['$http', '$window'];
+authentication.$inject = ['$http', '$window','jwtHelper'];
 
-function authentication ($http, $window) {
+function authentication ($http, $window,jwtHelper) {
 
   var saveToken = function (token) {
     if ( token ) {
+        console.log(jwtHelper.getTokenExpirationDate(token))
         $window.localStorage.setItem('local', token);
     }
   };

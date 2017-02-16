@@ -11,10 +11,10 @@ module.exports.create = function(req, res, next) {
   req.checkBody('apellidos', 'apellidos esta en blanco').empty();
   req.checkBody('correo', 'correo esta en blanco').empty();
   req.checkBody('identificacion', 'identificacion esta en blanco').empty();
-  req.checkBody('clave', 'clave esta en blanco').empty();
+  //req.checkBody('clave', 'clave esta en blanco').empty();
   req.checkBody('correo', 'correo no valido').esCorreo();
   req.checkBody('correo', 'correo esta en mayuscula').isLower();
-  req.checkBody('clave', 'mas de cinco caracteres').isLength();
+  //req.checkBody('clave', 'mas de cinco caracteres').isLength();
   var errors = req.validationErrors();
   if ( errors ) {
     res.status(400).json(errors);
@@ -68,18 +68,18 @@ module.exports.read = function(req, res, next) {
       res.status(404).json({success: false, message: 'ocurrio algun error al tratar de crear profesor'});
       return;
     }
-    res.status(200).json(profesores);
+    res.status(200).json({success: true,profesores: profesores});
   })
 }
 
 module.exports.update = function(req, res, next) {
     //TODO: no repetir == cedula, correo
     //TODO: entregar mensajes de error
-    req.checkBody('_id', 'no permitido cambiar id').notEmpty();
-    req.checkBody('createdAt', 'no permitido cambiar fecha creacion').notEmpty();
-    req.checkBody('updatedAt', 'no permitido cambiar fecha actualizacion').notEmpty();
-    req.checkBody('tipo_identificacion', 'no permitido cambiar tipo identificacion').notEmpty();
-    req.checkBody('rol', 'no permitido cambiar rol').notEmpty();
+    req.checkBody('_id', 'no permitido cambiar id').empty();
+    req.checkBody('createdAt', 'no permitido cambiar fecha creacion').empty();
+    req.checkBody('updatedAt', 'no permitido cambiar fecha actualizacion').empty();
+    req.checkBody('tipo_identificacion', 'no permitido cambiar tipo identificacion').empty();
+    req.checkBody('rol', 'no permitido cambiar rol').empty();
     req.checkParams('_id', 'no es un id valido').isShortedId();
     var errors = req.validationErrors();
     if ( errors ) {
@@ -92,7 +92,7 @@ module.exports.update = function(req, res, next) {
         if (err) {
           return res.status(404).json({success: false, message: 'error al buscar profesor editado'})
         }
-        res.status(204).json({success: true, message: 'profesor editado', profesor: profesor});
+        res.status(200).json({success: true, message: 'profesor editado', profesor: profesor});
       })
     })
 }
@@ -109,7 +109,7 @@ module.exports.delete = function(req, res, next) {
         res.status(403).json({success: false, message: err});
         return;
       }
-      res.status(204).json({success: true, message: 'profesor borrado'});
+      res.status(200).json({success: true, message: 'profesor borrado'});
     })
 }
 

@@ -22,7 +22,8 @@ var ProfesorSchema = mongoose.Schema({
   },
   clave:               {
     type: String,
-    required: [true, 'clave es requerida']
+    required: [true, 'clave es requerida'],
+    default: 'clave prueba'
   },
   rol:                 {
     type: String,

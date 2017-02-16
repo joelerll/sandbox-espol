@@ -1,1 +1,1 @@
-angular.module('profesores',['angularCSS'])
+angular.module('profesores',['angularCSS','xeditable','smart-table'])
