@@ -10,7 +10,7 @@ var AdminSchema = mongoose.Schema({
 
 AdminSchema.methods.generarJwt = function() {
   var expiracion = new Date();
-  expiracion.setDate(expiracion.getDate() + 7);
+  expiracion.setDate(expiracion.getDate() + 0.1);
   return jwt.sign({
     id: this._id,
     username: this.username,

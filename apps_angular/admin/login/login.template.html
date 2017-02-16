@@ -1,0 +1,15 @@
+<h1>Ingreso de admin</h1>
+ <div uib-alert ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')"  close="vm.closeAlert($index)">{{alert.msg}}</div>
+<div class="admin">
+  <form class="form">
+    <div class="form-group">
+      <input ng-model="vm.admin.username" name="username" type="text" class="form-control" placeholder="usuario">
+    </div>
+    <div class="form-group">
+      <input ng-model="vm.admin.password" name="password" class="form-control" type="password" placeholder="clave">
+    </div>
+    <div class="form-group">
+      <button ng-click="vm.submit()" type="button" name="button" class="btn btn-primary">submit</button>
+    </div>
+  </form>
+</div>
