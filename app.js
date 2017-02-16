@@ -68,13 +68,14 @@ app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // set up routes
-app.use('/', express.static(path.join(__dirname + "/apps_angular/index.html")));
+app.use('/', express.static(path.join(__dirname + "/apps_angular")));
 app.use('/api/v1', api)
 app.use('/docs', express.static(path.join(__dirname + "/public/documentacion")));
 app.use('/profesores', express.static(path.join(__dirname + "/apps_angular/users/profesores")));
 app.use('/ayudantes', express.static(path.join(__dirname + "/apps_angular/users/ayudantes")));
 app.use('/estudiantes', express.static(path.join(__dirname + "/apps_angular/users/estudiantes")));
 app.use('/admin', express.static(path.join(__dirname + "/apps_angular/admin/")));
+app.use('/adminv', express.static(path.join(__dirname + "/apps_vue/admin/")));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

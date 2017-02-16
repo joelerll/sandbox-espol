@@ -2,8 +2,8 @@ var passport = require('passport'),
 Admin        = require('../models/admin');
 
 module.exports.login = function(req, res) {
-  req.checkBody("username", "user esta en blanco").notEmpty();
-  req.checkBody("password", "pass esta en blanco").notEmpty();
+  req.checkBody("username", "user esta en blanco").empty();
+  req.checkBody("password", "pass esta en blanco").empty();
   var errors = req.validationErrors();
   if ( errors ) {
     res.status(400).send(errors);

@@ -29,7 +29,7 @@ describe('/POST authenticate admin', () => {
         .send({username: 'admin', password:'adminerror'})
         .end((err, res) => {
             res.should.have.status(401);
-            res.body.should.have.property('message').eql('password incorrecto admin');
+            res.body.should.have.property('message').eql('password incorrecto');
             res.body.should.have.property('success').to.be.false;
           done();
         });
@@ -40,7 +40,7 @@ describe('/POST authenticate admin', () => {
         .send({username: 'adminnoencontrado', password:'adminerror'})
         .end((err, res) => {
             res.should.have.status(404);
-            res.body.should.have.property('message').eql('no encontrado admin');
+            res.body.should.have.property('message').eql('user no existe');
             res.body.should.have.property('success').to.be.false;
           done();
         });

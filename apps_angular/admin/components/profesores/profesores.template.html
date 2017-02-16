@@ -1,0 +1,137 @@
+<h1>Profesores</h1>
+<div class="tabla">
+  <table st-table="$ctrl.profesores_backup" st-safe-src="$ctrl.profesores" st-watch-changes="true" class="table table-hover table-condensed table-striped">
+    <thead>
+      <tr>
+        <th st-sort="identificacion">
+          <span>Identificacion</span>
+        </th>
+        <th  st-sort="nombres">
+          <span>Nombres</span>
+        </th>
+        <th st-sort="apellidos">
+          <span>Apellidos</span>
+        </th>
+        <th st-sort="correo">
+          <span>Correo</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th><input st-search="identificacion" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome"></th>
+        <th><input st-search="nombres" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome">
+        </th>
+        <th><input st-search="apellidos" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome"></th>
+        <th><input st-search="correo" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome">
+        </th>
+        <th>
+          <th>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profesorNuevo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          </th>
+        </th>
+      </tr>
+      <tr ng-repeat="profesor in $ctrl.profesores_backup">
+        <td>
+          <span editable-text="profesor.identificacion" e-name="identificacion" e-form="form" onbeforesave="$ctrl.checkIdentificacion($data)">
+            {{profesor.identificacion}}
+          </span>
+        </td>
+        <td>
+          <span editable-text="profesor.nombres" e-name="nombres" e-form="form" onbeforesave="$ctrl.checkNombres($data)">
+            {{profesor.nombres | uppercase}}
+          </span>
+
+        </td>
+        <td>
+          <span editable-text="profesor.apellidos" e-name="apellidos" e-form="form" onbeforesave="$ctrl.checkApellidos($data)">
+            {{profesor.apellidos | uppercase}}
+          </span>
+
+        </td>
+        <td>
+          <span editable-text="profesor.correo" e-name="correo" e-form="form" onbeforesave="$ctrl.checkCorreo($data)">
+            {{profesor.correo}}
+          </span>
+
+        </td>
+        <td style="white-space: nowrap">
+          <form editable-form name="form" onbeforesave="$ctrl.editProfesor($data, profesor._id)" ng-show="form.$visible" class="form-buttons form-inline" shown="inserted != user">
+            <button type="submit" ng-disabled="form.$waiting" class="btn btn-primary">
+              <i class="fa fa-floppy-o"></i>
+            </button>
+            <button type="button" ng-disabled="form.$waiting" ng-click="form.$cancel()" class="btn btn-default">
+              cancelar
+            </button>
+          </form>
+          <div class="buttons" ng-show="!form.$visible">
+            <button type="button" class="btn btn-primary" ng-click="form.$show()">
+              <i class="fa fa-pencil-square-o"></i>
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="$ctrl.deleteProfesor(profesor._id)" data-toggle="modal" data-target=".bs-example-modal-sm">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+				<td colspan="5" class="text-center">
+					<div st-pagination="" st-items-by-page="7" st-displayed-pages="7"></div>
+				</td>
+			</tr>
+		</tfoot>
+  </table>
+</div>
+
+<!-- modal confirmar borrar profesor -->
+<div class="modal fade bs-example-modal-sm" tabindex="10" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h2>Borrar profesor</h2>
+      </div>
+      <div class="modal-body">
+        <button ng-click="$ctrl.deleteConfirmar()" type="button" name="button" data-dismiss="modal" class="btn btn-danger" >si</button>
+        <button type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal nuevo profesor -->
+<div class="modal fade" id="profesorNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Nuevo Profesor</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="indentificacion-profesor" class="control-label">Indentificacion:</label>
+            <input ng-model="$ctrl.profesor.identificacion" type="text" class="form-control" id="indentificacion-profesor" >
+          </div>
+          <div class="form-group">
+            <label for="nombres-profesor" class="control-label">Nombres:</label>
+            <input ng-model="$ctrl.profesor.nombres" type="text" class="form-control" id="nombres-profesor">
+          </div>
+          <div class="form-group">
+            <label for="apellidos-profesor" class="control-label">Apellidos:</label>
+            <input ng-model="$ctrl.profesor.apellidos" type="text" class="form-control" id="apellidos-profesor">
+          </div>
+          <div class="form-group">
+            <label for="correo-profesor" class="control-label">Correo:</label>
+            <input ng-model="$ctrl.profesor.correo" type="text" class="form-control" id="correo-profesor">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button ng-click="$ctrl.newProfesor()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>

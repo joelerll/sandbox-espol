@@ -13,8 +13,6 @@ router.put('/profesores/:id', auth, ProfesorController.update );
 router.delete('/profesores/:id', auth, ProfesorController.delete );
 router.get('/profesores/:id', auth, ProfesorController.readOne );
 
-
-
 // passport strategies
 require('../config/passport.admin.login')( passport );
 require('../config/passport.admin.jwt')( passport );
