@@ -85,6 +85,8 @@ function ProfesoresController($css,$http,Profesores) {
   }
 
   // check edit on table
+  //TODO: mostrar en rojo cuando las validaciones no sean validaciones
+  //TODO: que sea con ngFormas con one way live
   self.checkIdentificacion = (identificacion) => {
     if ( !identificacion ) {
       return "identificacion vacio";
