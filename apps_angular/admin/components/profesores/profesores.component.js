@@ -48,15 +48,19 @@ function ProfesoresController($css,$http,Profesores) {
 
   self.deleteConfirmar = () => {
     Profesores.del(self.profesor_borrar._id,(res) => {
-      console.log(res) //TODO: error mongoose cant not createAt and updateAt at the same time
+      //TODO: error mongoose cant not createAt and updateAt at the same time
       if (!res.data.success) {
         notie.alert('error', 'No se pudo borrar', 2);
         return;
       }
-      self.profesores.splice(self.profesores.indexOf(self.profesor_borrar), 1);
+      Profesores.getAll((res) => {
+        self.profesores = res.data.profesores;
+      })
+      //FIXME: no se borra de la lista directamente, si no que lo borra el anterior y no el que es
+      // self.profesores.splice(self.profesores.indexOf(self.profesor_borrar) + 1, 1);
       notie.alert('success', 'Borrado Exitosamente', 2);
     })
-    self.profesor_borrar = -1;
+    //self.profesor_borrar = {};
   }
 
   self.editProfesor = (profesor, id) => {

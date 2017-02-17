@@ -2,3 +2,4 @@ node_modules/
 public/bower_components/
 pruebas/
 public/cached_uglify
+app_api/config/mail_config.js

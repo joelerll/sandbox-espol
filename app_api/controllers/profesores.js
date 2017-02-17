@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
+xss          = require('xss'),
 Profesor     = require('../models/profesor');
+
 
 //TODO: usar bluebird o async
 //TODO: mejorar nombrado de validaciones, que se entiendan
@@ -7,6 +9,11 @@ module.exports.create = function(req, res, next) {
   //TODO: sanitizar todos
   //TODO: identificacion(cedula) que sea valido
   // valicaciones
+  req.body.nombres = xss(req.body.nombres);
+  req.body.apellidos = xss(req.body.apellidos);
+  req.body.correo = xss(req.body.correo);
+  req.body.identificacion = xss(req.body.identificacion);
+  console.log(req.body);
   req.checkBody('nombres', 'nombres esta en blanco').empty();
   req.checkBody('apellidos', 'apellidos esta en blanco').empty();
   req.checkBody('correo', 'correo esta en blanco').empty();
@@ -75,6 +82,11 @@ module.exports.read = function(req, res, next) {
 module.exports.update = function(req, res, next) {
     //TODO: no repetir == cedula, correo
     //TODO: entregar mensajes de error
+    //FIXME: no permitir cambiar id, rol, 
+    req.body.nombres = xss(req.body.nombres);
+    req.body.apellidos = xss(req.body.apellidos);
+    req.body.correo = xss(req.body.correo);
+    req.body.identificacion = xss(req.body.identificacion);
     req.checkBody('_id', 'no permitido cambiar id').empty();
     req.checkBody('createdAt', 'no permitido cambiar fecha creacion').empty();
     req.checkBody('updatedAt', 'no permitido cambiar fecha actualizacion').empty();
