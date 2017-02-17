@@ -3,5 +3,6 @@ angular.module('adminApp', [
   'ui.bootstrap',
   'profesores',
   'angular-jwt',
-  'angularCSS'
+  'angularCSS',
+  'ayudantes'
 ]);

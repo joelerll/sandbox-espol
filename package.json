@@ -8,6 +8,7 @@
     "b": "npm run gulp",
     "test-a": "npm run mocha ./tests/api/admin.test.js",
     "test-p": "npm run mocha ./tests/api/profesores.test.js",
+    "test-ay": "npm run mocha ./tests/api/ayudantes.test.js",
     "gulp": "gulp",
     "start": "npm install && npm run bower install && npm run gulp",
     "bower": "bower",
