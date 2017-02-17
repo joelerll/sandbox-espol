@@ -26,3 +26,16 @@ h1 {
     content: '  \f0dd';
     color: black;
 }
+
+.panel-estados {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.table {
+  padding: 5%;
+}
+
+.navbar {
+  position: 0;
+}

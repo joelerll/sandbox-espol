@@ -1,4 +1,4 @@
-<h1>Profesores</h1>
+<div class="table">
 <div class="tabla">
   <table st-table="$ctrl.profesores_backup" st-safe-src="$ctrl.profesores" st-watch-changes="true" class="table table-hover table-condensed table-striped">
     <thead>
@@ -26,9 +26,7 @@
         <th><input st-search="correo" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome">
         </th>
         <th>
-          <th>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profesorNuevo"><i class="fa fa-plus" aria-hidden="true"></i></button>
-          </th>
         </th>
       </tr>
       <tr ng-repeat="profesor in $ctrl.profesores_backup">
@@ -134,4 +132,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

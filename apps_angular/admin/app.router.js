@@ -24,6 +24,7 @@ function RouterController ($stateProvider, $locationProvider, $urlRouterProvider
     controller: 'panelController',
     controllerAs: 'vm',
     templateUrl: './panel/panel.template.html',
+    css: './css/panel.css',
     data: {
       authorization: true,
       redirectTo: 'login',

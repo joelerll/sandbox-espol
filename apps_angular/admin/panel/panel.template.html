@@ -1,3 +1,58 @@
-<h1>Panel</h1>
-<button ng-click="vm.logout()" type="button" name="button">logout</button>
-<profesores></profesores>
+
+<!--navigation-->
+<div class="navbar navbar-inverse navbar-fixed-left">
+  <a class="navbar-brand">Panel</a>
+<!-- <profesores></profesores> -->
+  <div ng-click="vm.logout()" class="logout navbar-brand" >
+    <i class="fa fa-sign-out fa-2x"></i>
+  </div>
+
+  <ul class="nav navbar-nav">
+      <li ng-click='vm.tabs.clicks.dashboard()'>
+        <a>
+            <i class="fa fa-bullseye"></i> <label for=""> Dashboard</label>
+        </a>
+      </li>
+      <li ng-click="vm.tabs.clicks.profesores()">
+        <a>
+            <i class="fa fa-university"></i> <label for=""> Profesores</label>
+        </a>
+      </li>
+      <li ng-click="vm.tabs.clicks.estudiantes()">
+        <a>
+          <i class="fa fa-user-o"></i> <label for="">  Estudiantes</label>
+        </a>
+      </li>
+      <li ng-click="vm.tabs.clicks.ayudantes()">
+        <a>
+          <i class="fa fa-briefcase"></i> <label for=""> Ayudantes</label>
+        </a>
+      </li>
+      <li ng-click="vm.tabs.clicks.cursos()">
+        <a>
+          <i class="fa fa-envelope"></i> <label for=""> Cursos</label>
+        </a>
+      </li>
+  </ul>
+</div>
+  <!--end navigation-->
+  <!-- 1st section-->
+<div class="wrapper">
+  <div class="panel-estados">
+    <div class="" ng-show='vm.tabs.dashboard'>
+       <p>dashboard</p>
+     </div>
+     <div class="" ng-show='vm.tabs.estudiantes'>
+       <p>Estudiantes</p>
+     </div>
+     <div class="" ng-show='vm.tabs.ayudantes'>
+       <p>ayudantes</p>
+     </div>
+     <div class="" ng-show='vm.tabs.profesores'>
+       <profesores></profesores>
+     </div>
+     <div class="" ng-show='vm.tabs.cursos'>
+       <p>cursos</p>
+     </div>
+  </div>
+</div>
