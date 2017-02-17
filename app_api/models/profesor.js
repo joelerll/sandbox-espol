@@ -1,7 +1,8 @@
-var mongoose = require('mongoose'),
+var mongoose    = require('mongoose'),
 bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
 shortId         = require('shortid');
+mail            = require('../config/mail.js');
 
 var ProfesorSchema = mongoose.Schema({
   _id: {
@@ -51,12 +52,21 @@ var ProfesorSchema = mongoose.Schema({
     type: String,
     required: [true, 'apellidos son requeridos']
   }
-},{collection: 'profesores', versionKey: false,timestamps: true})  //desafios: [{ type : ObjectId, ref: 'Desafio' }]
+},{collection: 'profesores', versionKey: false, timestamps: true})  //desafios: [{ type : ObjectId, ref: 'Desafio' }]
 
 ProfesorSchema.plugin(uniqueValidator);
 
 ProfesorSchema.pre('save', function (next) {
   const profesor = this;
+  if (this.isNew) {
+    let clave = shortId.generate()
+    console.log('user nuevo ' + clave);
+    profesor.clave = clave;
+    //error = mail.enviar(this.correo,profesor.clave);
+    // if (error) {
+    //   next(new Error('error al enviar mail'));
+    // }
+  }
   if (this.isModified('clave') || this.isNew) {
     bcrypt.genSalt(10, function (err, salt) {
       if (err) {
@@ -66,6 +76,7 @@ ProfesorSchema.pre('save', function (next) {
         if (err) {
           return next(err);
         }
+        console.log('la clave es ' + profesor.clave)
         profesor.clave = hash;
         next();
       });

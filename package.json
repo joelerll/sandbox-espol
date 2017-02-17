@@ -63,7 +63,8 @@
     "shortid": "^2.2.6",
     "style-loader": "^0.13.1",
     "uuid": "^3.0.1",
-    "validator": "^6.2.1"
+    "validator": "^6.2.1",
+    "xss": "^0.3.3"
   },
   "devDependencies": {
     "aglio": "^2.3.0",
