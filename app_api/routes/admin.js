@@ -38,8 +38,8 @@ require('../config/passport.admin.login')( passport );
 require('../config/passport.admin.jwt')( passport );
 
 // admin login
-router.post('/admin/login', AdminController.login );
-router.get('/admin/dashboard', auth , AdminController.dashboard );
+router.post('/login', AdminController.login );
+router.get('/dashboard', auth , AdminController.dashboard );
 
 //borrar solo de prueba
 router.post('/admin', AdminController.create);

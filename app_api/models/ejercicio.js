@@ -10,10 +10,12 @@ var EjercicioSchema = mongoose.Schema({
     'default': shortId.generate
   },
   titulo: {
-    type: String
+    type: String,
+    required: true
   },
   descripcion: {
-    type: String
+    type: String,
+    required: true
   },
   entradas: [String],
   salidas: [String],
@@ -23,13 +25,13 @@ var EjercicioSchema = mongoose.Schema({
     enum: ['facil','intermedio','dificil'],
     default: 'facil'
   },
-  _creador: [{
+  creador: {
     _id: String,
     nombres: String,
     apellidos: String,
     correo: String,
     rol: String
-  }]
+  }
 },{collection: 'ejercicios', versionKey: false, timestamps: true})
 //creador sera ingresado el documento
 
