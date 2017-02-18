@@ -1,22 +1,20 @@
 var JwtStrategy = require('passport-jwt').Strategy,
 ExtractJwt      = require('passport-jwt').ExtractJwt,
-Admin           = require('../models/admin'),
-config          = require('../config/main');
+Ayudante           = require('../models/ayudante');
+var config          = require('../config/main');
 
 module.exports = function(passport) {
   const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: config.secret
   }
-  console.log('admin')
-  passport.use('admin-jwt',new JwtStrategy(opts, function(jwt_playload, done) {
-    console.log('asdsa')
-    Admin.getUserById(jwt_playload.id, function(err, admin) {
+  passport.use('ayudante-jwt',new JwtStrategy(opts, function(jwt_playload, done) {
+    Ayudante.getById(jwt_playload.id, function(err, ayudante) {
       if( err ) {
         return done(err, false);
       }
-      if( admin ) {
-        done(null, admin);
+      if( ayudante ) {
+        done(null, ayudante);
       } else {
         done (null, false);
       }
