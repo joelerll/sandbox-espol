@@ -6,7 +6,7 @@ function Ayudantes (auth,$http) {
   var getAll = (cb) => {
     $http({
       method: 'GET',
-      url: '/api/v1/ayudantes',
+      url: '/api/v1/admin/ayudantes',
       headers: {'Authorization': auth.getToken()}
     }).then(cb)
   }
@@ -14,7 +14,7 @@ function Ayudantes (auth,$http) {
   var edit = (id,profesor,cb) => {
     $http({
       method: 'PUT',
-      url: '/api/v1/ayudantes/' + id,
+      url: '/api/v1/admin/ayudantes/' + id,
       data: profesor,
       headers: {'Authorization': auth.getToken()}
     }).then(cb)
@@ -23,7 +23,7 @@ function Ayudantes (auth,$http) {
   var del = (id,cb) => {
     $http({
       method: 'DELETE',
-      url: '/api/v1/ayudantes/' + id,
+      url: '/api/v1/admin/ayudantes/' + id,
       headers: {'Authorization': auth.getToken()}
     }).then(cb)
   }
@@ -31,7 +31,7 @@ function Ayudantes (auth,$http) {
   var create = (profesor, cb) => {
     $http({
       method: 'POST',
-      url: '/api/v1/ayudantes',
+      url: '/api/v1/admin/ayudantes',
       headers: {'Authorization': auth.getToken()},
       data: profesor
     }).then(cb)

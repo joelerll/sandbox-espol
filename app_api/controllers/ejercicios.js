@@ -27,3 +27,16 @@ module.exports.read = (req, res, next) => {
     res.json(profesores);
   })
 }
+
+
+//TODO: buscar por tag
+//TODO: buscar por profesor
+//TODO: buscar por ayudante
+//TODO: buscar por curso
+//TODO: update
+//TODO: delete
+//TODO: edit
+//TODO: read all
+//TODO: read one
+//TODO: 
+//TODO:
