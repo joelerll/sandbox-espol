@@ -1,5 +1,12 @@
 <h1>Nuevo Ejercicio</h1>
-
+<style media="screen">
+  div[ng-app] { margin: 10px; }
+.table {width: 100% }
+form[editable-form] > div {margin: 10px 0;}
+.editable-wrap {
+    width: 100%;
+}
+</style>
 <form class="">
   <div class="form-group">
     <label for="titulo">Titulo</label>
@@ -20,70 +27,45 @@
   </div>
 </form>
 
-<table class="table">
-  <thead>
-    <tr>
-      <td>Salidas</td>
-    </tr>
-    <tr ng-repeat="salida in $ctrl.ejercicio.salidas">
+<form editable-form name="tableform" onaftersave="$ctrl.saveTable()" oncancel="$ctrl.cancel()">
+  <table class="table table-bordered table-hover table-condensed">
+    <thead>
+      <tr font-weight: bold>
+        <td style="width:50%">Entradas</td>
+        <td style="width:50%">Salidas</td>
+        <td style="width:30%"><span ng-show="tableform.$visible">Borrar</span></td>
+      </tr>
+    </thead>
+    <tr ng-repeat="row in $ctrl.val">
       <td>
-        <span editable-text="salida" e-name="salida" e-form="rowform" onbeforesave="checkName($data, user.id)">
-          {{ salida || 'empty' }}
+        <span style="padding: inherit;" editable-text="row.entrada" e-form="tableform" onbeforesave="checkName($data, user.id)">
+          {{row.entrada}}
         </span>
       </td>
-      <td style="white-space: nowrap">
-        <!-- form -->
-        <form editable-form name="rowform" onbeforesave="$ctrl.saveSalida($data,$index)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="$ctrl.inserted == salida">
-          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
-            save
-          </button>
-          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); $ctrl.cancelSalida()" class="btn btn-default">
-            cancel
-          </button>
-        </form>
-        <div class="buttons" ng-show="!rowform.$visible">
-          <button type="button" class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-          <button type="button" class="btn btn-danger" ng-click="$ctrl.removeSalida($index)">del</button>
-        </div>
-      </td>
-    </tr>
-  </thead>
-</table>
-<button type="button" class="btn btn-default" ng-click="$ctrl.addSalida()">Add salida</button>
-
-<table class="table">
-  <thead>
-    <tr>
-      <td>Entradas</td>
-    </tr>
-    <tr ng-repeat="entrada in $ctrl.ejercicio.entradas">
       <td>
-        <span editable-text="entrada" e-name="entrada" e-form="form_entrada" onbeforesave="checkName($data, user.id)">
-          {{ entrada || 'empty' }}
+        <span editable-text="row.salida" e-form="tableform" onbeforesave="checkName($data, user.id)">
+          {{row.salida}}
         </span>
       </td>
-      <td style="white-space: nowrap">
-        <!-- form -->
-        <form editable-form name="form_entrada" onbeforesave="$ctrl.saveEntrada($data,$index)" ng-show="form_entrada.$visible" class="form-buttons form-inline" shown="$ctrl.inserted_entrada == entrada">
-          <button type="submit" ng-disabled="form_entrada.$waiting" class="btn btn-primary">
-            save
-          </button>
-          <button type="button" ng-disabled="form_entrada.$waiting" ng-click="form_entrada.$cancel(); $ctrl.cancelEntrada()" class="btn btn-default">
-            cancel
-          </button>
-        </form>
-        <div class="buttons" ng-show="!form_entrada.$visible">
-          <button type="button" class="btn btn-primary" ng-click="form_entrada.$show()">edit</button>
-          <button type="button" class="btn btn-danger" ng-click="$ctrl.removeEntrada($index)">del</button>
-        </div>
-      </td>
+      <td><button type="button" ng-show="tableform.$visible" ng-click="$ctrl.deleteKey(row.id)" class="btn btn-danger pull-right">Del</button></td>
     </tr>
-  </thead>
-</table>
-<button type="button" class="btn btn-default" ng-click="$ctrl.addEntrada()">Add entrada</button>
+  </table>
+  <!-- buttons -->
+    <div class="btn-edit">
+      <button type="button" class="btn btn-default" ng-show="!tableform.$visible" ng-click="tableform.$show()">
+        editar
+      </button>
+    </div>
+    <div class="btn-form" ng-show="tableform.$visible">
+      <button type="button" ng-disabled="tableform.$waiting" ng-click="$ctrl.addRow()" class="btn btn-default pull-right">anadir</button>
+      <button type="submit" ng-disabled="tableform.$waiting"  class="btn btn-primary">guardar</button>
+      <button type="button" ng-disabled="tableform.$waiting" ng-click="tableform.$cancel()" class="btn btn-default">cancelar</button>
+    </div>
+</form>
 
 <div class="form-group">
-  <button ng-click="$ctrl.crearEjercicio()" class="form-control" type="button" name="button">ingresar</button>
+  <button ng-click="$ctrl.guardar();$ctrl.crearEjercicio()" class="form-control" type="button" name="button">ingresar</button>
 </div>
+<p>{{$ctrl.val}}</p>
 
 <p>{{$ctrl.ejercicio}}</p>

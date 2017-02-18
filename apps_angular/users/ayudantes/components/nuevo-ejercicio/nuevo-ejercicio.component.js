@@ -16,15 +16,37 @@ function NuevoEjercicioController(Ayudante) {
     dificultad: ''
   }
 
-  vm.button = {
-  "toggle": false,
-  "checkbox": {
-    "left": false,
-    "middle": true,
-    "right": false
-  },
-  "radio": 0
-};
+  vm.val = [
+  ]
+
+  vm.addRow = () => {
+    vm.vacio = {
+      id: vm.val.length + 1,
+      entrada: '',
+      salida: ''
+    }
+    vm.val.push(vm.vacio)
+  }
+
+  vm.deleteKey = (id) => {
+    let cont = 0;
+    vm.val.forEach((val) => {
+      if (val.id == id) {
+        vm.val.splice(cont,1)
+      }
+      cont = cont + 1
+    })
+  }
+
+  vm.guardar = () => {
+    vm.ejercicio.entradas = [];
+      vm.ejercicio.salidas = []
+    vm.val.forEach((valores) => {
+      vm.ejercicio.entradas.push(valores.entrada);
+      vm.ejercicio.salidas.push(valores.salida);
+    })
+  }
+
 
   vm.tags = []
 
@@ -44,41 +66,11 @@ function NuevoEjercicioController(Ayudante) {
 
   //cambiarlo por Editable table http://vitalets.github.io/angular-xeditable/#editable-table
   // salidas y entradas
-  vm.addSalida = () => {
-    vm.inserted = ''
-    vm.ejercicio.salidas.push(vm.inserted)
+  vm.saveTable = () =>{
+
   }
 
-  vm.saveSalida = (data, id) => {
-    console.log(data)
-    console.log(id)
-    vm.ejercicio.salidas[id] = data.salida
-    // vm.ejercicio.salidas.push = data.salida
-    // vm.ejercicio.salidas.push(data.salida)
-  }
+  vm.cancel = () => {
 
-  vm.cancelSalida = () => {
-    vm.ejercicio.salidas.pop()
-  }
-
-  vm.removeSalida = (index) => {
-    vm.ejercicio.salidas.splice(index, 1)
-  }
-
-  vm.addEntrada = () => {
-    vm.inserted_entrada = ''
-    vm.ejercicio.entradas.push(vm.inserted_entrada)
-  }
-
-  vm.saveEntrada = (data, id) => {
-    vm.ejercicio.entradas[id] = data.entrada
-  }
-
-  vm.cancelEntrada = () => {
-    vm.ejercicio.entradas.pop()
-  }
-
-  vm.removeEntrada = (index) => {
-    vm.ejercicio.entradas.splice(index, 1)
   }
 }
