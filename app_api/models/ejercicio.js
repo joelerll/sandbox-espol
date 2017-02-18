@@ -2,6 +2,7 @@ var mongoose    = require('mongoose'),
 bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
 shortId         = require('shortid');
+mongoose.Promise = global.Promise;
 
 var EjercicioSchema = mongoose.Schema({
   _id: {
@@ -34,5 +35,10 @@ var EjercicioSchema = mongoose.Schema({
   }
 },{collection: 'ejercicios', versionKey: false, timestamps: true})
 //creador sera ingresado el documento
+
+EjercicioSchema.method.save = function(cb) {
+  this.save(cb);
+}
+
 
 module.exports = mongoose.model('Ejercicio', EjercicioSchema);
