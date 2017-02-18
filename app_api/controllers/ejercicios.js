@@ -28,7 +28,7 @@ function getAllOfAll (req, res, next) {
       res.send('erro');
       return;
     }
-    res.json(ejercicios_todos)
+    res.json({ejercicios: ejercicios_todos, sucess: true})
   })
 }
 
@@ -38,7 +38,7 @@ function getAllMisEjercicios (req, res ,next) {
       res.send('hay un error');
       return;
     }
-    res.json(ejercicios_profesor);
+    res.json({ejercicios: ejercicios_profesor, sucess: true});
   })
 }
 
@@ -85,7 +85,7 @@ function oneById (req, res, next) {
 }
 
 function allByDificultad (req, res, next) {
-  
+
 }
 
 module.exports = {

@@ -1,5 +1,7 @@
 angular.module('ayudantesApp',[
   'ui.router',
   'angular-jwt',
-  'nuevoEjercicio'
+  'nuevoEjercicio',
+  'misEjercicios',
+  'todosEjercicios'
 ])

@@ -3,6 +3,15 @@ angular.module('ayudantesApp').service('Ayudante', AyudanteController);
 AyudanteController.$inyect = ['auth','$http'];
 
 function AyudanteController(auth,$http) {
+
+  var todoLosEjercicios = function(cb) {
+    $http({
+      method: 'GET',
+      url: '/api/v1/ayudantes/ejercicios/todos',
+      headers: {'Authorization': auth.getToken()}
+    }).then(cb)
+  }
+
   var misEjercicios = function (cb) {
     $http({
       method: 'GET',
@@ -20,8 +29,11 @@ function AyudanteController(auth,$http) {
     }).then(cb)
   }
 
+
+
   return {
     misEjercicios: misEjercicios,
-    crearEjercicio: crearEjercicio
+    crearEjercicio: crearEjercicio,
+    todoLosEjercicios: todoLosEjercicios
   }
 }
