@@ -4,5 +4,6 @@ angular.module('adminApp', [
   'profesores',
   'angular-jwt',
   'angularCSS',
-  'ayudantes'
+  'ayudantes',
+  'estudiantes'
 ]);
