@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
 Ejercicio    = require('../models/ejercicio');
 
+// CREATE
 function create(req, res, next) {
     ejercicio = new Ejercicio ({
       titulo: req.body.titulo,
@@ -20,50 +21,80 @@ function create(req, res, next) {
     ejercicio.save(ejercicio)
 }
 
-function getAll(req, res, next) {
-  console.log(req.headers.authorization)
-  console.log(req.user)
-  res.send('hello')
+// READ
+function getAllOfAll (req, res, next) {
+  Ejercicio.getAll((err, ejercicios_todos) => {
+    if (err) {
+      res.send('erro');
+      return;
+    }
+    res.json(ejercicios_todos)
+  })
+}
+
+function getAllMisEjercicios (req, res ,next) {
+  Ejercicio.getByCreador(req.user._id,(err, ejercicios_profesor) => {
+    if (err) {
+      res.send('hay un error');
+      return;
+    }
+    res.json(ejercicios_profesor);
+  })
+}
+
+// UPDATE
+function update (req, res, next) {
+  //res.send(req.body)
+  Ejercicio.update(req.params.id,req.body, (err, ejercicio) => {
+    if (err) {
+      res.send('error')
+      return;
+    }
+    res.send(ejercicio)
+  })
+}
+
+// DELETE
+function esCreador(req, res, next) {
+  Ejercicio.esCreador(req.params.id, req.user._id, (esCreador) => {
+    if (esCreador) {
+      next();
+      return;
+    }
+    res.send('no es creador')
+  })
 }
 
 function del (req, res, next) {
-  res.send('borrado')
+  Ejercicio.delete(req.params.id, req.user._id, (err) => {
+    if (err) {
+      res.send('hubo algun error');
+      return;
+    }
+    res.send('fue eliminado');
+  })
 }
 
-function update (req, res, next) {
-  res.send('elimnado')
-}
 
-function getAllOfAll (req, res, next) {
-  res.send('all of all')
-}
-
-function findByTag (req, res, next) {
-
-}
-
-function findByCreador (req, res ,next) {
+function allByCurso (req, res, next) {
 
 }
 
-function findByCurso (req, res, next) {
+function oneById (req, res, next) {
 
 }
 
-function findById (req, res, next) {
-
-}
-
-function findByDificultad (req, res, next) {
+function allByDificultad (req, res, next) {
   
 }
 
 module.exports = {
   create: create,
-  getAll: getAll,
+  getAllMisEjercicios: getAllMisEjercicios,
   del: del,
   update: update,
-  getAllOfAll: getAllOfAll
+  getAllOfAll: getAllOfAll,
+  esCreador: esCreador
 }
 
 

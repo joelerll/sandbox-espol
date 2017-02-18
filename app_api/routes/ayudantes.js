@@ -14,8 +14,8 @@ require('../config/passport.users.login')( passport );
 require('../config/passport.users.jwt')( passport );
 
 router.post('/ejercicios', auth, EjercicioController.create);
-router.get('/ejercicios', auth, EjercicioController.getAll);
-router.delete('/ejercicios/:id', auth, EjercicioController.del);
+router.get('/ejercicios', auth, EjercicioController.getAllMisEjercicios);
+router.delete('/ejercicios/:id', auth, EjercicioController.esCreador, EjercicioController.del);
 router.put('/ejercicios/:id', auth, EjercicioController.update);
 
 router.get('/ejercicios/todos',auth, EjercicioController.getAllOfAll);

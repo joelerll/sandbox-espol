@@ -34,11 +34,50 @@ var EjercicioSchema = mongoose.Schema({
     rol: String
   }
 },{collection: 'ejercicios', versionKey: false, timestamps: true})
-//creador sera ingresado el documento
 
 EjercicioSchema.method.save = function(cb) {
   this.save(cb);
 }
 
+EjercicioSchema.statics.getAll = function(cb) {
+  this.model('Ejercicio').find({}, cb);
+}
+
+EjercicioSchema.statics.getByCreador = function(id, cb) {
+  this.model('Ejercicio').find({'creador._id': id}, cb);
+} //SypzZFrKl
+
+EjercicioSchema.statics.delete = function(id,id_profesor, cb) {
+  this.model('Ejercicio').findOneAndRemove({$and:[{_id: id}, {'creador._id': id_profesor}]}).exec(cb);
+}
+
+EjercicioSchema.statics.existe = function(id,cb) {
+   this.model('Ejercicio').findOne({_id: id}, function(err, ejercicio) {
+     if (err || !ejercicio) {
+       cb (false)
+       return
+     }
+     cb (true)
+   })
+}
+
+EjercicioSchema.statics.esCreador = function(id_ejercicio,id_creador, cb) {
+   this.model('Ejercicio').findOne({_id: id_ejercicio}, function(err, ejercicio) {
+     console.log(ejercicio)
+     if (!ejercicio) {
+       cb(false)
+       return;
+     }
+     if (ejercicio.creador._id === id_creador) {
+       cb (true)
+       return;
+     }
+     cb (false)
+   })
+}
+
+EjercicioSchema.statics.update = function(id,ejercicio_nuevo, cb ) {
+   this.model('Ejercicio').findOneAndUpdate({_id: id}, ejercicio_nuevo, {upsert:true}, cb);
+}
 
 module.exports = mongoose.model('Ejercicio', EjercicioSchema);

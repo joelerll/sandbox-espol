@@ -41,6 +41,9 @@ var AyudanteSchema = mongoose.Schema({
   },
   apellidos:           {
     type: String,
+  },
+  carrera: {
+    type: String
   }
 },{collection: 'ayudantes', versionKey: false, timestamps: true})
 

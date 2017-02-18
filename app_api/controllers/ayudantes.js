@@ -1,6 +1,6 @@
 var passport = require('passport');
 
-module.exports.login = function(req, res) {
+function login(req, res) {
     passport.authenticate('ayudante-local', function(err, ayudante, info) {
     if( ayudante ) {
       token = ayudante.generarJwt()
@@ -9,4 +9,8 @@ module.exports.login = function(req, res) {
        res.status(info.status).json({ success: info.success, message: info.message });
      }
     })(req, res);
+}
+
+module.exports = {
+  login: login
 }
