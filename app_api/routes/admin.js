@@ -3,7 +3,9 @@ passport           = require('passport'),
 jwt                = require('jsonwebtoken'),
 ProfesorController = require('../controllers/profesores'),
 AyudanteController = require('../controllers/ayudantes'),
-AdminController    = require('../controllers/admin');
+AdminController    = require('../controllers/admin'),
+EstudiantesController = require('../controllers/estudiantes'),
+EjerciciosController = require('../controllers/ejercicios');
 
 var auth = passport.authenticate('admin-jwt', { session: false });
 
@@ -21,13 +23,23 @@ router.put('/ayudantes/:id', auth, AyudanteController.update );
 router.delete('/ayudantes/:id', auth, AyudanteController.delete );
 router.get('/ayudantes/:id', auth, AyudanteController.readOne );
 
+// estudiante CRUD
+router.post('/estudiantes', EstudiantesController.create);
+router.post('/estudiantes/nuevo/ejercicio/:id', EstudiantesController.addEjercicio);
+router.get('/estudiantes/ejercicios/:id', EstudiantesController.getEjercicios);
+// router.get('/estudiantes', EstudiantesController.read);
+
+// ejercicios CRUD
+router.post('/ejercicios', EjerciciosController.create);
+// router.post('/ejercicios/nuevo/ejercicio/:id', EjerciciosController.addEjercicio);
+
 // passport strategies
 require('../config/passport.admin.login')( passport );
 require('../config/passport.admin.jwt')( passport );
 
 // admin login
-router.post('/admin/login', AdminController.login );
-router.get('/admin/dashboard', auth , AdminController.dashboard );
+router.post('/login', AdminController.login );
+router.get('/dashboard', auth , AdminController.dashboard );
 
 //borrar solo de prueba
 router.post('/admin', AdminController.create);

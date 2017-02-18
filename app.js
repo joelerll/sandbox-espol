@@ -69,7 +69,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // set up routes
 app.use('/', express.static(path.join(__dirname + "/apps_angular")));
-app.use('/api/v1', api)
+app.use('/api/v1/admin', api)
 app.use('/docs', express.static(path.join(__dirname + "/public/documentacion")));
 app.use('/profesores', express.static(path.join(__dirname + "/apps_angular/users/profesores")));
 app.use('/ayudantes', express.static(path.join(__dirname + "/apps_angular/users/ayudantes")));
