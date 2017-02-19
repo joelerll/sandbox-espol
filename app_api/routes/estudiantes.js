@@ -10,5 +10,6 @@ router.get('/',auth, function(req, res, next) {
   res.send('maldito estudiante');
 })
 router.post('/login', EstudianteController.login);
+// router.put('/estudiantes/clave/:id', EstudiantesController.updateClave);
 
 module.exports = router

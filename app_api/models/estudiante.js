@@ -55,6 +55,43 @@ var EstudianteSchema = mongoose.Schema({
     }]
 },{ versionKey: false, timestamps: true, collection: 'estudiantes'})
 
+EstudianteSchema.pre('update', function(next) {
+  console.log('editado')
+  next()
+})
+
+EstudianteSchema.pre('save', function (next) {
+  const estudiante = this;
+  if (this.isNew) {
+    let clave = shortId.generate()
+    estudiante.clave = clave;
+    console.log('clave estudiante ' + estudiante.clave)
+    //error = mail.enviar(this.correo,estudiante.clave);
+    // if (error) {
+    //   next(new Error('error al enviar mail'));
+    // }
+  }
+  console.log(this.isModified('clave'))
+  console.log(this.isNew)
+  if (this.isModified('clave') || this.isNew) {
+    console.log('modificado clave')
+    bcrypt.genSalt(10, function (err, salt) {
+      if (err) {
+        return next(err);
+      }
+      bcrypt.hash(estudiante.clave, salt, function(err, hash) {
+        if (err) {
+          return next(err);
+        }
+        estudiante.clave = hash;
+        next();
+      });
+    });
+  } else {
+    return next();
+  }
+});
+
 EstudianteSchema.methods.generarJwt = function() {
   var expiracion = new Date();
   expiracion.setDate(expiracion.getDate() + 5);
@@ -79,19 +116,57 @@ EstudianteSchema.statics.getById = function(id, cb) {
   this.model('Estudiante').findOne({_id: id}, cb)
 }
 
-EstudianteSchema.statics.comparePass = function(clave, hash, cb){
-	// bcrypt.compare(clave, hash, function(err, isMatch) {
-  //   	if(err) throw err;
-  //   	cb(null, isMatch);
-	// });
-  if(clave == hash) {
-    cb(null, true);
-    return;
-  } else {
-    cb(null, false)
-    // throw err;
-    return
-  }
+EstudianteSchema.statics.getAll = function(cb) {
+  this.model('Estudiante').find({}, cb);
+}
+
+EstudianteSchema.methods.update = function(id,cb) {
+  let estudiante = this
+  console.log(estudiante)
+  this.model('Estudiante').update({ _id: id }, { $set: { nombres: estudiante.nombres, apellidos: estudiante.apellidos, correo: estudiante.correo, carrera: estudiante.carrera, identificacion: estudiante.identificacion }}, cb);
+}
+
+EstudianteSchema.statics.updateClave = function(id, clave, cb) {
+  this.model('Estudiante').findOne({_id: id}, function(err, estudiante) {
+    if(err) {
+      cb(error,false);
+      return;
+    }
+    bcrypt.compare(clave, estudiante.clave, function(err, isMatch) {
+      	if(err) return cb(err,false);
+        if (isMatch) {
+          cb(false,false)
+          return;
+        } else {
+          bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+              cb(err,false);
+              return;
+            }
+            bcrypt.hash(clave, salt, function(err, hash) {
+              if (err) {
+                cb(err,false);
+                return;
+              }
+              console.log('calve ' + hash)
+              cb(false, true)
+              // this.model('Estudiante').update({_id:id},{$set: {clave: hash}},cb)
+            });
+          });
+        }
+  	});
+  })
+}
+
+EstudianteSchema.statics.delete = function(id, cb) {
+  this.model('Estudiante').findByIdAndRemove(id).exec(cb)
+}
+
+EstudianteSchema.statics.comparePass = function(password, hash, cb){
+	bcrypt.compare(password, hash, function(err, isMatch) {
+    	if(err) throw err;
+    	cb(null, isMatch);
+	});
 }
 
 

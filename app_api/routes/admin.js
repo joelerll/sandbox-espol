@@ -24,11 +24,12 @@ router.get('/profesores/:id', auth, ProfesorController.readOne );
 // router.get('/ayudantes/:id', auth, AyudanteController.readOne );
 
 // estudiante CRUD
-// router.post('/estudiantes', EstudiantesController.create);
-// router.post('/estudiantes/nuevo/ejercicio/:id', EstudiantesController.addEjercicio);
-// router.get('/estudiantes/ejercicios/:id', EstudiantesController.getEjercicios);
-// router.get('/estudiantes', EstudiantesController.read);
 router.post('/estudiantes', EstudiantesController.create);
+router.get('/estudiantes', EstudiantesController.getAll);
+router.put('/estudiantes/:id', EstudiantesController.update);
+router.delete('/estudiantes/:id', EstudiantesController.del);
+
+router.put('/estudiantes/clave/:id', EstudiantesController.updateClave);
 
 // ejercicios CRUD
 router.post('/ejercicios', EjerciciosController.create);

@@ -38,7 +38,7 @@ module.exports.create = function(req, res, next) {
 
   profesor.save(function(err) {
     if(err) {
-      return res.status(400).json({success: false, message: 'ocurrio algun error al tratar de guardar el profesor'});
+      return res.status(404).json({success: false, message: 'ocurrio algun error al tratar de guardar el profesor'});
     } else {
       Profesor.getProfesor(profesor.correo, function(err, profesor_creado) {
         if (err) {
