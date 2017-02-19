@@ -13,7 +13,6 @@ module.exports.create = function(req, res, next) {
   req.body.apellidos = xss(req.body.apellidos);
   req.body.correo = xss(req.body.correo);
   req.body.identificacion = xss(req.body.identificacion);
-  console.log(req.body);
   req.checkBody('nombres', 'nombres esta en blanco').empty();
   req.checkBody('apellidos', 'apellidos esta en blanco').empty();
   req.checkBody('correo', 'correo esta en blanco').empty();
@@ -39,7 +38,7 @@ module.exports.create = function(req, res, next) {
 
   profesor.save(function(err) {
     if(err) {
-      return res.status(400).json({success: false, message: 'ocurrio algun error al tratar de guardar el profesor'});
+      return res.status(404).json({success: false, message: 'ocurrio algun error al tratar de guardar el profesor'});
     } else {
       Profesor.getProfesor(profesor.correo, function(err, profesor_creado) {
         if (err) {
@@ -82,7 +81,7 @@ module.exports.read = function(req, res, next) {
 module.exports.update = function(req, res, next) {
     //TODO: no repetir == cedula, correo
     //TODO: entregar mensajes de error
-    //FIXME: no permitir cambiar id, rol, 
+    //FIXME: no permitir cambiar id, rol,
     req.body.nombres = xss(req.body.nombres);
     req.body.apellidos = xss(req.body.apellidos);
     req.body.correo = xss(req.body.correo);

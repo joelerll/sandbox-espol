@@ -51,7 +51,11 @@ var ProfesorSchema = mongoose.Schema({
   apellidos:           {
     type: String,
     required: [true, 'apellidos son requeridos']
-  }
+  },
+  _desafios:[{
+    type: String,
+    ref: 'Desafio'
+  }]
 },{collection: 'profesores', versionKey: false, timestamps: true})  //desafios: [{ type : ObjectId, ref: 'Desafio' }]
 
 ProfesorSchema.plugin(uniqueValidator);
@@ -60,8 +64,8 @@ ProfesorSchema.pre('save', function (next) {
   const profesor = this;
   if (this.isNew) {
     let clave = shortId.generate()
-    console.log('user nuevo ' + clave);
     profesor.clave = clave;
+    console.log('clave profesor ' + profesor.clave)
     //error = mail.enviar(this.correo,profesor.clave);
     // if (error) {
     //   next(new Error('error al enviar mail'));
@@ -76,7 +80,6 @@ ProfesorSchema.pre('save', function (next) {
         if (err) {
           return next(err);
         }
-        console.log('la clave es ' + profesor.clave)
         profesor.clave = hash;
         next();
       });
