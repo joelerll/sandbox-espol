@@ -11,11 +11,7 @@ var auth = passport.authenticate('admin-jwt', { session: false });
 
 // profesor CRUD
 router.post('/profesores', auth, ProfesorController.create );
-router.get('/profesores', function(req, res, next) {
-  console.log(req.headers)
-  console.log('login')
-  next()
-},auth, ProfesorController.read ); // ?like
+router.get('/profesores',auth, ProfesorController.read ); // ?like
 router.put('/profesores/:id', auth, ProfesorController.update );
 router.delete('/profesores/:id', auth, ProfesorController.delete );
 router.get('/profesores/:id', auth, ProfesorController.readOne );
@@ -29,9 +25,11 @@ router.get('/profesores/:id', auth, ProfesorController.readOne );
 
 // estudiante CRUD
 router.post('/estudiantes', EstudiantesController.create);
-// router.post('/estudiantes/nuevo/ejercicio/:id', EstudiantesController.addEjercicio);
-// router.get('/estudiantes/ejercicios/:id', EstudiantesController.getEjercicios);
-// router.get('/estudiantes', EstudiantesController.read);
+router.get('/estudiantes', EstudiantesController.getAll);
+router.put('/estudiantes/:id', EstudiantesController.update);
+router.delete('/estudiantes/:id', EstudiantesController.del);
+
+router.put('/estudiantes/clave/:id', EstudiantesController.updateClave);
 
 // ejercicios CRUD
 router.post('/ejercicios', EjerciciosController.create);

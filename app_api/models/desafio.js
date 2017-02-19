@@ -8,6 +8,9 @@ var DesafioSchema = mongoose.Schema({
     unique: true,
     'defult': shortId.generate
   },
+  titulo: {
+    type: String
+  },
   tiempo_limite: {
     type: Date,
     required: true

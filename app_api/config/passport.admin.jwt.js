@@ -8,9 +8,7 @@ module.exports = function(passport) {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: config.secret
   }
-  console.log('admin')
   passport.use('admin-jwt',new JwtStrategy(opts, function(jwt_playload, done) {
-    console.log('asdsa')
     Admin.getUserById(jwt_playload.id, function(err, admin) {
       if( err ) {
         return done(err, false);
