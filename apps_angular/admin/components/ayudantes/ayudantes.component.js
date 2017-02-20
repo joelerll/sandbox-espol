@@ -32,7 +32,7 @@ function AyudantesController($css,$http,Ayudantes) {
         notie.alert('error', 'Hubo un error al intentar crear', 2);
         return;
       }
-      notie.alert('success', 'Profesor creado correctamente', 2);
+      notie.alert('success', 'Ayudante creado correctamente', 2);
       self.ayudantes.push(res.data.ayudante);
       self.ayudante = {};
     })
