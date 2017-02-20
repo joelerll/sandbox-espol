@@ -105,12 +105,45 @@ function del (req, res, next) {
   })
 }
 
+function saveEstudiantesArray(array) {
+  var estudiantes = []
+  var messages = []
+  array.forEach((estudiante) => {
+    if (estudiante[0] == 'identificacion') {
+      return
+    }
+    let estudiante_nuevo = new Estudiante({
+      identificacion: estudiante[0],
+      nombres: estudiante[1],
+      apellidos: estudiante[2],
+      correo: estudiante[3],
+      carrera: estudiante[4]
+    })
+    let error = {
+      mesaje: 'ok',
+      id: estudiante_nuevo._id
+    }
+    estudiante_nuevo.create((err) => {
+      if (err) {
+        console.log('error')
+      }
+    })
+    estudiantes.push(estudiante_nuevo)
+    messages.push(error)
+  })
+  //verificar si todos se guardan y array con los errores correspondientes
+
+  return {success: true, estudiantes: estudiantes, messages: messages}
+}
+//TODO: estudiante ya existente, cambio de datos estudiante
+
 module.exports = {
   // admin control
   create: create,
   getAll: getAll,
   update: update,
   del: del,
+  saveEstudiantesArray: saveEstudiantesArray,
   // estudiante control
   login: login,
   updateClave: updateClave
