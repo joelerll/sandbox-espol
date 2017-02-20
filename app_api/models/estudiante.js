@@ -12,12 +12,18 @@ var EstudianteSchema = mongoose.Schema({
     unique: true,
     'default': shortId.generate
   },
+  identificacion: {
+    type: String,
+    unique: true,
+    index: true
+  },
   clave: {
     type: String,
     require: true
   },
   correo: {
-    type: String
+    type: String,
+    unique: true
   },
   nombres: {
     type: String
@@ -61,8 +67,13 @@ EstudianteSchema.pre('update', function(next) {
   next()
 })
 
-EstudianteSchema.pre('save', function (next) {
+EstudianteSchema.pre('save', true,function (next,done) {
   const estudiante = this;
+  this.model('Estudiante').findOne({$or: [{identificacion: estudiante.identificacion}, {correo: estudiante.correo}]}).exec((err, estu) => {
+    if (estu) {
+      console.log('existe' + estudiante.correo)
+    }
+  })
   if (this.isNew) {
     let clave = shortId.generate()
     estudiante.clave = clave;
@@ -72,8 +83,6 @@ EstudianteSchema.pre('save', function (next) {
     //   next(new Error('error al enviar mail'));
     // }
   }
-  console.log(this.isModified('clave'))
-  console.log(this.isNew)
   if (this.isModified('clave') || this.isNew) {
     console.log('modificado clave')
     bcrypt.genSalt(10, function (err, salt) {
