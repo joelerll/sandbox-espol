@@ -48,7 +48,19 @@ function del (req, res ,next) {
 }
 
 function update(req, res, next) {
-  res.send('update')
+  Ayudante.update(req.params.id, req.body, (err, ayu) => {
+    if (err) {
+      res.status(400).json({success: false, message: 'no se pudo editar profesor'})
+      return;
+    }
+    Ayudante.getById(req.params.id, (err, ayudante) => {
+      if (err) {
+        res.status(404).json({success: false, message: 'no se pudo encontrar al profesor creado'})
+        return;
+      }
+      res.status(200).json({success: true, message: 'se pudo editar el ayudante', ayudante: ayudante})
+    })
+  })
 }
 
 function read(req, res, next) {
