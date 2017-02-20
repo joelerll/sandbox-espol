@@ -98,7 +98,7 @@ module.exports.update = function(req, res, next) {
       return;
     }
     Profesor.update(req.params.id,req.body, function(err, resp) {
-      if (err) return res.status(500).json( { success: false, message: err });
+      if (err) return res.status(500).json( { success: false, message: 'Hubo un error al querer actualizar' });
       Profesor.getProfesorById(req.params.id, function(err, profesor) {
         if (err) {
           return res.status(404).json({success: false, message: 'error al buscar profesor editado'})

@@ -18,8 +18,7 @@ var AyudanteSchema = mongoose.Schema({
     unique: [true]
   },
   clave:               {
-    type: String,
-    default: 'clave prueba'
+    type: String
   },
   rol:                 {
     type: String,
@@ -61,28 +60,68 @@ AyudanteSchema.methods.generarJwt = function() {
   }, config.secret );// process.env.JWT_SECRET
 };
 
+AyudanteSchema.pre('save', function (next) {
+  const ayudante = this;
+  if (this.isNew) {
+    let clave = shortId.generate()
+    ayudante.clave = clave;
+    console.log('clave ayudante ' + ayudante.clave)
+    //error = mail.enviar(this.correo,ayudante.clave);
+    // if (error) {
+    //   next(new Error('error al enviar mail'));
+    // }
+  }
+  console.log(this.isModified('clave'))
+  console.log(this.isNew)
+  if (this.isModified('clave') || this.isNew) {
+    console.log('modificado clave')
+    bcrypt.genSalt(10, function (err, salt) {
+      if (err) {
+        return next(err);
+      }
+      bcrypt.hash(ayudante.clave, salt, function(err, hash) {
+        if (err) {
+          return next(err);
+        }
+        ayudante.clave = hash;
+        next();
+      });
+    });
+  } else {
+    return next();
+  }
+});
 
 AyudanteSchema.statics.getPorCorreo = function(correo, cb)  {
   this.model('Ayudante').findOne({correo: correo}, cb);
 }
 
-AyudanteSchema.statics.comparePass = function(clave, hash, cb){
-	// bcrypt.compare(clave, hash, function(err, isMatch) {
-  //   	if(err) throw err;
-  //   	cb(null, isMatch);
-	// });
-  if(clave == hash) {
-    cb(null, true);
-    return;
-  } else {
-    cb(null, false)
-    // throw err;
-    return
-  }
+AyudanteSchema.statics.comparePass = function(password, hash, cb){
+	bcrypt.compare(password, hash, function(err, isMatch) {
+    	if(err) throw err;
+    	cb(null, isMatch);
+	});
+}
+
+
+AyudanteSchema.methods.create = function(cb) {
+  this.save(cb);
 }
 
 AyudanteSchema.statics.getById = function(id, cb) {
-  this.findOne({ _id:  id }, cb);
+  this.model('Ayudante').findOne({ _id:  id },{clave: 0}, cb);
+}
+
+AyudanteSchema.statics.delete = function(id, cb) {
+  this.model('Ayudante').findByIdAndRemove(id).exec(cb)
+}
+
+AyudanteSchema.statics.getAll = function(cb) {
+  this.model('Ayudante').find({},{clave: 0},cb)
+}
+
+AyudanteSchema.statics.getAyudanteLike = function(query, cb) {
+  this.model('Ayudante').find({$or: [{nombres:  {'$regex': query, '$options': 'i' }}, {apellidos: {'$regex': query, '$options': 'i' }}]}, cb)
 }
 
 module.exports = mongoose.model('Ayudante', AyudanteSchema);

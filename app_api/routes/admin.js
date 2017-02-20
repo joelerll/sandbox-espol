@@ -2,7 +2,7 @@ var router         = require('express').Router(),
 passport           = require('passport'),
 jwt                = require('jsonwebtoken'),
 ProfesorController = require('../controllers/profesores'),
-// AyudanteController = require('../controllers/ayudantes'),
+AyudanteController = require('../controllers/ayudantes'),
 AdminController    = require('../controllers/admin'),
 EstudiantesController = require('../controllers/estudiantes'),
 EjerciciosController = require('../controllers/ejercicios');
@@ -17,11 +17,11 @@ router.delete('/profesores/:id', auth, ProfesorController.delete );
 router.get('/profesores/:id', auth, ProfesorController.readOne );
 
 // ayudante CRUD
-// router.post('/ayudantes', auth, AyudanteController.create );
-// router.get('/ayudantes', auth, AyudanteController.read ); // ?like
-// router.put('/ayudantes/:id', auth, AyudanteController.update );
-// router.delete('/ayudantes/:id', auth, AyudanteController.delete );
-// router.get('/ayudantes/:id', auth, AyudanteController.readOne );
+router.post('/ayudantes', AyudanteController.create );
+router.get('/ayudantes',  AyudanteController.read ); // ?like
+router.put('/ayudantes/:id', AyudanteController.update );
+router.delete('/ayudantes/:id', AyudanteController.del );
+router.get('/ayudantes/:id', AyudanteController.readOne );
 
 // estudiante CRUD
 router.post('/estudiantes', EstudiantesController.create);
