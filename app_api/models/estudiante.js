@@ -39,7 +39,8 @@ var EstudianteSchema = mongoose.Schema({
       ejercicio: {type: String, ref: 'Ejercicio'},
       resuelto: Boolean,
       fecha_resuelto: {type: Date, 'default': Date.now},
-      puntaje: Number
+      puntaje: Number,
+      archivo: Buffer
   }],
     desafios: [{
       _desafio: {type: String, ref: 'Desafio'},
