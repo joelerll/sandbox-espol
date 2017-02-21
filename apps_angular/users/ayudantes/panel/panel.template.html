@@ -1,5 +1,33 @@
-<h1>Pane</h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <p>Ayudante   {{vm.correo}}</p>
+      </a>
+    </div>
+    <div class="navbar-form navbar-left" role="search">
 
-<nuevo-ejercicio></nuevo-ejercicio>
+      <button  ng-click="vm.logout()" type="submit" class="btn btn-default">Logout</button>
+    </div>
+  </div>
+  <ul class="nav navbar-nav">
+    <li><a ng-click="vm.tabs.clicks.nuevo()" class="cursor">Nuevo Ejercicio</a></li>
+    <li><a ng-click="vm.tabs.clicks.mis()" class="cursor">Mis Ejercicios</a></li>
+    <li><a ng-click="vm.tabs.clicks.todos()" class="cursor">Todos los Ejercicios</a></li>
+  </ul>
+</nav>
+
+<div class="contenerdor">
+  <div ng-show="vm.tabs.nuevo" class="nuevo">
+    <nuevo-ejercicio></nuevo-ejercicio>
+  </div>
+  <div ng-show="vm.tabs.mis" class="mis">
+    <mis-ejercicios show="true"></mis-ejercicios>
+  </div>
+  <div ng-show="vm.tabs.todos" class="todos">
+    <todos-ejercicios></todos-ejercicios>
+  </div>
+</div>
+
 <!-- <mis-ejercicios></mis-ejercicios>
 <todos-ejercicios></todos-ejercicios> -->

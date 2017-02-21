@@ -15,12 +15,12 @@ function authentication ($http, $window,jwtHelper) {
     return $window.localStorage.getItem('local');
   };
 
-  var login = function(admin, cb) {
-    return $http.post('/api/v1/ayudantes/login', admin).then(function(data) {
+  var login = function(ayudante, cb) {
+    return $http.post('/api/v1/ayudantes/login', ayudante).then(function(data) {
         saveToken(data.data.token);
-        cb(null);
+        cb(data.data);
     },function errorCallback(response) {
-        cb(response.data);
+        cb(null);
     })
   };
 
@@ -40,11 +40,18 @@ function authentication ($http, $window,jwtHelper) {
     $window.localStorage.removeItem('local');
   };
 
+  function parseJwt () {
+            var base64Url = getToken().split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse(window.atob(base64));
+  };
+
   return {
     saveToken : saveToken,
     getToken : getToken,
     login : login,
     isLoggedIn: isLoggedIn,
-    logout : logout
+    logout : logout,
+    parseJwt: parseJwt
   };
 }

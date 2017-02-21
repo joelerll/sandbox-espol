@@ -4,6 +4,7 @@ Sandox App
 # BUGS
 ### GRAVES
 - No se puede actualizar la clave
+- cuar usuario esta loggeado
 
 ## Admin-curso
 - Al enviar archivo no valida que no se repitan los estudiante

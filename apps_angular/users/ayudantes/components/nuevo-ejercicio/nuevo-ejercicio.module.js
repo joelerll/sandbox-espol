@@ -1,4 +1,4 @@
-angular.module('nuevoEjercicio',['ngTagsInput','xeditable','ui.bootstrap','ngSanitize'])
+angular.module('nuevoEjercicio',['ngTagsInput','xeditable','ui.bootstrap','ngSanitize','angularCSS'])
 .run(function(editableOptions,editableThemes) {
   editableThemes.bs3.inputClass = 'input-sm';
    editableThemes.bs3.buttonsClass = 'btn-sm';

@@ -1,3 +1,9 @@
 h1 {
   padding: inherit;
+  text-align: center;
+}
+
+div.container-nuevo {
+  margin-left: 5%;
+  margin-right: 5%;
 }

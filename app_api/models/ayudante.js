@@ -65,7 +65,7 @@ AyudanteSchema.pre('save', function (next) {
   if (this.isNew) {
     let clave = shortId.generate()
     ayudante.clave = clave;
-    ayudante.clave = '1'
+    // ayudante.clave = '2'
     console.log('clave ayudante ' + ayudante.clave)
     //error = mail.enviar(this.correo,ayudante.clave);
     // if (error) {

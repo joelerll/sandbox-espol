@@ -1,0 +1,11 @@
+div.ejercicios {
+  margin: 5%;
+}
+
+div.contenedor {
+  padding: 2%;
+  margin-top: 4%;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 2px 10px 2px 10px;
+}

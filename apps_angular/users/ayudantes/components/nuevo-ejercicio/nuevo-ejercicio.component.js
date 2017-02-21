@@ -3,10 +3,11 @@ angular.module('nuevoEjercicio').component('nuevoEjercicio',{
   controller: NuevoEjercicioController
 });
 
-NuevoEjercicioController.$inyect = ['Ayudante'];
+NuevoEjercicioController.$inyect = ['Ayudante','$css','$rootScope'];
 
-function NuevoEjercicioController(Ayudante) {
+function NuevoEjercicioController(Ayudante,$css,$rootScope) {
   var vm = this;
+  $css.add('./css/nuevo-ejercicio.css')
   vm.ejercicio = {
     titulo: '',
     descripcion: '',
@@ -57,10 +58,29 @@ function NuevoEjercicioController(Ayudante) {
   vm.tagRemoved =(tag) => {
     vm.ejercicio.etiquetas.splice(vm.ejercicio.etiquetas.indexOf(tag))
   }
-
+  Ayudante.misEjercicios((res) => {
+    $rootScope.ejercicios = res.data.ejercicios
+  })
   vm.crearEjercicio = () => {
     Ayudante.crearEjercicio(vm.ejercicio, (res) => {
-      console.log(res)
+      if (res.data.success) {
+        vm.ejercicio = {
+          titulo: '',
+          descripcion: '',
+          entradas: [],
+          salidas: [],
+          etiquetas: [],
+          dificultad: ''
+        }
+        vm.tags = []
+        vm.val = []
+        //cargar los ejercicis en mis
+        $rootScope.cargar()
+        $rootScope.cargar2()
+      } else {
+        console.log(res.data.errors)
+        //errores
+      }
     })
   }
 

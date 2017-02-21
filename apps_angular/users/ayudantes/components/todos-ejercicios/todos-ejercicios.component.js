@@ -3,14 +3,23 @@ angular.module('todosEjercicios').component('todosEjercicios', {
   controller: TodoEjerciciosController
 })
 
-TodoEjerciciosController.$inyect = ['Ayudante']
+TodoEjerciciosController.$inyect = ['Ayudante','$rootScope']
 
-function TodoEjerciciosController(Ayudante) {
+function TodoEjerciciosController(Ayudante,$rootScope) {
   var vm = this;
   vm.ejercicios = []
   Ayudante.todoLosEjercicios((res) => {
-    if (res.data.sucess) {
-      vm.ejercicios = res.data.ejercicios
-    }
+    vm.ejercicios = res.data.ejercicios
+      vm.temp = []
+    vm.ejercicio = vm.temp;
   })
+
+  //externo
+  $rootScope.cargar2 = function() {
+    Ayudante.todoLosEjercicios((res) => {
+      vm.ejercicios = res.data.ejercicios
+      vm.temp = []
+      vm.ejercicio = vm.temp;
+    })
+  }
 }
