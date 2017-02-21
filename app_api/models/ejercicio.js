@@ -35,8 +35,20 @@ var EjercicioSchema = mongoose.Schema({
   }
 },{collection: 'ejercicios', versionKey: false, timestamps: true})
 
-EjercicioSchema.method.save = function(cb) {
+EjercicioSchema.methods.create = function(cb) {
   this.save(cb);
+}
+
+EjercicioSchema.statics.getByEtiquetaYDificultad = function(etiqueta,dificultad, cb) {
+  this.model('Ejercicio').find({etiquetas: etiqueta, dificultad: dificultad},cb)
+}
+
+EjercicioSchema.statics.getById = function(id, cb) {
+  this.model('Ejercicio').findOne({_id: id}, cb)
+}
+
+EjercicioSchema.statics.getAllEtiquetas = function(cb) {
+  this.model('Ejercicio').find({},{etiquetas: 1, _id: 0},cb)
 }
 
 EjercicioSchema.statics.getAll = function(cb) {

@@ -1,13 +1,16 @@
 var passport = require('passport');
 var Ayudante = require('../models/ayudante')
 
-function login(req, res) {
+function log(req, res,next) {
+  console.log(req.body)
     passport.authenticate('ayudante-local', function(err, ayudante, info) {
     if( ayudante ) {
       token = ayudante.generarJwt()
       res.status(info.status).json({ success: info.success, token: 'JWT ' + token });
+      return;
      } else {
        res.status(info.status).json({ success: info.success, message: info.message });
+       return;
      }
     })(req, res);
 }
@@ -97,7 +100,7 @@ function readOne(req, res, next) {
 //find by curso
 
 module.exports = {
-  login: login,
+  login: log,
   //admin controll
   create: create,
   del: del,

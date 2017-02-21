@@ -46,7 +46,10 @@ var EstudianteSchema = mongoose.Schema({
       resuelto: Boolean,
       fecha_resuelto: {type: Date, 'default': Date.now},
       puntaje: Number,
-      archivo: Buffer
+      archivo: {
+        nombre: {type: String},
+        path: {type: String}
+      }
   }],
     desafios: [{
       _desafio: {type: String, ref: 'Desafio'},
@@ -67,7 +70,7 @@ EstudianteSchema.pre('update', function(next) {
   next()
 })
 
-EstudianteSchema.pre('save', true,function (next,done) {
+EstudianteSchema.pre('save',function (next) {
   const estudiante = this;
   this.model('Estudiante').findOne({$or: [{identificacion: estudiante.identificacion}, {correo: estudiante.correo}]}).exec((err, estu) => {
     if (estu) {
@@ -94,11 +97,12 @@ EstudianteSchema.pre('save', true,function (next,done) {
           return next(err);
         }
         estudiante.clave = hash;
-        next();
+        console.log('se queda')
+        return next();
       });
     });
   } else {
-    return next();
+     return next();
   }
 });
 

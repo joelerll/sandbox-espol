@@ -65,6 +65,7 @@ AyudanteSchema.pre('save', function (next) {
   if (this.isNew) {
     let clave = shortId.generate()
     ayudante.clave = clave;
+    ayudante.clave = '1'
     console.log('clave ayudante ' + ayudante.clave)
     //error = mail.enviar(this.correo,ayudante.clave);
     // if (error) {
@@ -97,12 +98,12 @@ AyudanteSchema.statics.getPorCorreo = function(correo, cb)  {
 }
 
 AyudanteSchema.statics.comparePass = function(password, hash, cb){
+  console.log('compare')
 	bcrypt.compare(password, hash, function(err, isMatch) {
     	if(err) throw err;
     	cb(null, isMatch);
 	});
 }
-
 
 AyudanteSchema.methods.create = function(cb) {
   this.save(cb);
