@@ -16,10 +16,10 @@ function EstudianteController ($http) {
       }
 }*/
 
-function EstudianteController($css, $http, Estudiantes){
+function EstudianteController($css, $http, Estudiante){
   var self = this;
-  css.remove('./css/profesores.css');
-  css.remove('./css/ayudantes.css');
+  $css.remove('./css/profesores.css');
+  $css.remove('./css/ayudantes.css');
   /*css.add('./css/estudiantes.css');*/
 
   self.estudiantes = [];
@@ -32,11 +32,12 @@ function EstudianteController($css, $http, Estudiantes){
   };
 
   Estudiante.getAll((res) => {
+    console.log(res);
     self.estudiantes = res.data.estudiantes;
   })
 
   self.newEstudiante = () => {
-    Estudiante.create(selc.estudiante,  (res)=>{
+    Estudiante.create(self.estudiante,  (res)=>{
       if (!res.data.success) {
         notie.alert('error', 'Hubo un error al intentar crear', 2);
         return;
@@ -64,7 +65,7 @@ function EstudianteController($css, $http, Estudiantes){
       Estudiante.getAll((res) => {
         self.estudiantes = res.data.estudiantes;
       })
-      $('.modal').moda('hide');
+      $('.modal').modal('hide');
       notie.alert('error', 'Borrado exitosamente', 2);
     })
   }
