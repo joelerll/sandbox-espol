@@ -151,7 +151,7 @@ function comprobarEjercicio(req, res ,next) {
           return;
         };
         var valido = probrarValidezEjercicio(results, ejercicio.salidas);
-        res.status(200).json({sucess: true, message: 'las salidas son', resuelto: valido})
+        res.status(200).json({sucess: true, message: 'resultado del ejercicio su es valido o no', resuelto: valido})
       })
 
     })
