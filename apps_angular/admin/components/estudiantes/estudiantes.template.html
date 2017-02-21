@@ -1,7 +1,6 @@
 <h1>Estudiantes</h1>
 <div class="table">
 <div class="tabla">
-  <p>{{$ctrl.estudiantes}}</p>
   <table st-table="$ctrl.estudiantes_backup" st-safe-src="$ctrl.estudiantes" st-watch-changes="true" class="table table-hover table-condensed table-striped">
     <thead>
       <tr>
@@ -94,7 +93,7 @@
       </div>
       <div class="modal-body">
         <button ng-click="$ctrl.deleteConfirmar()" type="button" name="button" data-dismiss="modal" class="btn btn-danger" >si</button>
-        <button type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
+        <button ng-click="$ctrl.cancelarDelete()" type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
       </div>
     </div>
   </div>

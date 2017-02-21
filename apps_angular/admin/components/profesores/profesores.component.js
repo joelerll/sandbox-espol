@@ -29,6 +29,7 @@ function ProfesoresController($css,$http,Profesores) {
     Profesores.create(self.profesor,(res) => {
       if (!res.data.success) {
         notie.alert('error', 'Hubo un error al intentar crear', 2);
+
         return;
       }
       notie.alert('success', 'Profesor creado correctamente', 2);
@@ -51,6 +52,7 @@ function ProfesoresController($css,$http,Profesores) {
       //TODO: error mongoose cant not createAt and updateAt at the same time
       if (!res.data.success) {
         notie.alert('error', 'No se pudo borrar', 2);
+        $('.modal').modal('hide');
         return;
       }
       Profesores.getAll((res) => {
@@ -118,5 +120,8 @@ function ProfesoresController($css,$http,Profesores) {
     }
   }
 
+  self.cancelarDelete = () => {
+    $('.modal').modal('hide');
+  }
 
 }

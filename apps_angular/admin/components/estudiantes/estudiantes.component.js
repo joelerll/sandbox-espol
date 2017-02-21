@@ -60,6 +60,7 @@ function EstudianteController($css, $http, Estudiante){
     Estudiante.del(self.estudiante_borrar._id, (res) => {
       if (!res.data.success) {
         notie.alert('error', 'No se pudo borrar', 2);
+        $('.modal').modal('hide');
         return;
       }
       Estudiante.getAll((res) => {
@@ -119,6 +120,10 @@ function EstudianteController($css, $http, Estudiante){
     if(!validator.isEmail(correo)) {
       return "no es correo";
     }
+  }
+
+  self.cancelarDelete = () => {
+    $('.modal').modal('hide');
   }
 
 }

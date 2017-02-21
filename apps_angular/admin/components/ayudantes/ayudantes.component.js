@@ -30,6 +30,7 @@ function AyudantesController($css,$http,Ayudantes) {
     Ayudantes.create(self.ayudante,(res) => {
       if (!res.data.success) {
         notie.alert('error', 'Hubo un error al intentar crear', 2);
+        $('.modal').modal('hide');
         return;
       }
       notie.alert('success', 'Ayudante creado correctamente', 2);
@@ -119,5 +120,8 @@ function AyudantesController($css,$http,Ayudantes) {
     }
   }
 
+  self.cancelarDelete = () => {
+    $('.modal').modal('hide');
+  }
 
 }
