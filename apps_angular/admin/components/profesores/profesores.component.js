@@ -56,6 +56,9 @@ function ProfesoresController($css,$http,Profesores) {
       Profesores.getAll((res) => {
         self.profesores = res.data.profesores;
       })
+      //$('#deleteModal').modal('hide');
+      //$('body').removeClass('modal-open');
+      //$('.modal-backdrop').remove();
       //FIXME: no se borra de la lista directamente, si no que lo borra el anterior y no el que es
       // self.profesores.splice(self.profesores.indexOf(self.profesor_borrar) + 1, 1);
       notie.alert('success', 'Borrado Exitosamente', 2);

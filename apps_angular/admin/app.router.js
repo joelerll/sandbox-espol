@@ -11,6 +11,7 @@ function RouterController ($stateProvider, $locationProvider, $urlRouterProvider
     name: 'login',
     url: '/',
     templateUrl: './login/login.template.html',
+    css: './css/login.css',
     controllerAs: 'vm',
     controller: 'LoginController',
     data: {
