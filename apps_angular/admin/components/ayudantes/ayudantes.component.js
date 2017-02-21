@@ -57,6 +57,7 @@ function AyudantesController($css,$http,Ayudantes) {
       Ayudantes.getAll((res) => {
         self.ayudantes = res.data.ayudantes;
       })
+      $('.modal').modal('hide');
       //FIXME: no se borra de la lista directamente, si no que lo borra el anterior y no el que es
       // self.ayudantes.splice(self.ayudantes.indexOf(self.profesor_borrar) + 1, 1);
       notie.alert('success', 'Borrado Exitosamente', 2);

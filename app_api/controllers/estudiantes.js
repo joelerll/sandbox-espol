@@ -24,6 +24,7 @@ function login(req, res, next) {
 
 function create(req, res, next) {
   let estudiante = new Estudiante({
+    identificacion: req.body.identificacion,
     nombres: req.body.nombres,
     apellidos: req.body.apellidos,
     correo: req.body.correo,
@@ -53,7 +54,7 @@ function getAll (req, res, next) {
       res.status(400).json({success: false, message: 'no se pudo obtener todos los estudiantes'})
       return;
     }
-    res.status(400).json({success: true, message: 'encontrados los estudiantes', estudiantes: estudiantes})
+    res.status(200).json({success: true, message: 'encontrados los estudiantes', estudiantes: estudiantes})
   })
 }
 
