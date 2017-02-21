@@ -5,13 +5,10 @@ EjercicioController = require('../controllers/ejercicios');
 
 var auth = passport.authenticate('ayudante-jwt', { session: false });
 
-
-
-router.post('/login', AyudanteController.login);
-
 // passport configs
 require('../config/passport.users.login')( passport );
 require('../config/passport.users.jwt')( passport );
+router.post('/login', AyudanteController.login);
 
 router.post('/ejercicios', auth, EjercicioController.create);
 router.get('/ejercicios', auth, EjercicioController.getAllMisEjercicios);

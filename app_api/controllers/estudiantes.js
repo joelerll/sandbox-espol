@@ -32,6 +32,7 @@ function create(req, res, next) {
   })
   console.log(estudiante)
   estudiante.create((err) => {
+    console.log('ni fa')
     if (err) {
       res.status(400).json({success: false, message: 'hubo un error al momento de crear'})
       return;
