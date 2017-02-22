@@ -49,6 +49,6 @@ Sandox App
 - Perfil mejor css [ ]
 
 ## Modulo reportes
-- Grafico cantidad de ejercicios por dia en rango [ ]
+- Grafico cantidad de ejercicios por dia en rango [x]
 - Ejercicios resueltos por curso [ ]
 - 3 mejores estudiantes por curso [ ]

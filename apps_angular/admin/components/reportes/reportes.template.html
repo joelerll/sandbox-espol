@@ -1,0 +1,23 @@
+<h1>Reportes</h1>
+<div id="myChart">
+  <p>{{$ctrl.nombre}}</p>
+
+</div>
+<form class="">
+  <input ng-model="$ctrl.form.mes1" type="text" name="" value="" placeholder="mes1">
+  <input ng-model="$ctrl.form.mes2" type="text" name="" value="" placeholder="mes1">
+  <input ng-model="$ctrl.form.dia1" type="text" name="" value="" placeholder="dia1">
+  <input ng-model="$ctrl.form.dia2" type="text" name="" value="" placeholder="dia1">
+  <input ng-model="$ctrl.form.hora1" type="text" name="" value="" placeholder="hora1">
+  <input ng-model="$ctrl.form.hora2" type="text" name="" value="" placeholder="hora2">
+  <button ng-click="$ctrl.send()" type="button" name="button">enviar</button>
+</form>
+<div class="ct-chart">
+</div>
+
+<style media="screen">
+  #chart {
+height: 400px;
+width: 800px;
+}
+</style>
