@@ -1,7 +1,8 @@
-angular.module('ayudantesApp',[
+angular.module('estudiantesApp',[
   'ui.router',
   'angular-jwt',
-  'nuevoEjercicio',
-  'misEjercicios',
-  'todosEjercicios'
+  'angularCSS',
+  'ejercicioEscoger',
+  'ejercicioEscogido',
+  'perfil'
 ])

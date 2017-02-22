@@ -7,12 +7,12 @@ function authentication ($http, $window,jwtHelper) {
   var saveToken = function (token) {
     if ( token ) {
         console.log(jwtHelper.getTokenExpirationDate(token))
-        $window.localStorage.setItem('local', token);
+        $window.localStorage.setItem('ayudantes', token);
     }
   };
 
   var getToken = function () {
-    return $window.localStorage.getItem('local');
+    return $window.localStorage.getItem('ayudantes');
   };
 
   var login = function(ayudante, cb) {
@@ -37,7 +37,7 @@ function authentication ($http, $window,jwtHelper) {
    };
 
   var logout = function() {
-    $window.localStorage.removeItem('local');
+    $window.localStorage.removeItem('ayudantes');
   };
 
   function parseJwt () {
