@@ -120,7 +120,7 @@ EstudianteSchema.statics.puntajeYBadge = function(user) {
 }
 
 EstudianteSchema.statics.insignia = function(id_user) {
-  
+
 }
 
 EstudianteSchema.pre('save',function (next) {
@@ -187,6 +187,10 @@ EstudianteSchema.statics.getById = function(id, cb) {
 EstudianteSchema.statics.getAll = function(cb) {
   this.model('Estudiante').find({}, cb);
 }
+EstudianteSchema.statics.getAllDetails = function(cb) {
+  this.model('Estudiante').find({},{'_ejercicios.fecha_resuelto': 1, '_id': 0}).populate({path: ' _ejercicios.ejercicio'}).exec(cb)
+}
+
 
 EstudianteSchema.methods.update = function(id,cb) {
   let estudiante = this
