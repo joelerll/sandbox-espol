@@ -4,6 +4,7 @@ Ejercicio    = require('../models/ejercicio');
 var PythonShell = require('python-shell');
 const fs = require('fs');
 const path = require('path');
+EstudianteController = require('../controllers/estudiantes')
 
 // CREATE
 function create(req, res, next) {
@@ -124,6 +125,10 @@ function getByEtiquetaYDificultad(req, res, next) {
 }
 
 function comprobarEjercicio(req, res ,next) {
+  if (!req.file) {
+    res.status(200).json({message: 'archivo null'})
+    return;
+  }
   var carpeta = path.join(__dirname, '../../public/upload/ejercicios/');
   var archivo = req.user._id +'@'+ req.params.id_ejercicio + '.py';
   Ejercicio.getById(req.params.id_ejercicio, (err, ejercicio) => {
@@ -151,7 +156,14 @@ function comprobarEjercicio(req, res ,next) {
           return;
         };
         var valido = probrarValidezEjercicio(results, ejercicio.salidas);
-        res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no', resuelto: valido})
+        if (valido) {
+          console.log('valdio')
+          var guardado = EstudianteController.registrarEjercicio('/upload/ejercicios/',archivo,ejercicio,req.user);
+          console.log('guardado ' + guardado)
+          res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no',resuelto: valido})
+          return
+        }
+        res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no', resuelto: false})
       })
 
     })

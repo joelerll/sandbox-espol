@@ -19,8 +19,9 @@ require('../config/passport.estudiante.login.js')(passport);
 require('../config/passport.estudiante.jwt.js')(passport);
 router.post('/login', EstudianteController.login);
 
-router.get('/etiquetas', EjercicioController.getAllEtiquetas);
-router.get('/ejercicio', EjercicioController.getByEtiquetaYDificultad);
+router.get('/etiquetas',auth, EjercicioController.getAllEtiquetas);
+router.get('/ejercicios',auth, EjercicioController.getByEtiquetaYDificultad);
+router.get('/perfil',auth, EstudianteController.perfil);
 router.post('/ejercicio/:id_ejercicio/file',auth,upload.single('ejercicio'), EjercicioController.comprobarEjercicio);
 // // router.put('/estudiantes/clave/:id', EstudiantesController.updateClave);
 

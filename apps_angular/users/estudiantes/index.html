@@ -28,6 +28,8 @@
     <script src="/bower_components/angular-xeditable/dist/js/xeditable.min.js"></script>
     <script src="/bower_components/angular-ui-select/dist/select.min.js"></script>
     <script src="/bower_components/notie/dist/notie.min.js"></script>
+    <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 
     <!-- configuracion inicial -->
     <script src="./app.module.js"></script>
@@ -35,10 +37,18 @@
 
     <!-- services -->
     <script src="./services/auth.js"></script>
-    <script src="./services/ayudante.js"></script>
+    <script src="./services/estudiante.js"></script>
 
     <!-- controllers -->
     <script src="./login/login.controller.js"></script>
     <script src="./panel/panel.controller.js"></script>
+
+    <!-- components -->
+    <script src="./components/ejercicio-escoger/ejercicio-escoger.module.js"></script>
+    <script src="./components/ejercicio-escoger/ejercicio-escoger.component.js"></script>
+    <script src="./components/ejercicio-escogido/ejercicio-escogido.module.js"></script>
+    <script src="./components/ejercicio-escogido/ejercicio-escogido.component.js"></script>
+    <script src="./components/perfil/perfil.model.js"></script>
+    <script src="./components/perfil/perfil.component.js"></script>
   </body>
 </html>

@@ -39,17 +39,22 @@ var EstudianteSchema = mongoose.Schema({
   },
   badge: {
     type:String,
-    enum: ['novato','pro','experto','indestructible','duro_de_matar','rapidos_y_furiosos']
+    enum: ['novato','pro','experto']
+  },
+  insignia: {
+    type: String,
+    enum: ['indestructible','duro_de_matar','rapidos_y_furiosos']
   },
     _ejercicios: [{
-      ejercicio: {type: String, ref: 'Ejercicio'},
+      ejercicio: {type: String, ref: 'Ejercicio', unique: true},
       resuelto: Boolean,
       fecha_resuelto: {type: Date, 'default': Date.now},
       puntaje: Number,
       archivo: {
         nombre: {type: String},
         path: {type: String}
-      }
+      },
+      _id: {id: false}
   }],
     desafios: [{
       _desafio: {type: String, ref: 'Desafio'},
@@ -70,6 +75,54 @@ EstudianteSchema.pre('update', function(next) {
   next()
 })
 
+EstudianteSchema.statics.registrarEjercicio = function(user,ejercicio,nombre_archivo,path_archivo,cb) {
+  let ejercicio_nuevo = {
+    ejercicio: ejercicio._id,
+    resuelto:true,
+    archivo: {
+      nombre: nombre_archivo,
+      path: path_archivo
+    },
+     _id: ''
+  }
+  console.log(ejercicio_nuevo)
+  this.model('Estudiante').update({_id: user._id},{$addToSet: {'_ejercicios': ejercicio_nuevo}},{safe: true, upsert: true},cb )
+}
+
+EstudianteSchema.statics.puntajeYBadge = function(user) {
+  this.model('Estudiante').findOne({_id: user._id}).populate({path: ' _ejercicios.ejercicio'}).exec((err, data) => {
+    let puntaje = 0;
+    data._ejercicios.forEach((ejercicio)=> {
+      if (ejercicio.dificultad == 'facil') {
+        puntaje = puntaje + 5
+      } else if (ejercicio.dificultad == 'intermedio') {
+        puntaje = puntaje + 10
+      } else {
+        puntaje = puntaje + 15
+      }
+    })
+    let badge = ''
+    if (data._ejercicios.length > 10) {
+      badge = 'novato'
+    }
+    if (data._ejercicios.length > 20) {
+      badge = 'pro'
+    }
+    if (data._ejercicios.length > 30) {
+      badge = 'experto'
+    }
+    console.log(puntaje)
+    console.log(badge)
+    this.model('Estudiante').update({_id: user._id},{$set: {puntaje: puntaje, badge: badge}}, (err) => {
+
+    })
+  })
+}
+
+EstudianteSchema.statics.insignia = function(id_user) {
+  
+}
+
 EstudianteSchema.pre('save',function (next) {
   const estudiante = this;
   this.model('Estudiante').findOne({$or: [{identificacion: estudiante.identificacion}, {correo: estudiante.correo}]}).exec((err, estu) => {
@@ -80,6 +133,7 @@ EstudianteSchema.pre('save',function (next) {
   if (this.isNew) {
     let clave = shortId.generate()
     estudiante.clave = clave;
+    estudiante.clave = '1'
     console.log('clave estudiante ' + estudiante.clave)
     //error = mail.enviar(this.correo,estudiante.clave);
     // if (error) {
