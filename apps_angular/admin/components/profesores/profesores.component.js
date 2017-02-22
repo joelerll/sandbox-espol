@@ -6,7 +6,7 @@ angular.module('profesores').component('profesores', {
 ProfesoresController.$inyect = ['$css','$http','Profesores'];
 
 
-function ProfesoresController($css,$http,Profesores) {
+function ProfesoresController($css,$http,Profesores, $scope) {
   var self = this;
   $css.add('./css/profesores.css');
 
@@ -26,16 +26,39 @@ function ProfesoresController($css,$http,Profesores) {
   //TODO: enviar mensajes de error al form, no cerrar el form cuando de crear y hay errores
   //TODO: angular messajes para form de profesor
   self.newProfesor = () => {
-    Profesores.create(self.profesor,(res) => {
-      if (!res.data.success) {
-        notie.alert('error', 'Hubo un error al intentar crear', 2);
-
-        return;
+    if(validarNombreApellido($('#nombres-profesor').val())){
+      console.log($('#nombres-profesor').val() + ' es un nombre valido');
+     
+      //$('#nombres-profesor').$setValidity('validezNombre', true);
+      if (validarNombreApellido($('#apellidos-profesor').val())) {
+        console.log($('#apellidos-profesor').val() + ' es un apellido valido');
+        if(validator.isEmail($('#correo-profesor').val())) {
+          console.log($('#correo-profesor').val() + ' es un correo valido');
+          Profesores.create(self.profesor,(res) => {
+            if (!res.data.success) {
+              notie.alert('error', 'Hubo un error al intentar crear', 2);
+              //$('#profesorNuevo').modal('hide');
+              return;
+            }
+            //$('#profesorNuevo').modal('hide');
+            notie.alert('success', 'Profesor creado correctamente', 2);
+            self.profesores.push(res.data.profesor);
+            self.profesor = {};
+          });
+        }else{
+          console.log($('#correos-profesor').val() + 'no es un correo valido');
+          notie.alert('error', $('#correo-profesor').val() + ' no es un correo valido', 2);
+        }
+      }else{
+        console.log($('#apellidos-profesor').val() + ' no es un apellido valido');  
+        notie.alert('error', $('#apellidos-profesor').val() + ' no es un apellido valido', 2);
       }
-      notie.alert('success', 'Profesor creado correctamente', 2);
-      self.profesores.push(res.data.profesor);
-      self.profesor = {};
-    })
+    }else{
+      console.log($('#nombres-profesor').val() + ' no es un nombre valido');
+      notie.alert('error', $('#nombres-profesor').val() + ' no es un nombre valido', 2);
+
+      
+    }
   }
 
   //tabla botones
@@ -124,4 +147,10 @@ function ProfesoresController($css,$http,Profesores) {
     $('.modal').modal('hide');
   }
 
+}
+
+
+function validarNombreApellido(palabra){
+  var regex = '/^[a-zA-Z]+$/';
+  return /^[a-zA-Z]+$/.test(palabra);
 }

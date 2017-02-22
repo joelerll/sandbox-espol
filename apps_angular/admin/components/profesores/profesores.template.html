@@ -108,18 +108,18 @@
         <h4 class="modal-title" id="exampleModalLabel">Nuevo Profesor</h4>
       </div>
       <div class="modal-body">
-        <form>
+        <form name="newProfesorForm" novalidate>
           <div class="form-group">
             <label for="indentificacion-profesor" class="control-label">Indentificacion:</label>
-            <input ng-model="$ctrl.profesor.identificacion" type="text" class="form-control" id="indentificacion-profesor" >
+            <input ng-model="$ctrl.profesor.identificacion" type="text" class="form-control" id="indentificacion-profesor" ng-required="true">
           </div>
           <div class="form-group">
             <label for="nombres-profesor" class="control-label">Nombres:</label>
-            <input ng-model="$ctrl.profesor.nombres" type="text" class="form-control" id="nombres-profesor">
+            <input ng-model="$ctrl.profesor.nombres" type="text" class="form-control" id="nombres-profesor" ng-required="true" name="nombres">
           </div>
           <div class="form-group">
             <label for="apellidos-profesor" class="control-label">Apellidos:</label>
-            <input ng-model="$ctrl.profesor.apellidos" type="text" class="form-control" id="apellidos-profesor">
+            <input ng-model="$ctrl.profesor.apellidos" type="text" class="form-control" id="apellidos-profesor" ng-required="true">
           </div>
           <div class="form-group">
             <label for="correo-profesor" class="control-label">Correo:</label>
@@ -129,7 +129,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button ng-click="$ctrl.newProfesor()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+        <button ng-click="$ctrl.newProfesor()" type="button" class="btn btn-primary" ng-disabled="newProfesorForm.$invalid" data-dismiss="modal">Crear</button>
       </div>
     </div>
   </div>
