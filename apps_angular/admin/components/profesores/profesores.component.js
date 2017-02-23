@@ -26,12 +26,7 @@ function ProfesoresController($css,$http,Profesores, $scope) {
   //TODO: enviar mensajes de error al form, no cerrar el form cuando de crear y hay errores
   //TODO: angular messajes para form de profesor
   self.newProfesor = () => {
-    if(validarNombreApellido($('#nombres-profesor').val())){
-      console.log($('#nombres-profesor').val() + ' es un nombre valido');
-     
-      //$('#nombres-profesor').$setValidity('validezNombre', true);
-      if (validarNombreApellido($('#apellidos-profesor').val())) {
-        console.log($('#apellidos-profesor').val() + ' es un apellido valido');
+    
         if(validator.isEmail($('#correo-profesor').val())) {
           console.log($('#correo-profesor').val() + ' es un correo valido');
           Profesores.create(self.profesor,(res) => {
@@ -49,16 +44,7 @@ function ProfesoresController($css,$http,Profesores, $scope) {
           console.log($('#correos-profesor').val() + 'no es un correo valido');
           notie.alert('error', $('#correo-profesor').val() + ' no es un correo valido', 2);
         }
-      }else{
-        console.log($('#apellidos-profesor').val() + ' no es un apellido valido');  
-        notie.alert('error', $('#apellidos-profesor').val() + ' no es un apellido valido', 2);
-      }
-    }else{
-      console.log($('#nombres-profesor').val() + ' no es un nombre valido');
-      notie.alert('error', $('#nombres-profesor').val() + ' no es un nombre valido', 2);
-
       
-    }
   }
 
   //tabla botones
@@ -154,3 +140,47 @@ function validarNombreApellido(palabra){
   var regex = '/^[a-zA-Z]+$/';
   return /^[a-zA-Z]+$/.test(palabra);
 }
+
+
+angular.module('profesores').directive('validacionNombresApellidos', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[\d]/.test(ngModelValue)){
+          ctrl.$setValidity('numberVal', false);
+        }else{
+          ctrl.$setValidity('numberVal', true);
+          //console.log('No se permiten numeros');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
+
+angular.module('profesores').directive('validacionEmail', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(validator.isEmail(ngModelValue)){
+          ctrl.$setValidity('emailVal', true);
+        }else{
+          ctrl.$setValidity('emailVal', false);
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})

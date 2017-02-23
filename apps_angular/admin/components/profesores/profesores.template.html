@@ -115,15 +115,20 @@
           </div>
           <div class="form-group">
             <label for="nombres-profesor" class="control-label">Nombres:</label>
-            <input ng-model="$ctrl.profesor.nombres" type="text" class="form-control" id="nombres-profesor" ng-required="true" name="nombres">
+            <input ng-model="$ctrl.profesor.nombres" type="text" class="form-control" id="nombres-profesor" ng-required="true" name="nombres" validacion-Nombres-Apellidos>
+            <p ng-show="newProfesorForm.nombres.$error.numberVal&&newProfesorForm.nombres.$touched">No se permiten numeros</p>
+            <p ng-show="newProfesorForm.nombres.$error.specialCharVal&&newProfesorForm.nombres.$touched">No se permiten caracteres especiales</p>
           </div>
           <div class="form-group">
             <label for="apellidos-profesor" class="control-label">Apellidos:</label>
-            <input ng-model="$ctrl.profesor.apellidos" type="text" class="form-control" id="apellidos-profesor" ng-required="true">
+            <input ng-model="$ctrl.profesor.apellidos" type="text" class="form-control" id="apellidos-profesor" ng-required="true" name="apellidos" validacion-Nombres-Apellidos>
+            <p ng-show="newProfesorForm.apellidos.$error.numberVal&&newProfesorForm.apellidos.$touched">No se permiten numeros</p>
+            <p ng-show="newProfesorForm.apellidos.$error.specialCharVal&&newProfesorForm.apellidos.$touched">No se permiten caracteres especiales</p>
           </div>
           <div class="form-group">
             <label for="correo-profesor" class="control-label">Correo:</label>
-            <input ng-model="$ctrl.profesor.correo" type="text" class="form-control" id="correo-profesor">
+            <input ng-model="$ctrl.profesor.correo" type="text" class="form-control" id="correo-profesor" name="correo" validacion-Email>
+            <p ng-show="newProfesorForm.correo.$error.emailVal&&newProfesorForm.correo.$touched">Correo invalido</p>
           </div>
         </form>
       </div>
