@@ -1,2 +1,1 @@
-angular.module('reportes',['ui.bootstrap','angularCSS'])
-//'chart.js',
+angular.module('reportes',['ui.bootstrap','angularCSS']);

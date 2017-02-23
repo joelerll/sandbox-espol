@@ -45,37 +45,8 @@ function ReportesController (Reportes,$css) {
   }
   getGrafico('2017','2017','02','02','23','23')
   var grafico = () => {
-    // var data = {
-    //   labels: [],
-    //   series: []
-    // };
-    //
-    // var data = {
-    //   labels: vm.labels,
-    //   series: vm.series
-    // };
-    // var options = {
-    //   distributeSeries: true,
-    //   width: '300px',
-    //   height: '200px'
-    // };
-    //
-    // var responsiveOptions = [
-    //   ['screen and (max-width: 640px)', {
-    //     seriesBarDistance: 5,
-    //     axisX: {
-    //       labelInterpolationFnc: function (value) {
-    //         return value[0];
-    //       }
-    //     }
-    //   }]
-    // ];
-    //
-    // new Chartist.Bar('.ct-chart', data, options, responsiveOptions);
-    // based on prepared DOM, initialize echarts instance
     var myChart = echarts.init(document.getElementById('main'));
 
-    // specify chart configuration item and data
     var option = {
         title: {
             text: 'Ejercicios resueltos'
@@ -101,11 +72,8 @@ function ReportesController (Reportes,$css) {
             data: vm.series
         }]
     };
-
-    // use configuration item and data specified to show chart
     myChart.setOption(option);
   }
-  // var myChart = new Chart()
 
   //date pickers
   vm.open1 = function() {

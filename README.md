@@ -29,7 +29,7 @@ Sandox App
 - Si se elimina, eliminarlo de cursos [ ]
 - Validaciones en middleware [ ]
 - Si se edita, editarlo de ejercicios [ ]
--
+
 ## Ejercicio
 - Solo se pueden manejar datos string [ ]
 

@@ -1,5 +1,5 @@
-var Estudiante = require('../models/estudiante');
-var passport = require('passport')
+var Estudiante = require('../models/estudiante'),
+passport       = require('passport');
 
 function login(req, res, next) {
   passport.authenticate('estudiante-local', function(err, estudiante, info) {
@@ -11,16 +11,6 @@ function login(req, res, next) {
    }
   })(req, res);
 }
-
-//TODO: mis ejercicios
-//TODO: subir ejercicios
-//TODO: get ejercicio random por tag y dificultad
-//TODO: validar solucion ejercicio
-//TODO: si un estudiante resuelve exitosamente el ejercicio, asignarle puntos
-//TODO: comprobar el badge
-//TODO: ejercicios resueltos por dificultad
-//TODO: cantidad de ejercicios resuletos por curso
-//TODO: cambiar clave
 
 function create(req, res, next) {
   let estudiante = new Estudiante({
@@ -59,7 +49,6 @@ function getAll (req, res, next) {
 }
 
 function update (req, res, next) {
-  //TODO: todos estos campos no en blanco
   let estudiante = new Estudiante({
     identificacion: req.body.identificacion,
     nombres: req.body.nombres,
@@ -133,11 +122,8 @@ function saveEstudiantesArray(array) {
     estudiantes.push(estudiante_nuevo)
     messages.push(error)
   })
-  //verificar si todos se guardan y array con los errores correspondientes
-
   return {success: true, estudiantes: estudiantes, messages: messages}
 }
-//TODO: estudiante ya existente, cambio de datos estudiante
 
 function registrarEjercicio(carpeta,archivo,ejercicio,user) {
   Estudiante.registrarEjercicio(user,ejercicio,archivo,carpeta, (err, res) => {

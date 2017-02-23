@@ -1,9 +1,10 @@
 var mongoose    = require('mongoose'),
 bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
-shortId         = require('shortid');
-var jwt = require('jsonwebtoken')
-var config          = require('../config/main');
+shortId         = require('shortid'),
+jwt             = require('jsonwebtoken'),
+config          = require('../config/main');
+
 mongoose.Promise = global.Promise;
 
 var EstudianteSchema = mongoose.Schema({

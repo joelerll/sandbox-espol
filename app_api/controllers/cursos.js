@@ -1,11 +1,8 @@
-//TODO: estudiantes por profesor, profesor con dos paralelos
-//TODO: estudiantes por paralelo
-var Curso = require('../models/curso')
-
-const router = require('express').Router();
-const Profesor = require('../models/profesor')
-const Estudiante = require('../models/estudiante')
-const EstudiantesController = require('../controllers/estudiantes')
+var Curso              = require('../models/curso'),
+ router                = require('express').Router(),
+ Profesor              = require('../models/profesor'),
+ Estudiante            = require('../models/estudiante'),
+ EstudiantesController = require('../controllers/estudiantes');
 
 function read(req, res, next) {
   Curso.getAll((err, cursos) => {
@@ -88,8 +85,6 @@ function addEstudiante(req, res, next) {
   })
 }
 
-//TODO: eliminar estudiante
-//TODO: eliminar profesor
 function del(req, res, next) {
   Curso.delete(req.params.id, (err) => {
     if (err) {
@@ -139,7 +134,6 @@ function deleteProfesor(req, res, next) {
   })
 }
 
-//TODO: anteponer el cero si no hay suficientes numero para que sea cedula valida
 const fs = require('fs');
 const path = require('path');
 var parse  = require('csv-parse');

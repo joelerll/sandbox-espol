@@ -1,10 +1,12 @@
-var router = require('express').Router();
-var EstudianteController = require('../controllers/estudiantes');
-var passport = require('passport');
+var router           = require('express').Router(),
+multer               = require('multer'),
+path                 = require('path'),
+passport             = require('passport'),
+EstudianteController = require('../controllers/estudiantes'),
+EjercicioController  = require('../controllers/ejercicios');
+
 var auth = passport.authenticate('estudiante-jwt', { session: false });
-var EjercicioController = require('../controllers/ejercicios')
-var multer  = require('multer');
-const path = require('path');
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, path.join(__dirname, '../../public/upload/ejercicios'))
@@ -15,14 +17,13 @@ var storage = multer.diskStorage({
 })
 var upload = multer({ storage: storage })
 
-require('../config/passport.estudiante.login.js')(passport);
-require('../config/passport.estudiante.jwt.js')(passport);
-router.post('/login', EstudianteController.login);
-
 router.get('/etiquetas',auth, EjercicioController.getAllEtiquetas);
 router.get('/ejercicios',auth, EjercicioController.getByEtiquetaYDificultad);
 router.get('/perfil',auth, EstudianteController.perfil);
-router.post('/ejercicio/:id_ejercicio/file',auth,upload.single('ejercicio'), EjercicioController.comprobarEjercicio);
-// // router.put('/estudiantes/clave/:id', EstudiantesController.updateClave);
+router.post('/ejercicio/:id_ejercicio/file',auth, upload.single('ejercicio'), EjercicioController.comprobarEjercicio);
+
+require('../config/passport.estudiante.login.js')(passport);
+require('../config/passport.estudiante.jwt.js')(passport);
+router.post('/login', EstudianteController.login);
 
 module.exports = router
