@@ -1,23 +1,25 @@
-<h1>Reportes</h1>
-<div id="myChart">
-  <p>{{$ctrl.nombre}}</p>
-
+<div class="panel-graficas">
+<div class="row">
+  <div class="col-md-6">
+    <p class="input-group">
+      <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}" ng-model="$ctrl.dt" is-open="$ctrl.popup1.opened" datepicker-options="$ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="$ctrl.altInputFormats" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="$ctrl.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+    </p>
+  </div>
+  <div class="col-md-6">
+    <p class="input-group">
+      <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}" ng-model="$ctrl.dt2" is-open="$ctrl.popup2.opened" datepicker-options="$ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="$ctrl.altInputFormats" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="$ctrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+    </p>
+  </div>
 </div>
-<form class="">
-  <input ng-model="$ctrl.form.mes1" type="text" name="" value="" placeholder="mes1">
-  <input ng-model="$ctrl.form.mes2" type="text" name="" value="" placeholder="mes1">
-  <input ng-model="$ctrl.form.dia1" type="text" name="" value="" placeholder="dia1">
-  <input ng-model="$ctrl.form.dia2" type="text" name="" value="" placeholder="dia1">
-  <input ng-model="$ctrl.form.hora1" type="text" name="" value="" placeholder="hora1">
-  <input ng-model="$ctrl.form.hora2" type="text" name="" value="" placeholder="hora2">
-  <button ng-click="$ctrl.send()" type="button" name="button">enviar</button>
-</form>
-<div class="ct-chart">
-</div>
+<button ng-click="$ctrl.send()" class="btn btn-primary" type="button" name="button">enviar</button>
 
-<style media="screen">
-  #chart {
-height: 400px;
-width: 800px;
-}
 </style>
+<div id="main" class="bar" style="width: 800px;height:500px;"></div>
+
+</div>

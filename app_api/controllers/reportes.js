@@ -15,7 +15,7 @@ function cantidadEjerciciosDia(req, res, next) {
   let hour = 'hh'
   let minutes = 'mm'
   let salida1 = 'MM-DD'
-  let salida2 = 'DD-hh'
+  let salida2 = 'YY-MM-DD'
   Estudiantes.getAllDetails((err, estudiantes) => {
     if (err) {
       console.log(err)
@@ -25,16 +25,12 @@ function cantidadEjerciciosDia(req, res, next) {
     let dias = []
     estudiantes.forEach((ejercicio) => {
       ejercicio._ejercicios.forEach((fecha) => {
-        // console.log(moment(fecha.fecha_resuelto).format('MM DD hh'))
-        if (parseInt(anio1) <= (moment(fecha.fecha_resuelto).format(mes)) && parseInt(anio2) >= parseInt(moment(fecha.fecha_resuelto).format(mes))) {
-          // console.log(parseInt(mes1) <= parseInt(moment(fecha.fecha_resuelto).format('MM')))
-          if (parseInt(mes1) <= parseInt(moment(fecha.fecha_resuelto).format(dia)) && parseInt(mes2) >= parseInt(moment(fecha.fecha_resuelto).format(dia))) {
-              if (parseInt(dia1) <= parseInt(moment(fecha.fecha_resuelto).format(hour)) && parseInt(dia2) >= parseInt(moment(fecha.fecha_resuelto).format(hour))) {
+        if (parseInt(anio1) <= (moment(fecha.fecha_resuelto).format(anio)) && parseInt(anio2) >= parseInt(moment(fecha.fecha_resuelto).format(anio))) {
+          if (parseInt(mes1) <= parseInt(moment(fecha.fecha_resuelto).format(mes)) && parseInt(mes2) >= parseInt(moment(fecha.fecha_resuelto).format(mes))) {
+              if (parseInt(dia1) <= parseInt(moment(fecha.fecha_resuelto).format(dia)) && parseInt(dia2) >= parseInt(moment(fecha.fecha_resuelto).format(dia))) {
                   let cont = 0
                     if(_.find(dias, {dia: moment(fecha.fecha_resuelto).format(salida2)})) {
-                      console.log('existe')
                       dias.forEach((dia) => {
-                        // console.log(dia.dia[moment(fecha.fecha_resuelto).format(salida2)]
                         if (dia.dia == moment(fecha.fecha_resuelto).format(salida2)) {
                           dias[cont].cantidad = dia.cantidad + 1
                         }
@@ -47,24 +43,6 @@ function cantidadEjerciciosDia(req, res, next) {
                       }
                       dias.push(sal)
                     }
-                  //   if (dia.dia[moment(fecha.fecha_resuelto).format(salida2)] == undefined) {
-                  //     dias.forEach((dia) => {
-                  //       // console.log(dia.dia[moment(fecha.fecha_resuelto).format(salida2)]
-                  //       if (dia.dia == moment(fecha.fecha_resuelto).format(salida2)) {
-                  //         dias[cont].cantidad = dia.cantidad + 1
-                  //       }
-                  //       cont = cont + 1
-                  //     })
-                  //   }
-                  // } catch (e) {
-                  //   let sal = {
-                  //     dia: moment(fecha.fecha_resuelto).format(salida2),
-                  //     cantidad: 1
-                  //   }
-                  //
-                  //   dias.push(sal)
-                  //
-                  // }
               }
           }
         }

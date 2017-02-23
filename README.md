@@ -50,5 +50,6 @@ Sandox App
 
 ## Modulo reportes
 - Grafico cantidad de ejercicios por dia en rango [x]
+- Mejora del grafico
 - Ejercicios resueltos por curso [ ]
 - 3 mejores estudiantes por curso [ ]
