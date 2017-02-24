@@ -4,6 +4,7 @@ Ejercicio    = require('../models/ejercicio');
 var PythonShell = require('python-shell');
 const fs = require('fs');
 const path = require('path');
+EstudianteController = require('../controllers/estudiantes')
 
 // CREATE
 function create(req, res, next) {
@@ -25,10 +26,10 @@ function create(req, res, next) {
     })
     ejercicio.create((err) => {
       if (err) {
-        res.status(400).json({sucess: false, message: 'no se pudo crear el ejercicio'})
+        res.status(400).json({success: false, message: 'no se pudo crear el ejercicio'})
         return;
       }
-      res.status(201).json({sucess: true, message: 'se creo correctamente el ejercicio', ejercicio: ejercicio})
+      res.status(201).json({success: true, message: 'se creo correctamente el ejercicio', ejercicio: ejercicio})
     })
 }
 
@@ -39,7 +40,7 @@ function getAllOfAll (req, res, next) {
       res.send('erro');
       return;
     }
-    res.json({ejercicios: ejercicios_todos, sucess: true})
+    res.json({ejercicios: ejercicios_todos, success: true})
   })
 }
 
@@ -49,7 +50,7 @@ function getAllMisEjercicios (req, res ,next) {
       res.send('hay un error');
       return;
     }
-    res.json({ejercicios: ejercicios_profesor, sucess: true});
+    res.json({ejercicios: ejercicios_profesor, success: true});
   })
 }
 
@@ -82,7 +83,7 @@ function del (req, res, next) {
       res.send('hubo algun error');
       return;
     }
-    res.send('fue eliminado');
+    res.status(200).json({success: true, message: 'fue eliminado'});
   })
 }
 
@@ -102,33 +103,37 @@ function allByDificultad (req, res, next) {
 function getAllEtiquetas(req, res, next) {
   Ejercicio.getAllEtiquetas((err,etiquetas) => {
     if (err) {
-      res.status(400).json({sucess: false, message: 'error al encontrar etiquetas'})
+      res.status(400).json({success: false, message: 'error al encontrar etiquetas'})
       return;
     }
     let array = []
     etiquetas.forEach((et)=> {
       array.push(et.etiquetas)
     })
-    res.status(200).json({sucess: true, message: 'se encontraron las etiquetas', etiquetas: _.union( [].concat.apply([], array))})
+    res.status(200).json({success: true, message: 'se encontraron las etiquetas', etiquetas: _.union( [].concat.apply([], array))})
   })
 }
 
 function getByEtiquetaYDificultad(req, res, next) {
   Ejercicio.getByEtiquetaYDificultad(req.query.etiqueta, req.query.dificultad, (err, ejercicios) => {
     if (err) {
-      res.status(400).json({sucess: false, message: 'ocurrio un error en el servido'})
+      res.status(400).json({success: false, message: 'ocurrio un error en el servido'})
       return;
     }
-    res.status(200).json({sucess: true, message: 'se encontraron los ejercicios', ejercicios: ejercicios})
+    res.status(200).json({success: true, message: 'se encontraron los ejercicios', ejercicios: ejercicios})
   })
 }
 
 function comprobarEjercicio(req, res ,next) {
+  if (!req.file) {
+    res.status(200).json({message: 'archivo null'})
+    return;
+  }
   var carpeta = path.join(__dirname, '../../public/upload/ejercicios/');
   var archivo = req.user._id +'@'+ req.params.id_ejercicio + '.py';
   Ejercicio.getById(req.params.id_ejercicio, (err, ejercicio) => {
     if (err) {
-      res.status(400).json({sucess: false, message: 'ejercicio no existe'})
+      res.status(400).json({success: false, message: 'ejercicio no existe'})
       return;
     }
     var entradas = []
@@ -142,16 +147,23 @@ function comprobarEjercicio(req, res ,next) {
     };
     fs.readFile( carpeta + archivo, function (err,data) {
       if (err) {
-        res.status(400).json({sucess: false, message: 'error al leer archivo subido'})
+        res.status(400).json({success: false, message: 'error al leer archivo subido'})
         return;
       }
       PythonShell.run(archivo, options,function (err, results) {
         if (err) {
-          res.status(400).json({sucess: false, message: 'el archivo python tiene los siguientes errores', errores: err})
+          res.status(400).json({success: false, message: 'el archivo python tiene los siguientes errores', errores: err})
           return;
         };
         var valido = probrarValidezEjercicio(results, ejercicio.salidas);
-        res.status(200).json({sucess: true, message: 'resultado del ejercicio su es valido o no', resuelto: valido})
+        if (valido) {
+          console.log('valdio')
+          var guardado = EstudianteController.registrarEjercicio('/upload/ejercicios/',archivo,ejercicio,req.user);
+          console.log('guardado ' + guardado)
+          res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no',resuelto: valido})
+          return
+        }
+        res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no', resuelto: false})
       })
 
     })

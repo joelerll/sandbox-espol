@@ -7,20 +7,20 @@ function authentication ($http, $window,jwtHelper) {
   var saveToken = function (token) {
     if ( token ) {
         console.log(jwtHelper.getTokenExpirationDate(token))
-        $window.localStorage.setItem('local', token);
+        $window.localStorage.setItem('ayudantes', token);
     }
   };
 
   var getToken = function () {
-    return $window.localStorage.getItem('local');
+    return $window.localStorage.getItem('ayudantes');
   };
 
-  var login = function(admin, cb) {
-    return $http.post('/api/v1/ayudantes/login', admin).then(function(data) {
+  var login = function(ayudante, cb) {
+    return $http.post('/api/v1/ayudantes/login', ayudante).then(function(data) {
         saveToken(data.data.token);
-        cb(null);
+        cb(data.data);
     },function errorCallback(response) {
-        cb(response.data);
+        cb(null);
     })
   };
 
@@ -37,7 +37,13 @@ function authentication ($http, $window,jwtHelper) {
    };
 
   var logout = function() {
-    $window.localStorage.removeItem('local');
+    $window.localStorage.removeItem('ayudantes');
+  };
+
+  function parseJwt () {
+            var base64Url = getToken().split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse(window.atob(base64));
   };
 
   return {
@@ -45,6 +51,7 @@ function authentication ($http, $window,jwtHelper) {
     getToken : getToken,
     login : login,
     isLoggedIn: isLoggedIn,
-    logout : logout
+    logout : logout,
+    parseJwt: parseJwt
   };
 }

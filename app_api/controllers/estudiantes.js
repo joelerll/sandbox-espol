@@ -139,6 +139,27 @@ function saveEstudiantesArray(array) {
 }
 //TODO: estudiante ya existente, cambio de datos estudiante
 
+function registrarEjercicio(carpeta,archivo,ejercicio,user) {
+  Estudiante.registrarEjercicio(user,ejercicio,archivo,carpeta, (err, res) => {
+    if (err) {
+      console.log(err)
+      return false;
+    }
+    Estudiante.puntajeYBadge(user);
+    return true
+  })
+}
+
+function perfil (req, res, next) {
+  Estudiante.getById(req.user._id, (err, estudiante) => {
+    if (err) {
+      res.status(400).json({'message': 'user no encontrado', success: false})
+      return
+    }
+    res.status(200).json({message: 'user encontrado', estudiante: estudiante, success: true})
+  })
+}
+
 module.exports = {
   // admin control
   create: create,
@@ -147,6 +168,8 @@ module.exports = {
   del: del,
   saveEstudiantesArray: saveEstudiantesArray,
   // estudiante control
+  perfil: perfil,
   login: login,
-  updateClave: updateClave
+  updateClave: updateClave,
+  registrarEjercicio: registrarEjercicio
 }

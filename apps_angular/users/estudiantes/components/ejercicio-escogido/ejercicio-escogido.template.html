@@ -1,0 +1,27 @@
+<h2>El ejercicio es</h2>
+<div class="ejercicio">
+  <div class="titulo">
+    <h3>{{$ctrl.ejercicio.titulo}}</h3>
+  </div>
+  <div class="descripcion">
+    <p>{{$ctrl.ejercicio.descripcion}}</p>
+  </div>
+  <div class="etiquetas">
+    <span>Etiquetas: </span><span ng-repeat="etiqueta in $ctrl.ejercicio.etiquetas">{{etiqueta}} </span>
+  </div>
+  <div class="creador">
+    <span>Creador: </span><span>{{$ctrl.ejercicio.creador.nombres}} {{$ctrl.ejercicio.creador.apellidos}}</span>
+  </div>
+  <div class="entradas">
+    <span>Entradas: </span><span ng-repeat="entada in $ctrl.ejercicio.entradas">{{entrada}}</span>
+  </div>
+  <div class="salidas">
+    <span>Salidas: </span><span ng-repeat="salida in $ctrl.ejercicio.salidas">{{salida}}</span>
+  </div>
+</div>
+<form name="form">
+  <span>Subir el archivo</span>
+  <div class="button" ngf-select ng-model="$ctrl.file" name="archivo" ngf-pattern="'*/*'"
+    ngf-accept="'*/*'"><button type="button" name="button">subir file</button></div>
+  <button type="submit" ng-click="$ctrl.subirEjercicio()">submit</button>
+</form>

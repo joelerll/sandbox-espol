@@ -1,7 +1,13 @@
-<h1>Login</h1>
+<h1 class="titulo">Ayudante</h1>
 
-<form>
-    <input ng-model="vm.ayudante.correo" class="form-group" type="text" placeholder="correo">
-    <input ng-model="vm.ayudante.clave" class="form-group" type="password" placeholder="clave">
-    <button ng-click="vm.login()" type="button" name="button">login</button>
+<form class="form">
+  <div class="form-group">
+    <input ng-model="vm.ayudante.correo" class="form-control" type="text" placeholder="correo">
+  </div>
+  <div class="form-group">
+    <input ng-model="vm.ayudante.clave" class="form-control" type="password" placeholder="clave">
+  </div>
+  <div class="form-group">
+    <button ng-click="vm.login()" type="button" class="form-control">login</button>
+  </div>
 </form>

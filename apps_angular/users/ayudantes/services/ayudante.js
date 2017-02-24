@@ -29,11 +29,20 @@ function AyudanteController(auth,$http) {
     }).then(cb)
   }
 
+  var eliminarEjercicio = function (id, cb) {
+    $http({
+      method: 'DELETE',
+      url: '/api/v1/ayudantes/ejercicios/' + id,
+      headers: {'Authorization': auth.getToken()}
+    }).then(cb)
+  }
+
 
 
   return {
     misEjercicios: misEjercicios,
     crearEjercicio: crearEjercicio,
-    todoLosEjercicios: todoLosEjercicios
+    todoLosEjercicios: todoLosEjercicios,
+    eliminarEjercicio: eliminarEjercicio
   }
 }

@@ -1,0 +1,25 @@
+<h1>Escoja su ejercicio</h1>
+<p>La etiqueta escogida es:  {{$ctrl.etiqueta}}</p>
+<div class="etiquetas">
+  <div ng-repeat="etiqueta in $ctrl.etiquetas" class="etiqueta">
+      <span ng-click="$ctrl.etiqueta_escogida(etiqueta)"> {{etiqueta}}</span>
+  </div>
+</div>
+<div class="dificultad">
+  <div class="">
+    <select ng-model="$ctrl.dificultad_escogida">
+      <option value=""> </option>
+      <option value="facil">facil</option>
+      <option value="intermedio">intermedio</option>
+      <option value="dificil">dificil</option>
+    </select>
+  </div>
+</div>
+<button ng-click="$ctrl.escogerEjercicios()" type="button" name="button">ver ejercicios</button>
+<div class="ejercicios">
+  <div ng-repeat="ejercicio in $ctrl.ejercicios_posibles"class="ejercicio">
+    {{ejercicio.titulo}}
+    <button ng-show="$ctrl.mostrar" ng-click="$ctrl.ejercicio_escoger_boton(ejercicio)"type="button" name="button">resolver</button>
+  </div>
+</div>
+    <ejercicio-escogido></ejercicio-escogido>

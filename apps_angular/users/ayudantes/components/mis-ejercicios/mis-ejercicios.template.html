@@ -1,2 +1,32 @@
 <h1>Mis ejercicios</h1>
-<p>{{$ctrl.ejercicios}}</p>
+<div class="ejercicios">
+  <div  ng-repeat="ejercicio in $ctrl.ejercicios" class="ejercicio">
+    <div class="contenedor">
+      <div class="row">
+        <div class="col-md-8">
+          <span>Titulo: </span><span class="titulo">{{ejercicio.titulo}}</span>
+          <br>
+          <span>descripcion: </span><span class="descripcion">{{ejercicio.descripcion}}</span>
+        </div>
+        <div class="col-md-3">
+          <span class="dificultad">{{ejercicio.dificultad}}</span>
+        </div>
+        <div class="col-md-1">
+          <span class="fecha-creacion">{{ejercicio.createAt}}</span>
+          <button ng-click="$ctrl.eliminarEjercicio(ejercicio._id)" type="button" class="btn btn-danger">eliminar</button>
+          <br>
+          <button type="button" name="button" class="btn btn-primary">editar</button>
+        </div>
+      </div>
+      <div class="etiquetas">
+        <span>Etiquetas: </span><span ng-repeat="etiqueta in ejercicio.etiquetas"> {{etiqueta}}</span>
+      </div>
+      <div class="entradas">
+        <span>Entradas: </span><span ng-repeat="entrada in ejercicio.entradas"> {{entrada}}</span>
+      </div>
+      <div class="salidas">
+        <span>Salidas: </span><span ng-repeat="salida in ejercicio.salidas"> {{salida}}</span>
+      </div>
+    </div>
+  </div>
+</div>
