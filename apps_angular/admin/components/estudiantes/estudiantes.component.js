@@ -127,3 +127,78 @@ function EstudianteController($css, $http, Estudiante){
   }
 
 }
+
+
+
+angular.module('estudiantes').directive('validacionNombresApellidosEst', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[\d]/.test(ngModelValue)){
+          ctrl.$setValidity('numberVal', false);
+        }else{
+          ctrl.$setValidity('numberVal', true);
+          //console.log('No se permiten numeros');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
+
+angular.module('estudiantes').directive('validacionEmailEst', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(validator.isEmail(ngModelValue)){
+          ctrl.$setValidity('emailVal', true);
+        }else{
+          ctrl.$setValidity('emailVal', false);
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
+
+angular.module('estudiantes').directive('validacionIdentificacionEst', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(ngModelValue.length==9){
+          ctrl.$setValidity('lengthVal', true);
+        }else{
+          ctrl.$setValidity('lengthVal', false);
+        }
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[A-Za-z]/.test(ngModelValue)){
+          ctrl.$setValidity('letterVal', false);
+        }else{
+          ctrl.$setValidity('letterVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
