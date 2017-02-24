@@ -5,15 +5,17 @@
             
     <div uib-alert ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')"  close="vm.closeAlert($index)">{{alert.msg}}</div>
     <div class="admin">
-      <form class="form">
+      <form class="form" name="loginForm">
         <div class="form-group">
-          <input ng-model="vm.admin.username" name="username" type="text" class="form-control" placeholder="usuario">
+          <input ng-model="vm.admin.username" name="username" type="text" class="form-control" placeholder="usuario" ng-required="true" validacion-Username>
+          <p ng-show="loginForm.username.$error.numberVal&&loginForm.username.$touched">No se permiten numeros</p>
+          <p ng-show="loginForm.username.$error.specialCharVal&&loginForm.username.$touched">No se permiten caracteres especiales</p>
         </div>
         <div class="form-group">
-          <input ng-model="vm.admin.password" name="password" class="form-control" type="password" placeholder="clave">
+          <input ng-model="vm.admin.password" name="password" class="form-control" type="password" placeholder="clave" ng-required="true">
         </div>
         <div class="form-group" id="formLoginBtn">
-          <button ng-click="vm.submit()" type="button" name="button" class="btn btn-primary btn-signin">Login</button>
+          <button ng-click="vm.submit()" type="button" name="button" class="btn btn-primary btn-signin" ng-disabled="loginForm.$invalid">Login</button>
         </div>
       </form>
     </div>
