@@ -179,7 +179,6 @@ angular.module('profesores').directive('validacionIdentificacionProf', function(
     require: 'ngModel',
     link: function(scope, element, attr, ctrl){
       function customValidator(ngModelValue){
-        console.log(ngModelValue.length)
         if(ngModelValue.length==10){
           ctrl.$setValidity('lengthVal', true);
         }else{
