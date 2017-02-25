@@ -1,8 +1,8 @@
 var JwtStrategy = require('passport-jwt').Strategy,
 ExtractJwt      = require('passport-jwt').ExtractJwt,
-Ayudante           = require('../models/ayudante');
-var config          = require('../config/main');
-Estudiante = require('../models/estudiante')
+Ayudante        = require('../models/ayudante'),
+config          = require('../config/main'),
+Estudiante      = require('../models/estudiante');
 
 
 module.exports = function(passport) {

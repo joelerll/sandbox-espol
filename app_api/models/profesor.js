@@ -102,7 +102,7 @@ ProfesorSchema.statics.getProfesor = function(correo, cb) {
 }
 
 ProfesorSchema.statics.getProfesorById = function(id, cb) {
-  this.model('Profesor').findOne({_id: id},{clave: 0},cb)
+  this.model('Profesor').findOne({_id: id},{clave: 0},cb);
 }
 
 ProfesorSchema.statics.delete = function(id, cb) {
@@ -114,7 +114,7 @@ ProfesorSchema.statics.getProfesores = function(cb) {
 }
 
 ProfesorSchema.statics.getProfesorLike = function(query, cb) {
-  this.model('Profesor').find({$or: [{nombres:  {'$regex': query, '$options': 'i' }}, {apellidos: {'$regex': query, '$options': 'i' }}]}, cb)
+  this.model('Profesor').find({$or: [{nombres:  {'$regex': query, '$options': 'i' }}, {apellidos: {'$regex': query, '$options': 'i' }}]}, cb);
 }
 
-module.exports = mongoose.model('Profesor', ProfesorSchema)
+module.exports = mongoose.model('Profesor', ProfesorSchema);

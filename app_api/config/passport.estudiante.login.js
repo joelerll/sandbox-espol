@@ -1,9 +1,9 @@
 var passport  = require('passport'),
 LocalStrategy = require('passport-local').Strategy,
 mongoose      = require('mongoose'),
-Profesor         = require('../models/profesor');
-Ayudante = require('../models/ayudante');
-Estudiante = require('../models/estudiante');
+Profesor      = require('../models/profesor'),
+Ayudante      = require('../models/ayudante'),
+Estudiante    = require('../models/estudiante');
 
 module.exports = function( passport ) {
   passport.use('estudiante-local' ,new LocalStrategy({

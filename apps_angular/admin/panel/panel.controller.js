@@ -11,11 +11,11 @@ function PanelController (auth,$location) {
   }
 
   vm.tabs = {
-    dashboard: true,
+    dashboard: false,
     estudiantes: false,
     ayudantes: false,
     profesores: false,
-    cursos: false
+    cursos: true
   }
 
   vm.tabs.clicks = {

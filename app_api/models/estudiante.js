@@ -1,9 +1,11 @@
 var mongoose    = require('mongoose'),
 bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
-shortId         = require('shortid');
-var jwt = require('jsonwebtoken')
-var config          = require('../config/main');
+shortId         = require('shortid'),
+jwt             = require('jsonwebtoken'),
+config          = require('../config/main'),
+uniqueValidator = require('mongoose-unique-validator');
+
 mongoose.Promise = global.Promise;
 
 var EstudianteSchema = mongoose.Schema({
@@ -14,8 +16,7 @@ var EstudianteSchema = mongoose.Schema({
   },
   identificacion: {
     type: String,
-    unique: true,
-    index: true
+    unique: true
   },
   clave: {
     type: String,
@@ -69,6 +70,8 @@ var EstudianteSchema = mongoose.Schema({
       }]
     }]
 },{ versionKey: false, timestamps: true, collection: 'estudiantes'})
+
+EstudianteSchema.plugin(uniqueValidator);
 
 EstudianteSchema.pre('update', function(next) {
   console.log('editado')
@@ -151,7 +154,6 @@ EstudianteSchema.pre('save',function (next) {
           return next(err);
         }
         estudiante.clave = hash;
-        console.log('se queda')
         return next();
       });
     });
@@ -241,5 +243,8 @@ EstudianteSchema.statics.comparePass = function(password, hash, cb){
 	});
 }
 
+EstudianteSchema.statics.getEstudianteLike = function(query, cb) {
+  this.model('Estudiante').find({$or: [{nombres:  {'$regex': query, '$options': 'i' }}, {apellidos: {'$regex': query, '$options': 'i' }}]}, cb);
+}
 
 module.exports = mongoose.model('Estudiante', EstudianteSchema)

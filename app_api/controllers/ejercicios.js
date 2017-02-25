@@ -1,14 +1,12 @@
-var mongoose = require('mongoose'),
-_ = require('lodash'),
-Ejercicio    = require('../models/ejercicio');
-var PythonShell = require('python-shell');
-const fs = require('fs');
-const path = require('path');
-EstudianteController = require('../controllers/estudiantes')
+var mongoose         = require('mongoose'),
+_                    = require('lodash'),
+PythonShell          = require('python-shell'),
+fs                   = require('fs'),
+path                 = require('path'),
+Ejercicio            = require('../models/ejercicio'),
+EstudianteController = require('../controllers/estudiantes');
 
-// CREATE
 function create(req, res, next) {
-  console.log(req.body)
     ejercicio = new Ejercicio ({
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
@@ -33,7 +31,6 @@ function create(req, res, next) {
     })
 }
 
-// READ
 function getAllOfAll (req, res, next) {
   Ejercicio.getAll((err, ejercicios_todos) => {
     if (err) {
@@ -54,9 +51,7 @@ function getAllMisEjercicios (req, res ,next) {
   })
 }
 
-// UPDATE
 function update (req, res, next) {
-  //res.send(req.body)
   Ejercicio.update(req.params.id,req.body, (err, ejercicio) => {
     if (err) {
       res.send('error')
@@ -66,7 +61,6 @@ function update (req, res, next) {
   })
 }
 
-// DELETE
 function esCreador(req, res, next) {
   Ejercicio.esCreador(req.params.id, req.user._id, (esCreador) => {
     if (esCreador) {
@@ -85,19 +79,6 @@ function del (req, res, next) {
     }
     res.status(200).json({success: true, message: 'fue eliminado'});
   })
-}
-
-
-function allByCurso (req, res, next) {
-
-}
-
-function oneById (req, res, next) {
-
-}
-
-function allByDificultad (req, res, next) {
-
 }
 
 function getAllEtiquetas(req, res, next) {
@@ -157,9 +138,7 @@ function comprobarEjercicio(req, res ,next) {
         };
         var valido = probrarValidezEjercicio(results, ejercicio.salidas);
         if (valido) {
-          console.log('valdio')
           var guardado = EstudianteController.registrarEjercicio('/upload/ejercicios/',archivo,ejercicio,req.user);
-          console.log('guardado ' + guardado)
           res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no',resuelto: valido})
           return
         }
@@ -171,8 +150,6 @@ function comprobarEjercicio(req, res ,next) {
 }
 
 function probrarValidezEjercicio(results, args) {
-  console.log(results)
-  console.log(args)
   if (!results) {
     return false
   }
@@ -200,17 +177,3 @@ module.exports = {
   esCreador: esCreador,
   comprobarEjercicio: comprobarEjercicio
 }
-
-
-
-//TODO: buscar por tag
-//TODO: buscar por profesor
-//TODO: buscar por ayudante
-//TODO: buscar por curso
-//TODO: update
-//TODO: delete
-//TODO: edit
-//TODO: read all
-//TODO: read one
-//TODO:
-//TODO:

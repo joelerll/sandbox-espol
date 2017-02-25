@@ -1,5 +1,5 @@
-var Estudiante = require('../models/estudiante');
-var passport = require('passport')
+var Estudiante = require('../models/estudiante'),
+passport       = require('passport');
 
 function login(req, res, next) {
   passport.authenticate('estudiante-local', function(err, estudiante, info) {
@@ -11,16 +11,6 @@ function login(req, res, next) {
    }
   })(req, res);
 }
-
-//TODO: mis ejercicios
-//TODO: subir ejercicios
-//TODO: get ejercicio random por tag y dificultad
-//TODO: validar solucion ejercicio
-//TODO: si un estudiante resuelve exitosamente el ejercicio, asignarle puntos
-//TODO: comprobar el badge
-//TODO: ejercicios resueltos por dificultad
-//TODO: cantidad de ejercicios resuletos por curso
-//TODO: cambiar clave
 
 function create(req, res, next) {
   let estudiante = new Estudiante({
@@ -49,17 +39,26 @@ function create(req, res, next) {
 }
 
 function getAll (req, res, next) {
-  Estudiante.getAll((err, estudiantes) => {
-    if (err) {
-      res.status(400).json({success: false, message: 'no se pudo obtener todos los estudiantes'})
-      return;
-    }
-    res.status(200).json({success: true, message: 'encontrados los estudiantes', estudiantes: estudiantes})
-  })
+  if (req.query.like) {
+    Estudiante.getEstudianteLike(req.query.like,(err, estudiantes) => {
+      if (err) {
+        res.status(400).json({message: 'hubo un error', success: false})
+      } else {
+        res.status(200).json({success: true, estudiantes: estudiantes})
+      }
+    })
+  } else {
+    Estudiante.getAll((err, estudiantes) => {
+      if (err) {
+        res.status(400).json({success: false, message: 'no se pudo obtener todos los estudiantes'})
+        return;
+      }
+      res.status(200).json({success: true, message: 'encontrados los estudiantes', estudiantes: estudiantes})
+    })
+  }
 }
 
 function update (req, res, next) {
-  //TODO: todos estos campos no en blanco
   let estudiante = new Estudiante({
     identificacion: req.body.identificacion,
     nombres: req.body.nombres,
@@ -107,38 +106,6 @@ function del (req, res, next) {
   })
 }
 
-function saveEstudiantesArray(array) {
-  var estudiantes = []
-  var messages = []
-  array.forEach((estudiante) => {
-    if (estudiante[0] == 'identificacion') {
-      return
-    }
-    let estudiante_nuevo = new Estudiante({
-      identificacion: estudiante[0],
-      nombres: estudiante[1],
-      apellidos: estudiante[2],
-      correo: estudiante[3],
-      carrera: estudiante[4]
-    })
-    let error = {
-      mesaje: 'ok',
-      id: estudiante_nuevo._id
-    }
-    estudiante_nuevo.create((err) => {
-      if (err) {
-        console.log('error')
-      }
-    })
-    estudiantes.push(estudiante_nuevo)
-    messages.push(error)
-  })
-  //verificar si todos se guardan y array con los errores correspondientes
-
-  return {success: true, estudiantes: estudiantes, messages: messages}
-}
-//TODO: estudiante ya existente, cambio de datos estudiante
-
 function registrarEjercicio(carpeta,archivo,ejercicio,user) {
   Estudiante.registrarEjercicio(user,ejercicio,archivo,carpeta, (err, res) => {
     if (err) {
@@ -166,7 +133,6 @@ module.exports = {
   getAll: getAll,
   update: update,
   del: del,
-  saveEstudiantesArray: saveEstudiantesArray,
   // estudiante control
   perfil: perfil,
   login: login,

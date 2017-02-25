@@ -1,5 +1,6 @@
-var mongoose = require('mongoose');
-var shortId = require('shortid')
+var mongoose = require('mongoose'),
+shortId      = require('shortid');
+
 mongoose.Promise = global.Promise;
 
 var DesafioSchema = mongoose.Schema({

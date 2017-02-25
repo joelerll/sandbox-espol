@@ -1,6 +1,6 @@
-var router         = require('express').Router(),
-AyudanteController = require('../controllers/ayudantes'),
-passport           = require('passport'),
+var router          = require('express').Router(),
+AyudanteController  = require('../controllers/ayudantes'),
+passport            = require('passport'),
 EjercicioController = require('../controllers/ejercicios');
 
 var auth = passport.authenticate('ayudante-jwt', { session: false });

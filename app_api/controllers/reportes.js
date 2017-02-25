@@ -1,6 +1,7 @@
-Estudiantes = require('../models/estudiante')
-const moment = require('moment');
-const _ = require('lodash')
+var Estudiantes = require('../models/estudiante');
+moment          = require('moment'),
+_               = require('lodash');
+
 function cantidadEjerciciosDia(req, res, next) {
   let anio1 = req.query.anio1
   let anio2 = req.query.anio1
@@ -29,20 +30,20 @@ function cantidadEjerciciosDia(req, res, next) {
           if (parseInt(mes1) <= parseInt(moment(fecha.fecha_resuelto).format(mes)) && parseInt(mes2) >= parseInt(moment(fecha.fecha_resuelto).format(mes))) {
               if (parseInt(dia1) <= parseInt(moment(fecha.fecha_resuelto).format(dia)) && parseInt(dia2) >= parseInt(moment(fecha.fecha_resuelto).format(dia))) {
                   let cont = 0
-                    if(_.find(dias, {dia: moment(fecha.fecha_resuelto).format(salida2)})) {
-                      dias.forEach((dia) => {
-                        if (dia.dia == moment(fecha.fecha_resuelto).format(salida2)) {
-                          dias[cont].cantidad = dia.cantidad + 1
-                        }
-                        cont = cont + 1
-                      })
-                    } else {
-                      let sal = {
-                        dia: moment(fecha.fecha_resuelto).format(salida2),
-                        cantidad: 1
+                  if(_.find(dias, {dia: moment(fecha.fecha_resuelto).format(salida2)})) {
+                    dias.forEach((dia) => {
+                      if (dia.dia == moment(fecha.fecha_resuelto).format(salida2)) {
+                        dias[cont].cantidad = dia.cantidad + 1
                       }
-                      dias.push(sal)
+                      cont = cont + 1
+                    })
+                  } else {
+                    let sal = {
+                      dia: moment(fecha.fecha_resuelto).format(salida2),
+                      cantidad: 1
                     }
+                    dias.push(sal)
+                  }
               }
           }
         }

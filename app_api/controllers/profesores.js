@@ -2,13 +2,7 @@ var mongoose = require('mongoose'),
 xss          = require('xss'),
 Profesor     = require('../models/profesor');
 
-
-//TODO: usar bluebird o async
-//TODO: mejorar nombrado de validaciones, que se entiendan
 module.exports.create = function(req, res, next) {
-  //TODO: sanitizar todos
-  //TODO: identificacion(cedula) que sea valido
-  // valicaciones
   req.body.nombres = xss(req.body.nombres);
   req.body.apellidos = xss(req.body.apellidos);
   req.body.correo = xss(req.body.correo);
@@ -17,17 +11,13 @@ module.exports.create = function(req, res, next) {
   req.checkBody('apellidos', 'apellidos esta en blanco').empty();
   req.checkBody('correo', 'correo esta en blanco').empty();
   req.checkBody('identificacion', 'identificacion esta en blanco').empty();
-  //req.checkBody('clave', 'clave esta en blanco').empty();
   req.checkBody('correo', 'correo no valido').esCorreo();
   req.checkBody('correo', 'correo esta en mayuscula').isLower();
-  //req.checkBody('clave', 'mas de cinco caracteres').isLength();
   var errors = req.validationErrors();
   if ( errors ) {
     res.status(400).json(errors);
     return
   }
-
-  //crear nuevo objeto profesor
   let profesor = new Profesor({
     correo: req.body.correo,
     clave: req.body.clave,
@@ -35,7 +25,6 @@ module.exports.create = function(req, res, next) {
     nombres: req.body.nombres,
     apellidos: req.body.apellidos
   })
-
   profesor.save(function(err) {
     if(err) {
       return res.status(404).json({success: false, message: 'ocurrio algun error al tratar de guardar el profesor'});
@@ -52,36 +41,34 @@ module.exports.create = function(req, res, next) {
 }
 
 module.exports.read = function(req, res, next) {
-  //TODO: satinize like
-  //TODO: like solo letras
   if (req.query.like) {
       var errors = req.validationErrors();
       if ( errors ) {
         res.status(400).json(errors);
         return;
+      } else {
+        Profesor.getProfesorLike(req.query.like, function(err , profesores) {
+          if (err) {
+            res.status(404).json({success: false, message: 'ocurrio algun error al tratar de obtener el profesor'})
+            return;
+          } else {
+            res.status(200).json({success: true, message: 'profesores encontrados', profesores: profesores});
+            return;
+          }
+        })
       }
-      Profesor.getProfesorLike(req.query.like, function(err , profesores) {
-        if (err) {
-          res.status(404).json({success: false, message: 'ocurrio algun error al tratar de obtener el profesor'})
-          return;
-        }
-        res.status(200).json({success: true, message: 'profesores encontrados', profesores: profesores});
+  } else {
+    Profesor.getProfesores(function(err, profesores) {
+      if (err) {
+        res.status(404).json({success: false, message: 'ocurrio algun error al tratar de crear profesor'});
         return;
-      })
+      }
+      res.status(200).json({success: true,profesores: profesores});
+    })
   }
-  Profesor.getProfesores(function(err, profesores) {
-    if (err) {
-      res.status(404).json({success: false, message: 'ocurrio algun error al tratar de crear profesor'});
-      return;
-    }
-    res.status(200).json({success: true,profesores: profesores});
-  })
 }
 
 module.exports.update = function(req, res, next) {
-    //TODO: no repetir == cedula, correo
-    //TODO: entregar mensajes de error
-    //FIXME: no permitir cambiar id, rol,
     req.body.nombres = xss(req.body.nombres);
     req.body.apellidos = xss(req.body.apellidos);
     req.body.correo = xss(req.body.correo);

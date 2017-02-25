@@ -1,15 +1,16 @@
-var router         = require('express').Router(),
-passport           = require('passport'),
-jwt                = require('jsonwebtoken'),
-ProfesorController = require('../controllers/profesores'),
-AyudanteController = require('../controllers/ayudantes'),
-AdminController    = require('../controllers/admin'),
+var router            = require('express').Router(),
+passport              = require('passport'),
+jwt                   = require('jsonwebtoken'),
+multer                = require('multer'),
+path                  = require('path'),
+ProfesorController    = require('../controllers/profesores'),
+AyudanteController    = require('../controllers/ayudantes'),
+AdminController       = require('../controllers/admin'),
 EstudiantesController = require('../controllers/estudiantes'),
-EjerciciosController = require('../controllers/ejercicios'),
-ReportesController = require('../controllers/reportes'),
-CursosController = require('../controllers/cursos');
-var multer  = require('multer');
-const path = require('path');
+EjerciciosController  = require('../controllers/ejercicios'),
+ReportesController    = require('../controllers/reportes'),
+CursosController      = require('../controllers/cursos');
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, path.join(__dirname, '../../public/upload/temp'))
@@ -38,13 +39,14 @@ router.get('/ayudantes/:id',auth, AyudanteController.readOne );
 
 // estudiante CRUD
 router.post('/estudiantes',auth, EstudiantesController.create);
-router.get('/estudiantes',auth, EstudiantesController.getAll);
+router.get('/estudiantes',auth, EstudiantesController.getAll); //?like=patron
 router.put('/estudiantes/:id',auth, EstudiantesController.update);
 router.delete('/estudiantes/:id',auth, EstudiantesController.del);
 router.put('/estudiantes/clave/:id',auth, EstudiantesController.updateClave);
 
 //Curso
 router.get('/cursos',auth, CursosController.read);
+router.get('/cursos/:id',auth, CursosController.readById);
 router.post('/cursos',auth, CursosController.create);
 router.delete('/cursos/:id',auth, CursosController.del);
 router.put('/cursos/:id',auth, CursosController.update);
@@ -52,10 +54,10 @@ router.post('/cursos/profesores/:id_curso/:id_profesor',auth, CursosController.a
 router.post('/cursos/estudiantes/:id_curso/:id_estudiante',auth, CursosController.addEstudiante);
 router.delete('/cursos/profesores/:id_curso/:id_profesor',auth, CursosController.deleteProfesor);
 router.delete('/cursos/estudiantes/:id_curso/:id_estudiante',auth, CursosController.deleteEstudiante);
-//registrar estudiates ya existemtes y no en el archivo estudiantes por archivo con file
 router.post('/cursos/file/:id',auth, upload.single('curso'), CursosController.estudiantesFile);
 
-router.get('/reportes/ejercicios', ReportesController.cantidadEjerciciosDia);//?mes1=base&mes2=tope&dia1=base&dia2=tope
+//reportes
+router.get('/reportes/ejercicios', ReportesController.cantidadEjerciciosDia);//?anio1=base&anio2=tope&mes1=base&mes2=tope&dia1=base&dia2=tope
 router.get('/reportes/ejercicios/cursos/:id_curso', ReportesController.cantidadEjericiosPorCurso)
 
 // passport strategies

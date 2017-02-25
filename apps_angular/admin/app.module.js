@@ -7,4 +7,5 @@ angular.module('adminApp', [
   'ayudantes',
   'estudiantes',
   'reportes',
+  'cursos'
 ]);

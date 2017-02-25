@@ -1,8 +1,7 @@
-var passport = require('passport');
-var Ayudante = require('../models/ayudante')
+var passport = require('passport'),
+Ayudante     = require('../models/ayudante');
 
 function log(req, res,next) {
-  console.log(req.body)
     passport.authenticate('ayudante-local', function(err, ayudante, info) {
     if( ayudante ) {
       token = ayudante.generarJwt()
@@ -96,8 +95,6 @@ function readOne(req, res, next) {
     res.status(200).json({success: true, message: 'obtenido exitosamente', ayudante: ayudante})
   })
 }
-
-//find by curso
 
 module.exports = {
   login: log,
