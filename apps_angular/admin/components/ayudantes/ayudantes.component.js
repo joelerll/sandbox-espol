@@ -30,6 +30,7 @@ function AyudantesController($css,$http,Ayudantes) {
     Ayudantes.create(self.ayudante,(res) => {
       if (!res.data.success) {
         notie.alert('error', 'Hubo un error al intentar crear', 2);
+        $('.modal').modal('hide');
         return;
       }
       notie.alert('success', 'Ayudante creado correctamente', 2);
@@ -119,5 +120,82 @@ function AyudantesController($css,$http,Ayudantes) {
     }
   }
 
+  self.cancelarDelete = () => {
+    $('.modal').modal('hide');
+  }
 
 }
+
+
+angular.module('ayudantes').directive('validacionNombresApellidosAyudante', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[\d]/.test(ngModelValue)){
+          ctrl.$setValidity('numberVal', false);
+        }else{
+          ctrl.$setValidity('numberVal', true);
+          //console.log('No se permiten numeros');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
+
+angular.module('ayudantes').directive('validacionEmailAyudante', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(validator.isEmail(ngModelValue)){
+          ctrl.$setValidity('emailVal', true);
+        }else{
+          ctrl.$setValidity('emailVal', false);
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
+
+angular.module('ayudantes').directive('validacionIdentificacionAyudante', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(ngModelValue.length==9){
+          ctrl.$setValidity('lengthVal', true);
+        }else{
+          ctrl.$setValidity('lengthVal', false);
+        }
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[A-Za-z]/.test(ngModelValue)){
+          ctrl.$setValidity('letterVal', false);
+        }else{
+          ctrl.$setValidity('letterVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})

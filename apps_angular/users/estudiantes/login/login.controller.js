@@ -26,3 +26,22 @@ function LoginController($http,auth,$location) {
 
 
 }
+
+
+angular.module('estudiantesApp').directive('validacionEmailEst', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(validator.isEmail(ngModelValue)){
+          ctrl.$setValidity('emailVal', true);
+        }else{
+          ctrl.$setValidity('emailVal', false);
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})

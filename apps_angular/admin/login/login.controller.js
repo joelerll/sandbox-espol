@@ -42,3 +42,29 @@ function LoginController (auth,$location) {
 
   }
 }
+
+
+angular.module('adminApp').directive('validacionUsername', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[\d]/.test(ngModelValue)){
+          ctrl.$setValidity('numberVal', false);
+        }else{
+          ctrl.$setValidity('numberVal', true);
+          //console.log('No se permiten numeros');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
