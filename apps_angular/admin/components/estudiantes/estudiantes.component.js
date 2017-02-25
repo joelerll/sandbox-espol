@@ -3,20 +3,9 @@ angular.module('estudiantes').component('estudiantes', {
   controller: EstudianteController
 })
 
-EstudianteController.$inyect = ['$css', '$http', 'Estudiante'];
-/*
-function EstudianteController ($http) {
-      var vm = this
-      vm.nombre = 'joel'
-      vm.getEjercicios = ()=>{
-        console.log('get ejercicios')
-        $http.post('/api/v1/ejercicios', {titulo: 'uno', etiquetas: ['joel','carlos'], descripcion: 'la casa', entradas: ['joel', 'casita'], salidas: ['casotas', 'casa'], dificultad: 'intermedio'}, (res)=> {
-          console.log(res.data)
-        })
-      }
-}*/
+EstudianteController.$inyect = ['$css', '$http', 'Estudiante','$rootScope'];
 
-function EstudianteController($css, $http, Estudiante){
+function EstudianteController($css, $http, Estudiante,$rootScope){
   var self = this;
   $css.remove('./css/profesores.css');
   $css.remove('./css/ayudantes.css');
@@ -32,9 +21,15 @@ function EstudianteController($css, $http, Estudiante){
   };
 
   Estudiante.getAll((res) => {
-    console.log(res);
     self.estudiantes = res.data.estudiantes;
   })
+
+  $rootScope.getAllEstudiantes = () => {
+    Estudiante.getAll((res) => {
+      self.estudiantes = res.data.estudiantes;
+    })
+  }
+
 
   self.newEstudiante = () => {
     Estudiante.create(self.estudiante,  (res)=>{

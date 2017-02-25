@@ -39,13 +39,14 @@ router.get('/ayudantes/:id',auth, AyudanteController.readOne );
 
 // estudiante CRUD
 router.post('/estudiantes',auth, EstudiantesController.create);
-router.get('/estudiantes',auth, EstudiantesController.getAll);
+router.get('/estudiantes',auth, EstudiantesController.getAll); //?like=patron
 router.put('/estudiantes/:id',auth, EstudiantesController.update);
 router.delete('/estudiantes/:id',auth, EstudiantesController.del);
 router.put('/estudiantes/clave/:id',auth, EstudiantesController.updateClave);
 
 //Curso
 router.get('/cursos',auth, CursosController.read);
+router.get('/cursos/:id',auth, CursosController.readById);
 router.post('/cursos',auth, CursosController.create);
 router.delete('/cursos/:id',auth, CursosController.del);
 router.put('/cursos/:id',auth, CursosController.update);
