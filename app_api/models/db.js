@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 config       = require('../config/main'),
 console      = require('../config/utils');
 
-mongoose.connect(config.datadase);
+mongoose.connect(config.mlab);
 
 var db = mongoose.connection;
 
