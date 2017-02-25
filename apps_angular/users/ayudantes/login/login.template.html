@@ -1,13 +1,18 @@
-<h1 class="titulo">Ayudante</h1>
+<div class="container">
+	<div class="card card-container">
+		<h1 class="titulo" id="titulo">Ayudante</h1>
+		<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+		<form class="form" name="loginForm" novalidate="true">
+		  <div class="form-group">
+		    <input ng-model="vm.ayudante.correo" class="form-control" type="text" placeholder="correo" ng-required="true" validacion-Email-Ayudante>
+		  </div>
+		  <div class="form-group">
+		    <input ng-model="vm.ayudante.clave" class="form-control" type="password" placeholder="clave" ng-required="true">
+		  </div>
+		  <div class="form-group">
+		    <button ng-click="vm.login()" type="button" class="form-control btn btn-primary btn-signin" ng-disabled="loginForm.$invalid">login</button>
+		  </div>
+		</form>
+	</div>
+</div>
 
-<form class="form">
-  <div class="form-group">
-    <input ng-model="vm.ayudante.correo" class="form-control" type="text" placeholder="correo">
-  </div>
-  <div class="form-group">
-    <input ng-model="vm.ayudante.clave" class="form-control" type="password" placeholder="clave">
-  </div>
-  <div class="form-group">
-    <button ng-click="vm.login()" type="button" class="form-control">login</button>
-  </div>
-</form>

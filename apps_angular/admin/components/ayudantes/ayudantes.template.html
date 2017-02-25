@@ -93,7 +93,7 @@
       </div>
       <div class="modal-body">
         <button ng-click="$ctrl.deleteConfirmar()" type="button" name="button" data-dismiss="modal" class="btn btn-danger" >si</button>
-        <button type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
+        <button ng-click="$ctrl.cancelarDelete()" type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
       </div>
     </div>
   </div>
@@ -108,28 +108,36 @@
         <h4 class="modal-title" id="exampleModalLabel">Nuevo Ayudante</h4>
       </div>
       <div class="modal-body">
-        <form>
+        <form name="newAyudanteForm" novalidate>
           <div class="form-group">
             <label for="indentificacion-ayudante" class="control-label">Indentificacion:</label>
-            <input ng-model="$ctrl.ayudante.identificacion" type="text" class="form-control" id="identificacion-ayudante" >
+            <input ng-model="$ctrl.ayudante.identificacion" type="text" class="form-control" id="identificacion-ayudante" ng-required="true" name="identificacion" validacion-Identificacion-Ayudante>
+            <p ng-show="newAyudanteForm.identificacion.$error.letterVal&&newAyudanteForm.identificacion.$touched">No se permiten letras</p>
+            <p ng-show="newAyudanteForm.identificacion.$error.specialCharVal&&newAyudanteForm.identificacion.$touched">No se permiten caracteres especiales</p>
+            <p ng-show="newAyudanteForm.identificacion.$error.lengthVal&&newAyudanteForm.identificacion.$touched">Número de caracteres inválido</p>
           </div>
           <div class="form-group">
             <label for="nombres-ayudante" class="control-label">Nombres:</label>
-            <input ng-model="$ctrl.ayudante.nombres" type="text" class="form-control" id="nombres-ayudante">
+            <input ng-model="$ctrl.ayudante.nombres" type="text" class="form-control" id="nombres-ayudante" ng-required="true" name="nombres" validacion-Nombres-Apellidos-Ayudante>
+            <p ng-show="newAyudanteForm.nombres.$error.numberVal&&newAyudanteForm.nombres.$touched">No se permiten numeros</p>
+            <p ng-show="newAyudanteForm.nombres.$error.specialCharVal&&newAyudanteForm.nombres.$touched">No se permiten caracteres especiales</p>
           </div>
           <div class="form-group">
             <label for="apellidos-ayudante" class="control-label">Apellidos:</label>
-            <input ng-model="$ctrl.ayudante.apellidos" type="text" class="form-control" id="apellidos-ayudante">
+            <input ng-model="$ctrl.ayudante.apellidos" type="text" class="form-control" id="apellidos-ayudante" name="apellidos" ng-required="true" validacion-Nombres-Apellidos-Ayudante>
+            <p ng-show="newAyudanteForm.apellidos.$error.numberVal&&newAyudanteForm.apellidos.$touched">No se permiten numeros</p>
+            <p ng-show="newAyudanteForm.apellidos.$error.specialCharVal&&newAyudanteForm.apellidos.$touched">No se permiten caracteres especiales</p>
           </div>
           <div class="form-group">
             <label for="correo-ayudante" class="control-label">Correo:</label>
-            <input ng-model="$ctrl.ayudante.correo" type="text" class="form-control" id="correo-ayudante">
+            <input ng-model="$ctrl.ayudante.correo" type="text" class="form-control" id="correo-ayudante" ng-required="true" name="correo" validacion-Email-Ayudante>
+            <p ng-show="newAyudanteForm.correo.$error.emailVal&&newAyudanteForm.correo.$touched">Correo invalido</p>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button ng-click="$ctrl.newAyudante()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+        <button ng-click="$ctrl.newAyudante()" type="button" class="btn btn-primary"  ng-disabled="newAyudanteForm.$invalid" data-dismiss="modal">Crear</button>
       </div>
     </div>
   </div>
