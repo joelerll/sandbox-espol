@@ -6,7 +6,7 @@ angular.module('profesores').component('profesores', {
 ProfesoresController.$inyect = ['$css','$http','Profesores'];
 
 
-function ProfesoresController($css,$http,Profesores) {
+function ProfesoresController($css,$http,Profesores, $scope) {
   var self = this;
   $css.add('./css/profesores.css');
 
@@ -34,7 +34,8 @@ function ProfesoresController($css,$http,Profesores) {
       notie.alert('success', 'Profesor creado correctamente', 2);
       self.profesores.push(res.data.profesor);
       self.profesor = {};
-    })
+    });
+      
   }
 
   //tabla botones
@@ -51,6 +52,7 @@ function ProfesoresController($css,$http,Profesores) {
       //TODO: error mongoose cant not createAt and updateAt at the same time
       if (!res.data.success) {
         notie.alert('error', 'No se pudo borrar', 2);
+        $('.modal').modal('hide');
         return;
       }
       Profesores.getAll((res) => {
@@ -118,5 +120,85 @@ function ProfesoresController($css,$http,Profesores) {
     }
   }
 
+  self.cancelarDelete = () => {
+    $('.modal').modal('hide');
+  }
 
 }
+
+
+
+
+
+angular.module('profesores').directive('validacionNombresApellidosProf', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[\d]/.test(ngModelValue)){
+          ctrl.$setValidity('numberVal', false);
+        }else{
+          ctrl.$setValidity('numberVal', true);
+          //console.log('No se permiten numeros');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
+
+angular.module('profesores').directive('validacionEmailProf', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(validator.isEmail(ngModelValue)){
+          ctrl.$setValidity('emailVal', true);
+        }else{
+          ctrl.$setValidity('emailVal', false);
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
+
+angular.module('profesores').directive('validacionIdentificacionProf', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(ngModelValue.length==10){
+          ctrl.$setValidity('lengthVal', true);
+        }else{
+          ctrl.$setValidity('lengthVal', false);
+        }
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[A-Za-z]/.test(ngModelValue)){
+          ctrl.$setValidity('letterVal', false);
+        }else{
+          ctrl.$setValidity('letterVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})

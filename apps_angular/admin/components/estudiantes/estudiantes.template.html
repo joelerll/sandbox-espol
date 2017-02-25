@@ -93,7 +93,7 @@
       </div>
       <div class="modal-body">
         <button ng-click="$ctrl.deleteConfirmar()" type="button" name="button" data-dismiss="modal" class="btn btn-danger" >si</button>
-        <button type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
+        <button ng-click="$ctrl.cancelarDelete()" type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
       </div>
     </div>
   </div>
@@ -108,28 +108,36 @@
         <h4 class="modal-title" id="exampleModalLabel">Nuevo Estudiante</h4>
       </div>
       <div class="modal-body">
-        <form>
+        <form name="newEstudianteForm" novalidate>
           <div class="form-group">
             <label for="indentificacion-estudiante" class="control-label">Indentificacion:</label>
-            <input ng-model="$ctrl.estudiante.identificacion" type="text" class="form-control" id="indentificacion-estudiante" >
+            <input ng-model="$ctrl.estudiante.identificacion" type="text" class="form-control" id="indentificacion-estudiante" ng-required="true" name="identificacion" validacion-Identificacion-Est>
+            <p ng-show="newEstudianteForm.identificacion.$error.letterVal&&newEstudianteForm.identificacion.$touched">No se permiten letras</p>
+            <p ng-show="newEstudianteForm.identificacion.$error.specialCharVal&&newEstudianteForm.identificacion.$touched">No se permiten caracteres especiales</p>
+            <p ng-show="newEstudianteForm.identificacion.$error.lengthVal&&newEstudianteForm.identificacion.$touched">Número de caracteres inválido</p>
           </div>
           <div class="form-group">
             <label for="nombres-estudiante" class="control-label">Nombres:</label>
-            <input ng-model="$ctrl.estudiante.nombres" type="text" class="form-control" id="nombres-estudiante">
+            <input ng-model="$ctrl.estudiante.nombres" type="text" class="form-control" id="nombres-estudiante" ng-required="true" name="nombres" validacion-Nombres-Apellidos-Est>
+            <p ng-show="newEstudianteForm.nombres.$error.numberVal&&newEstudianteForm.nombres.$touched">No se permiten numeros</p>
+            <p ng-show="newEstudianteForm.nombres.$error.specialCharVal&&newEstudianteForm.nombres.$touched">No se permiten caracteres especiales</p>
           </div>
           <div class="form-group">
             <label for="apellidos-estudiante" class="control-label">Apellidos:</label>
-            <input ng-model="$ctrl.estudiante.apellidos" type="text" class="form-control" id="apellidos-estudiante">
+            <input ng-model="$ctrl.estudiante.apellidos" type="text" class="form-control" id="apellidos-estudiante" ng-required="true" name="apellidos" validacion-Nombres-Apellidos-Est>
+            <p ng-show="newEstudianteForm.apellidos.$error.numberVal&&newEstudianteForm.apellidos.$touched">No se permiten numeros</p>
+            <p ng-show="newEstudianteForm.apellidos.$error.specialCharVal&&newEstudianteForm.apellidos.$touched">No se permiten caracteres especiales</p>
           </div>
           <div class="form-group">
             <label for="correo-estudiante" class="control-label">Correo:</label>
-            <input ng-model="$ctrl.estudiante.correo" type="text" class="form-control" id="correo-estudiante">
+            <input ng-model="$ctrl.estudiante.correo" type="text" class="form-control" id="correo-estudiante" ng-required="true" name="correo" validacion-Email-Est>
+            <p ng-show="newEstudianteForm.correo.$error.emailVal&&newEstudianteForm.correo.$touched">Correo invalido</p>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button ng-click="$ctrl.newEstudiante()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+        <button ng-click="$ctrl.newEstudiante()" type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="newEstudianteForm.$invalid">Crear</button>
       </div>
     </div>
   </div>

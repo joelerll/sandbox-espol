@@ -18,18 +18,18 @@ Sandox App
 - Si eliminan estudiantes, tambien eliminarlo de curso [ ]
 
 ## Admin-profesor
-- Llevar las validaciones a un middleware [ ]
+- Llevar las validaciones a un middleware [X]
 - Si se elimina, tambien eliminarlo de cursos [ ]
 - Si se edita, editarlo de ejercicios [ ]
 
 ## Admin-estudiante
 - Si se elimina, eliminarlo de cursos [ ]
-- Validaciones en middleware [ ]
+- Validaciones en middleware [X]
 - Si se edita, editarlo de ejercicios [ ]
 
 ## Admin-ayudantes
 - Si se elimina, eliminarlo de cursos [ ]
-- Validaciones en middleware [ ]
+- Validaciones en middleware [X]
 - Si se edita, editarlo de ejercicios [ ]
 
 ## Ejercicio

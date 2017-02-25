@@ -93,7 +93,7 @@
       </div>
       <div class="modal-body">
         <button ng-click="$ctrl.deleteConfirmar()" type="button" name="button" data-dismiss="modal" class="btn btn-danger" >si</button>
-        <button type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
+        <button ng-click="$ctrl.cancelarDelete()" type="button" name="button" data-dismiss="modal" class="btn btn-primary">no</button>
       </div>
     </div>
   </div>
@@ -108,28 +108,37 @@
         <h4 class="modal-title" id="exampleModalLabel">Nuevo Profesor</h4>
       </div>
       <div class="modal-body">
-        <form>
+        <form name="newProfesorForm" novalidate>
           <div class="form-group">
             <label for="indentificacion-profesor" class="control-label">Indentificacion:</label>
-            <input ng-model="$ctrl.profesor.identificacion" type="text" class="form-control" id="indentificacion-profesor" >
+            <input ng-model="$ctrl.profesor.identificacion" type="text" class="form-control" id="indentificacion-profesor" ng-required="true" name="identificacion" validacion-Identificacion-Prof>
+            <p ng-show="newProfesorForm.identificacion.$error.letterVal&&newProfesorForm.identificacion.$touched">No se permiten letras</p>
+            <p ng-show="newProfesorForm.identificacion.$error.specialCharVal&&newProfesorForm.identificacion.$touched">No se permiten caracteres especiales</p>
+            <p ng-show="newProfesorForm.identificacion.$error.lengthVal&&newProfesorForm.identificacion.$touched">Número de caracteres inválido</p>
+
           </div>
           <div class="form-group">
             <label for="nombres-profesor" class="control-label">Nombres:</label>
-            <input ng-model="$ctrl.profesor.nombres" type="text" class="form-control" id="nombres-profesor">
+            <input ng-model="$ctrl.profesor.nombres" type="text" class="form-control" id="nombres-profesor" ng-required="true" name="nombres" validacion-Nombres-Apellidos-Prof>
+            <p ng-show="newProfesorForm.nombres.$error.numberVal&&newProfesorForm.nombres.$touched">No se permiten numeros</p>
+            <p ng-show="newProfesorForm.nombres.$error.specialCharVal&&newProfesorForm.nombres.$touched">No se permiten caracteres especiales</p>
           </div>
           <div class="form-group">
             <label for="apellidos-profesor" class="control-label">Apellidos:</label>
-            <input ng-model="$ctrl.profesor.apellidos" type="text" class="form-control" id="apellidos-profesor">
+            <input ng-model="$ctrl.profesor.apellidos" type="text" class="form-control" id="apellidos-profesor" ng-required="true" name="apellidos" validacion-Nombres-Apellidos-Prof>
+            <p ng-show="newProfesorForm.apellidos.$error.numberVal&&newProfesorForm.apellidos.$touched">No se permiten numeros</p>
+            <p ng-show="newProfesorForm.apellidos.$error.specialCharVal&&newProfesorForm.apellidos.$touched">No se permiten caracteres especiales</p>
           </div>
           <div class="form-group">
             <label for="correo-profesor" class="control-label">Correo:</label>
-            <input ng-model="$ctrl.profesor.correo" type="text" class="form-control" id="correo-profesor">
+            <input ng-model="$ctrl.profesor.correo" type="text" class="form-control" id="correo-profesor" ng-required="true" name="correo" validacion-Email-Prof>
+            <p ng-show="newProfesorForm.correo.$error.emailVal&&newProfesorForm.correo.$touched">Correo invalido</p>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button ng-click="$ctrl.newProfesor()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+        <button ng-click="$ctrl.newProfesor()" type="button" class="btn btn-primary" ng-disabled="newProfesorForm.$invalid" data-dismiss="modal">Crear</button>
       </div>
     </div>
   </div>
