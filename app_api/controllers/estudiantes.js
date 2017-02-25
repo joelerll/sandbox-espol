@@ -39,13 +39,23 @@ function create(req, res, next) {
 }
 
 function getAll (req, res, next) {
-  Estudiante.getAll((err, estudiantes) => {
-    if (err) {
-      res.status(400).json({success: false, message: 'no se pudo obtener todos los estudiantes'})
-      return;
-    }
-    res.status(200).json({success: true, message: 'encontrados los estudiantes', estudiantes: estudiantes})
-  })
+  if (req.query.like) {
+    Estudiante.getEstudianteLike(req.query.like,(err, estudiantes) => {
+      if (err) {
+        res.status(400).json({message: 'hubo un error', success: false})
+      } else {
+        res.status(200).json({success: true, estudiantes: estudiantes})
+      }
+    })
+  } else {
+    Estudiante.getAll((err, estudiantes) => {
+      if (err) {
+        res.status(400).json({success: false, message: 'no se pudo obtener todos los estudiantes'})
+        return;
+      }
+      res.status(200).json({success: true, message: 'encontrados los estudiantes', estudiantes: estudiantes})
+    })
+  }
 }
 
 function update (req, res, next) {
@@ -96,35 +106,6 @@ function del (req, res, next) {
   })
 }
 
-function saveEstudiantesArray(array) {
-  var estudiantes = []
-  var messages = []
-  array.forEach((estudiante) => {
-    if (estudiante[0] == 'identificacion') {
-      return
-    }
-    let estudiante_nuevo = new Estudiante({
-      identificacion: estudiante[0],
-      nombres: estudiante[1],
-      apellidos: estudiante[2],
-      correo: estudiante[3],
-      carrera: estudiante[4]
-    })
-    let error = {
-      mesaje: 'ok',
-      id: estudiante_nuevo._id
-    }
-    estudiante_nuevo.create((err) => {
-      if (err) {
-        console.log('error')
-      }
-    })
-    estudiantes.push(estudiante_nuevo)
-    messages.push(error)
-  })
-  return {success: true, estudiantes: estudiantes, messages: messages}
-}
-
 function registrarEjercicio(carpeta,archivo,ejercicio,user) {
   Estudiante.registrarEjercicio(user,ejercicio,archivo,carpeta, (err, res) => {
     if (err) {
@@ -152,7 +133,6 @@ module.exports = {
   getAll: getAll,
   update: update,
   del: del,
-  saveEstudiantesArray: saveEstudiantesArray,
   // estudiante control
   perfil: perfil,
   login: login,

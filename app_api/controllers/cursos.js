@@ -1,8 +1,11 @@
-var Curso              = require('../models/curso'),
- router                = require('express').Router(),
- Profesor              = require('../models/profesor'),
- Estudiante            = require('../models/estudiante'),
- EstudiantesController = require('../controllers/estudiantes');
+var Curso             = require('../models/curso'),
+router                = require('express').Router(),
+fs                    = require('fs'),
+path                  = require('path'),
+parse                 = require('csv-parse'),
+Profesor              = require('../models/profesor'),
+Estudiante            = require('../models/estudiante'),
+EstudiantesController = require('../controllers/estudiantes');
 
 function read(req, res, next) {
   Curso.getAll((err, cursos) => {
@@ -60,27 +63,37 @@ function addProfesor(req, res, next) {
 }
 
 function addEstudiante(req, res, next) {
-  Estudiante.getById(req.params.id_estudiante, (err, estudiante) => {
+  Curso.existeEnOtroCurso(req.params.id_estudiante, (err, curso) => {
     if (err) {
-      res.status(400).json({success: false, message: 'estudiante no encontrado'})
-      return;
-    } else {
-      Curso.addEstudianteById(req.params.id_curso, req.params.id_estudiante, (err, curso) => {
+      res.status(400).json({message: 'error buscar para verificar', success: false})
+      return
+    } else if (!res){
+      Estudiante.getById(req.params.id_estudiante, (err, estudiante) => {
         if (err) {
-          console.log(err)
-          res.status(400).json({success: false, message: 'no anadido estudiante error'})
+          res.status(400).json({success: false, message: 'estudiante no encontrado'})
           return;
         } else {
-          Curso.populateCurso(req.params.id_curso, (err, estudiante_curso) => {
+          Curso.addEstudianteById(req.params.id_curso, req.params.id_estudiante, (err, curso) => {
             if (err) {
+              console.log(err)
               res.status(400).json({success: false, message: 'no anadido estudiante error'})
               return;
+            } else {
+              Curso.populateCurso(req.params.id_curso, (err, estudiante_curso) => {
+                if (err) {
+                  res.status(400).json({success: false, message: 'no anadido estudiante error'})
+                  return;
+                }
+                console.log(estudiante_curso)
+                res.status(201).json({success: true, message: 'anadido estudiante', curso: estudiante_curso})
+                return
+              })
             }
-            res.status(201).json({success: true, message: 'anadido estudiante', curso: estudiante_curso})
-            return
           })
         }
       })
+    } else {
+      res.status(200).json({success: false, message: 'ya existe en otro curso'})
     }
   })
 }
@@ -116,10 +129,10 @@ function update(req, res, next) {
 function deleteEstudiante(req, res, next) {
   Curso.deleteEstudiante(req.params.id_curso, req.params.id_estudiante, (err) => {
     if (err) {
-      res.send('no borado')
+      res.status(400).json({message: 'no se pudo borrar', success: false})
       return;
     }
-    res.send('borrado')
+    res.status(200).json({message: 'se pudo borrar', success: true})
   })
 }
 
@@ -134,24 +147,100 @@ function deleteProfesor(req, res, next) {
   })
 }
 
-const fs = require('fs');
-const path = require('path');
-var parse  = require('csv-parse');
 function estudiantesFile(req, res, next) {
   var input = path.join(__dirname, '../../public/upload/temp');
   fs.readFile(path.join(__dirname, '../../public/upload/temp/curso.csv'), 'utf8', function (err,data) {
-  if (err) {
-    return console.log(err);
-  }
-  parse(data, function(err, output){
-    var estudiantes = EstudiantesController.saveEstudiantesArray(output)
     if (err) {
-      res.status(400).json({success: false, message: 'hubo un error en parsear csv'})
+      res.status(400).json({message: 'ocurrio algun error al leer archivo', success: false})
+      return
+    }
+    parse(data, function(err, output){
+      var valido = comprobarParseCorrecto(output);
+      if (!valido) {
+        res.status(200).json({message: 'el formato no es valido', success: false})
+        return;
+      }
+      var estudiantes = []
+      var promesas = []
+      for (var i = 1; i < output.length; i++) {
+        let estudiante_nuevo = new Estudiante({
+          identificacion: output[i][0],
+          nombres: output[i][1],
+          apellidos: output[i][2],
+          correo: output[i][3],
+          carrera: output[i][4]
+        })
+        promesas.push(new Promise((resolve, reject) => {
+          //objener el correo del estudiante, si no existe crearlo
+          Estudiante.getPorCorreo(estudiante_nuevo.correo, (err, est) => {
+            if (err) {
+              reject('error correo')
+            }
+            if (est) {
+              Curso.existeEnOtroCurso(est._id, (err, res) => {
+                if (err) {
+                  reject('error si existe')
+                  return
+                }
+                if (res) {
+                  resolve('ya existe en otro curso')
+                  return;
+                } else {
+                  Curso.addEstudianteById(req.params.id,est._id, (err, e) => {
+                    if (err) {
+                      reject('error inserds addId')
+                    }
+                    resolve('agregado a curso')
+                  })
+                }
+              })
+            } else {
+              estudiante_nuevo.create(err => {
+                if (err) {
+                  reject('no vale crear')
+                }
+                Curso.addEstudianteById(req.params.id,estudiante_nuevo._id, (err, e) => {
+                  if (err) {
+                    reject('error inserds')
+                  }
+                  resolve('agregado a curso')
+                })
+              })
+            }
+          })
+        })) //fin promise y funcion reject
+      }
+      Promise.all(promesas).then(values => {
+        res.status(200).json({message: 'se creo el curso', success: true, info: values})
+      }). catch(reason => {
+        res.status(400).json({message: 'error', success: false, info: reason})
+      })
+    }); //fin parse
+  }); //fin de archivo
+}
+
+function comprobarParseCorrecto(array) {
+  for (var i = 0; i < array.length; i++) {
+
+    if ((array[i][0] != 'identificacion' || array[i][1] != 'nombres' || array[i][2] != 'apellidos' || array[i][3] != 'correo' || array[i][4] != 'carrera') && i == 0) {
+      return false
+    }
+    console.log(array[i][0])
+    if (array[i][0] == '' || array[i][1] == '' || array[i][2] == '' || array[i][3] == '' || array[i][4] == '') {
+      return false
+    }
+  }
+  return true
+}
+
+function readById(req, res, next) {
+  Curso.getByIdPopulate(req.params.id, (err, curso) => {
+    if (err) {
+      res.status(400).json({success: false, message: 'error'})
       return;
     }
-    res.status(200).json({success: true, message: 'enviado correctamente', estudiantes: estudiantes})
-  });
-});
+    res.status(200).json({message: 'se encontro', success: true, curso: curso})
+  })
 }
 
 module.exports = {
@@ -163,5 +252,6 @@ module.exports = {
   update: update,
   deleteEstudiante: deleteEstudiante,
   deleteProfesor: deleteProfesor,
-  estudiantesFile: estudiantesFile
+  estudiantesFile: estudiantesFile,
+  readById: readById
 }

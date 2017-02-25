@@ -46,23 +46,26 @@ module.exports.read = function(req, res, next) {
       if ( errors ) {
         res.status(400).json(errors);
         return;
+      } else {
+        Profesor.getProfesorLike(req.query.like, function(err , profesores) {
+          if (err) {
+            res.status(404).json({success: false, message: 'ocurrio algun error al tratar de obtener el profesor'})
+            return;
+          } else {
+            res.status(200).json({success: true, message: 'profesores encontrados', profesores: profesores});
+            return;
+          }
+        })
       }
-      Profesor.getProfesorLike(req.query.like, function(err , profesores) {
-        if (err) {
-          res.status(404).json({success: false, message: 'ocurrio algun error al tratar de obtener el profesor'})
-          return;
-        }
-        res.status(200).json({success: true, message: 'profesores encontrados', profesores: profesores});
+  } else {
+    Profesor.getProfesores(function(err, profesores) {
+      if (err) {
+        res.status(404).json({success: false, message: 'ocurrio algun error al tratar de crear profesor'});
         return;
-      })
+      }
+      res.status(200).json({success: true,profesores: profesores});
+    })
   }
-  Profesor.getProfesores(function(err, profesores) {
-    if (err) {
-      res.status(404).json({success: false, message: 'ocurrio algun error al tratar de crear profesor'});
-      return;
-    }
-    res.status(200).json({success: true,profesores: profesores});
-  })
 }
 
 module.exports.update = function(req, res, next) {

@@ -15,7 +15,7 @@ var CursoSchema = mongoose.Schema({
     required: [true, 'numero paralelo es requerido'],
     unique: true
   },
-  _estudiantes : [{ type: String, ref: 'Estudiante' }]
+  _estudiantes : [{ type: String, ref: 'Estudiante', unique: true }]
 },{collection: 'cursos', versionKey: false, timestamps: true})
 
 CursoSchema.plugin(uniqueValidator);
@@ -28,19 +28,24 @@ CursoSchema.statics.getById = function(id, cb) {
   this.model('Curso').findOne({_id: id}, cb)
 }
 
+CursoSchema.statics.getByIdPopulate = function(id, cb) {
+  this.model('Curso').findOne({_id: id}).populate({path: '_estudiantes', select: '-clave -_desafios -desafios -_ejercicios'}).exec(cb)
+}
+
 CursoSchema.statics.addProfesorById = function(id_curso,id_profesor, cb) {
   this.model('Curso').findOneAndUpdate({_id: id_curso}, {$set: {_profesor: id_profesor}}, cb)
 }
 
 CursoSchema.statics.addEstudianteById = function(id_curso,id_estudiante, cb) {
-  console.log(id_curso)
-  console.log(id_estudiante)
-  console.log(typeof id_estudiante)
   this.model('Curso').findOneAndUpdate({_id: id_curso}, {$addToSet: {"_estudiantes": id_estudiante}},{safe: true, upsert: true}, cb)
 }
 
 CursoSchema.statics.populateCurso = function(id_curso, cb) {
-  this.model('Curso').find({_id: id_curso}).populate({path: '_estudiantes _profesor', select: '-clave -_desafios -desafios -_ejercicios'}).exec(cb)
+  this.model('Curso').findOne({_id: id_curso}).populate({path: '_estudiantes _profesor', select: '-clave -_desafios -desafios -_ejercicios'}).exec(cb)
+}
+
+CursoSchema.statics.existeEnOtroCurso = function(id_estudiante, cb) {
+  this.model('Curso').findOne({_estudiantes: id_estudiante},cb)
 }
 
 CursoSchema.statics.delete = function(id_curso, cb) {
@@ -48,7 +53,7 @@ CursoSchema.statics.delete = function(id_curso, cb) {
 }
 
 CursoSchema.statics.getAll = function(cb) {
-  this.model('Curso').find({}, cb)
+  this.model('Curso').find({}).populate({path: '_estudiantes _profesor', select: '-clave -_desafios -desafios -_ejercicios'}).exec(cb)
 }
 
 CursoSchema.statics.update = function (id,curso,cb) {
