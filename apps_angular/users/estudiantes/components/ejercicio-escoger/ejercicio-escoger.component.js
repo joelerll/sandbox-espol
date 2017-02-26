@@ -22,18 +22,32 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
 
   vm.dificultad_escogida = ''
   vm.ejercicios_posibles = []
-  vm.ejercicio = {}
+  vm.ejercicio = null
   vm.ejercicio_escoger_boton = (ejercicio) => {
     vm.ejercicio = ejercicio;
-    $rootScope.ejercicio = vm.ejercicio
+    $rootScope.ejercicio =vm.ejercicio_slide
+    console.log(vm.ejercicio_slide);
     $rootScope.ejercicioCrear()
   }
+  vm.ejercicio_slide = {}
+  vm.cont = 0
   vm.ejercicio_mostar = (cont) => {
-
+    vm.ejercicio_slide = vm.ejercicios[0]
+  }
+  vm.ejercicio_siguiente = () => {
+    vm.cont = vm.cont +1;
+    console.log('siguiente');
+    console.log(vm.cont)
+    if (vm.ejercicios_posibles.length <= vm.cont) {
+      notie.alert('warning', 'se acabaron los ejercicios', 2)
+    } else {
+      vm.ejercicio_slide = vm.ejercicios_posibles[vm.cont]
+    }
   }
   vm.escogerEjercicios = () => {
     Estudiante.getEjerciciosEtiquetaYDificultad(vm.etiqueta,vm.dificultad_escogida, (res) => {
       vm.ejercicios_posibles = res.data.ejercicios
+      vm.ejercicio_slide = vm.ejercicios_posibles[0]
       if (!vm.ejercicios_posibles.length) {
         notie.alert('success','No se encontraron ejercicios', 2)
       } else {
