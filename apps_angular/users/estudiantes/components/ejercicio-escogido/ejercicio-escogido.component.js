@@ -24,6 +24,7 @@ function EjercicioEscogidoController($rootScope,auth,$http,Upload,$css) {
         notie.alert('success', 'ejercicio correctamente resuelto', 2)
         $rootScope.resuelto()
       } else {
+          $rootScope.resuelto()
         notie.alert('warning', 'ejercicio no fue resuelto', 2)
       }
     })

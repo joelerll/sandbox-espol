@@ -23,13 +23,18 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
   vm.dificultad_escogida = ''
   vm.ejercicios_posibles = []
   vm.ejercicio = null
+  vm.mostrar = false
+  vm.mostrar_escogido = false
+  $rootScope.ejercicio = null
   vm.ejercicio_escoger_boton = (ejercicio) => {
+    vm.mostrar_escogido = true
     vm.ejercicio = ejercicio;
-    $rootScope.ejercicio =vm.ejercicio_slide
+    $rootScope.ejercicio = vm.ejercicio_slide
     console.log(vm.ejercicio_slide);
     $rootScope.ejercicioCrear()
   }
-  vm.ejercicio_slide = {}
+  vm.ejercicio_slide = null
+  vm.mostrar = false
   vm.cont = 0
   vm.ejercicio_mostar = (cont) => {
     vm.ejercicio_slide = vm.ejercicios[0]
@@ -45,6 +50,8 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
     }
   }
   vm.escogerEjercicios = () => {
+    vm.cont = 0
+    vm.mostrar_escogido = false
     Estudiante.getEjerciciosEtiquetaYDificultad(vm.etiqueta,vm.dificultad_escogida, (res) => {
       vm.ejercicios_posibles = res.data.ejercicios
       vm.ejercicio_slide = vm.ejercicios_posibles[0]

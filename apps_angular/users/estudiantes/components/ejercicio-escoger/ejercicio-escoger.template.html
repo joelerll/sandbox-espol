@@ -61,6 +61,6 @@
   </div>
 </div> -->
 <button ng-click="$ctrl.ejercicio_siguiente()" type="button" name="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button>
-</div ng-if="$ctrl.ejercicio != null">
+<div ng-show="$ctrl.mostrar_escogido">
     <ejercicio-escogido></ejercicio-escogido>
 </div>

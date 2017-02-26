@@ -30,15 +30,15 @@ module.exports.create = function(req, res) {
     username: req.body.username,
     password: req.body.password
   })
-  console.log(typeof req.body.username)
   console.log(admin)
-  res.send(admin)
   admin.savee(admin, function(err, admin) {
     if (err) {
       console.log('no guardado')
+      res.send(err)
     } else {
       console.log('guardado')
       console.log(admin)
+      res.send(admin)
     }
   })
 }

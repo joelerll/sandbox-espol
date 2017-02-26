@@ -3,6 +3,8 @@ bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
 shortId         = require('shortid');
 mongoose.Promise = global.Promise;
+var Estudiante  = require('./estudiante');
+var _ = require('lodash')
 
 var EjercicioSchema = mongoose.Schema({
   _id: {
@@ -39,8 +41,29 @@ EjercicioSchema.methods.create = function(cb) {
   this.save(cb);
 }
 
-EjercicioSchema.statics.getByEtiquetaYDificultad = function(etiqueta,dificultad, cb) {
-  this.model('Ejercicio').find({etiquetas: etiqueta, dificultad: dificultad},cb)
+EjercicioSchema.statics.getByEtiquetaYDificultad = function(etiqueta,dificultad,id_estudiante, cb) {
+  this.model('Ejercicio').find({etiquetas: etiqueta, dificultad: dificultad}, function (err, ejercicios) {
+    Estudiante.getById({_id:id_estudiante}, (err2, estudiante) => {
+      if (err2) {
+        cb (null, err2, null)
+        return
+      }
+      if (err) {
+        cb (err, null, null)
+        return
+      }
+      var ejercicios_temp = []
+      ejercicios.forEach((ejer) => {
+        estudiante._ejercicios.forEach((ejercicio_est) => {
+          if (ejercicio_est.ejercicio == ejer._id) {
+            ejercicios_temp.push(ejer);
+            return
+          }
+        })
+      })
+      cb(null,null,_.differenceBy(ejercicios,ejercicios_temp,'_id'))
+    })
+  })
 }
 
 EjercicioSchema.statics.getById = function(id, cb) {
