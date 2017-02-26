@@ -28,7 +28,6 @@ function MisEjerciciosController(Ayudante,$rootScope,$css) {
     })
   }
 
-
   vm.eliminarEjercicio = (id) => {
     Ayudante.eliminarEjercicio(id, (res) => {
       if (res.data.success) {
@@ -40,5 +39,10 @@ function MisEjerciciosController(Ayudante,$rootScope,$css) {
         })
       }
     })
+  }
+
+
+  vm.editar = (id) => {
+    $rootScope.editar(id); //va a panel es llamadod
   }
 }

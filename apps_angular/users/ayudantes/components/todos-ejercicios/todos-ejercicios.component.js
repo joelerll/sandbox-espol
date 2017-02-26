@@ -9,8 +9,10 @@ function TodoEjerciciosController(Ayudante,$rootScope) {
   var vm = this;
   vm.ejercicios = []
   Ayudante.todoLosEjercicios((res) => {
+    console.log('todos');
+    console.log(res)
     vm.ejercicios = res.data.ejercicios
-      vm.temp = []
+    vm.temp = []
     vm.ejercicio = vm.temp;
   })
 

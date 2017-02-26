@@ -7,7 +7,7 @@ function AyudanteController(auth,$http) {
   var todoLosEjercicios = function(cb) {
     $http({
       method: 'GET',
-      url: '/api/v1/ayudantes/ejercicios/todos',
+      url: '/api/v1/ayudantes/ejercicios/mis/todos',
       headers: {'Authorization': auth.getToken()}
     }).then(cb)
   }
@@ -37,12 +37,30 @@ function AyudanteController(auth,$http) {
     }).then(cb)
   }
 
+    var getEjercicioById = function (id_ejercicio, cb) {
+      $http({
+        method: 'GET',
+        url: '/api/v1/ayudantes/ejercicios/' + id_ejercicio,
+        headers: {'Authorization': auth.getToken()}
+      }).then(cb)
+    }
+
+    var updateEjercicio = function (id_ejercicio,ejercicio, cb) {
+      $http({
+        method: 'PUT',
+        url: '/api/v1/ayudantes/ejercicios/' + id_ejercicio,
+        headers: {'Authorization': auth.getToken()},
+        data: ejercicio
+      }).then(cb)
+    }
 
 
   return {
     misEjercicios: misEjercicios,
     crearEjercicio: crearEjercicio,
     todoLosEjercicios: todoLosEjercicios,
-    eliminarEjercicio: eliminarEjercicio
+    eliminarEjercicio: eliminarEjercicio,
+    getEjercicioById: getEjercicioById,
+    updateEjercicio: updateEjercicio
   }
 }

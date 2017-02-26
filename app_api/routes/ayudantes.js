@@ -12,8 +12,9 @@ router.post('/login', AyudanteController.login);
 
 router.post('/ejercicios', auth, EjercicioController.create);
 router.get('/ejercicios', auth, EjercicioController.getAllMisEjercicios);
+router.get('/ejercicios/:id', auth, EjercicioController.getOne);
 router.delete('/ejercicios/:id', auth, EjercicioController.esCreador, EjercicioController.del);
 router.put('/ejercicios/:id', auth, EjercicioController.update);
 
-router.get('/ejercicios/todos',auth, EjercicioController.getAllOfAll);
+router.get('/ejercicios/mis/todos',auth, EjercicioController.getAllOfAll);
 module.exports = router
