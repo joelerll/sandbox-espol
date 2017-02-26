@@ -59,6 +59,10 @@ EjercicioSchema.statics.getByCreador = function(id, cb) {
   this.model('Ejercicio').find({'creador._id': id}, cb);
 } //SypzZFrKl
 
+EjercicioSchema.statics.getOneByCreadorandId = function(id,id_ejercicio, cb) {
+  this.model('Ejercicio').findOne({'creador._id': id, _id: id_ejercicio}, cb);
+}
+
 EjercicioSchema.statics.delete = function(id,id_profesor, cb) {
   this.model('Ejercicio').findOneAndRemove({$and:[{_id: id}, {'creador._id': id_profesor}]}).exec(cb);
 }

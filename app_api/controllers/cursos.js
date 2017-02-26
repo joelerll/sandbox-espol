@@ -67,7 +67,7 @@ function addEstudiante(req, res, next) {
     if (err) {
       res.status(400).json({message: 'error buscar para verificar', success: false})
       return
-    } else if (!res){
+    } else if (!curso){
       Estudiante.getById(req.params.id_estudiante, (err, estudiante) => {
         if (err) {
           res.status(400).json({success: false, message: 'estudiante no encontrado'})

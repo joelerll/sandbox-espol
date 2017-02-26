@@ -57,7 +57,7 @@ function update (req, res, next) {
       res.send('error')
       return;
     }
-    res.send(ejercicio)
+    res.status(200).json({message: 'ejercicio editado', success: true, ejercicio: ejercicio})
   })
 }
 
@@ -166,6 +166,16 @@ function probrarValidezEjercicio(results, args) {
   return true;
 }
 
+function getOne(req, res, next) {
+  Ejercicio.getOneByCreadorandId(req.user._id,req.params.id, (err, ejercicio) => {
+    if (err) {
+      res.status(400).json({message: 'hubo un error en server', success: false})
+      return;
+    }
+    res.status(200).json({message: 'se encontro el ejercicio', success: true, ejercicio: ejercicio})
+  })
+}
+
 module.exports = {
   getAllEtiquetas: getAllEtiquetas,
   create: create,
@@ -175,5 +185,6 @@ module.exports = {
   update: update,
   getAllOfAll: getAllOfAll,
   esCreador: esCreador,
-  comprobarEjercicio: comprobarEjercicio
+  comprobarEjercicio: comprobarEjercicio,
+  getOne: getOne
 }

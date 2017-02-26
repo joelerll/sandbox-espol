@@ -15,7 +15,7 @@
           <span class="fecha-creacion">{{ejercicio.createAt}}</span>
           <button ng-click="$ctrl.eliminarEjercicio(ejercicio._id)" type="button" class="btn btn-danger">eliminar</button>
           <br>
-          <button type="button" name="button" class="btn btn-primary">editar</button>
+          <button ng-click="$ctrl.editar(ejercicio._id)" type="button" name="button" class="btn btn-primary">editar</button>
         </div>
       </div>
       <div class="etiquetas">
