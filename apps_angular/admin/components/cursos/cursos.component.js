@@ -5,10 +5,16 @@ angular.module('cursos').component('cursos', {
 
 CursosController.$inyect = ['Curso','auth','$http','Upload','$rootScope'];
 
-function CursosController(Curso,auth,$http,Upload,$rootScope) {
+function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
+  $scope.sortType = 'numero_paralelo';
+  $scope.sortReverse = false;
+  $scope.searchParalelo = '';
+  $scope.searchProfesor = '';
+  $scope.searchNumAlum = '';
+
   var vm = this
   vm.cursos = []
-  vm.cuso = {
+  vm.curso = {
     numero_paralelo: ''
   }
   vm.alumno_escogido = ''
@@ -17,6 +23,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope) {
   vm.accionCurso = {}
 
   vm.getAll = function() {
+    //Lleno el array cursos con los datos obtenidos de Mongo
     Curso.getAll((res) => {
       if (res.data.success) {
         vm.cursos = res.data.cursos
