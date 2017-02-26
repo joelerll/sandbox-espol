@@ -117,6 +117,17 @@ function registrarEjercicio(carpeta,archivo,ejercicio,user) {
   })
 }
 
+function registrarEjercicioMal(carpeta,archivo,ejercicio,user) {
+  Estudiante.registrarEjercicioMal(user,ejercicio,archivo,carpeta, (err, res) => {
+    if (err) {
+      console.log(err)
+      return false;
+    }
+    Estudiante.puntajeYBadge(user);
+    return true
+  })
+}
+
 function perfil (req, res, next) {
   Estudiante.getById(req.user._id, (err, estudiante) => {
     if (err) {
@@ -137,5 +148,6 @@ module.exports = {
   perfil: perfil,
   login: login,
   updateClave: updateClave,
-  registrarEjercicio: registrarEjercicio
+  registrarEjercicio: registrarEjercicio,
+  registrarEjercicioMal: registrarEjercicioMal
 }

@@ -92,15 +92,32 @@ EstudianteSchema.statics.registrarEjercicio = function(user,ejercicio,nombre_arc
   this.model('Estudiante').update({_id: user._id},{$addToSet: {'_ejercicios': ejercicio_nuevo}},{safe: true, upsert: true},cb )
 }
 
+EstudianteSchema.statics.registrarEjercicioMal = function(user,ejercicio,nombre_archivo,path_archivo,cb) {
+  let ejercicio_nuevo = {
+    ejercicio: ejercicio._id,
+    resuelto:false,
+    archivo: {
+      nombre: nombre_archivo,
+      path: path_archivo
+    },
+     _id: ''
+  }
+  console.log(ejercicio_nuevo)
+  this.model('Estudiante').update({_id: user._id},{$addToSet: {'_ejercicios': ejercicio_nuevo}},{safe: true, upsert: true},cb )
+}
+
 EstudianteSchema.statics.puntajeYBadge = function(user) {
   this.model('Estudiante').findOne({_id: user._id}).populate({path: ' _ejercicios.ejercicio'}).exec((err, data) => {
-    let puntaje = 0;
+    data.puntaje = 0;
+    let puntaje = data.puntaje;
+    console.log(data.puntaje);
     data._ejercicios.forEach((ejercicio)=> {
-      if (ejercicio.dificultad == 'facil') {
+      console.log(ejercicio.resuelto);
+      if (ejercicio.ejercicio.dificultad == 'facil' && ejercicio.resuelto) {
         puntaje = puntaje + 5
-      } else if (ejercicio.dificultad == 'intermedio') {
+      } else if (ejercicio.ejercicio.dificultad == 'intermedio' && ejercicio.resuelto) {
         puntaje = puntaje + 10
-      } else {
+      } else if (ejercicio.ejercicio.dificultad == 'dificil' && ejercicio.resuelto) {
         puntaje = puntaje + 15
       }
     })

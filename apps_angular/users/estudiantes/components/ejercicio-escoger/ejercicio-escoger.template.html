@@ -1,25 +1,66 @@
+<div class="contenedor">
 <h1>Escoja su ejercicio</h1>
-<p>La etiqueta escogida es:  {{$ctrl.etiqueta}}</p>
 <div class="etiquetas">
-  <div ng-repeat="etiqueta in $ctrl.etiquetas" class="etiqueta">
-      <span ng-click="$ctrl.etiqueta_escogida(etiqueta)"> {{etiqueta}}</span>
+  <div class="row">
+    <div  ng-repeat="etiqueta in $ctrl.etiquetas"  class="col-md-2 etiqueta">
+        <span ng-click="$ctrl.etiqueta_escogida(etiqueta)"> {{etiqueta}}</span>
+    </div>
   </div>
 </div>
-<div class="dificultad">
-  <div class="">
-    <select ng-model="$ctrl.dificultad_escogida">
-      <option value=""> </option>
-      <option value="facil">facil</option>
-      <option value="intermedio">intermedio</option>
-      <option value="dificil">dificil</option>
-    </select>
+<div class="row escogidos">
+  <div class="col-md-5">
+    <span>La etiqueta escogida es: </span><span style="color: blue"> {{$ctrl.etiqueta}}</span>
+  </div>
+  <div class="dificultad col-md-5">
+      <select ng-model="$ctrl.dificultad_escogida">
+        <option value=""> </option>
+        <option value="facil">facil</option>
+        <option value="intermedio">intermedio</option>
+        <option value="dificil">dificil</option>
+      </select>
   </div>
 </div>
-<button ng-click="$ctrl.escogerEjercicios()" type="button" name="button">ver ejercicios</button>
-<div class="ejercicios">
-  <div ng-repeat="ejercicio in $ctrl.ejercicios_posibles"class="ejercicio">
-    {{ejercicio.titulo}}
+
+<div class="boton-ver">
+  <button ng-click="$ctrl.escogerEjercicios()" type="button" name="button" class="btn btn-primary">ver ejercicio</button>
+</div>
+<div class="ejercicio row">
+  <div class="col-md-2">
+
+  </div>
+  <div class="col-md-8 text-center">
+    <div class="titulo">
+      <span>Titulo: </span><span>{{$ctrl.ejercicio_slide.titulo}}</span>
+    </div>
+    <div class="descripcion">
+      <span>Descripcion: </span><span>{{$ctrl.ejercicio_slide.descripcion}}</span>
+    </div>
+    <div class="etiquetas">
+      <span>Etiquetas: </span><span ng-repeat="eti in $ctrl.ejercicio_slide.etiquetas">{{eti}}</span>
+    </div>
+    <button ng-show="$ctrl.mostrar" ng-click="$ctrl.ejercicio_escoger_boton($ctrl.ejercicio_slide)"type="button" name="button" class="btn btn-primary text-center">resolver</button>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>
+
+<!-- <div class="ejercicios row">
+
+  <div ng-repeat="ejercicio in $ctrl.ejercicios_posibles" class="ejercicio col-md-6">
+    <div class="titulo">
+      <span>Titulo: </span><span>{{ejercicio.titulo}}</span>
+    </div>
+    <div class="descripcion">
+      <span>Descripcion: </span><span>{{ejercicio.descripcion}}</span>
+    </div>
+    <div class="etiquetas">
+      <span>Etiquetas: </span><span ng-repeat="eti in ejercicio.etiquetas">{{eti}}</span>
+    </div>
     <button ng-show="$ctrl.mostrar" ng-click="$ctrl.ejercicio_escoger_boton(ejercicio)"type="button" name="button">resolver</button>
   </div>
-</div>
+</div> -->
+<button ng-click="$ctrl.ejercicio_siguiente()" type="button" name="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button>
+<div ng-show="$ctrl.mostrar_escogido">
     <ejercicio-escogido></ejercicio-escogido>
+</div>

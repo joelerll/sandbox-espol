@@ -3,11 +3,12 @@ angular.module('ejercicioEscogido').component('ejercicioEscogido', {
   controller: EjercicioEscogidoController
 })
 
-EjercicioEscogidoController.$inyect = ['$rootScope','auth','$http','Upload']
+EjercicioEscogidoController.$inyect = ['$rootScope','auth','$http','Upload','$css']
 
-function EjercicioEscogidoController($rootScope,auth,$http,Upload) {
+function EjercicioEscogidoController($rootScope,auth,$http,Upload,$css) {
   var vm = this;
   vm.ejercicio ={}
+  $css.add('./css/ejercicio-escogido.css')
   $rootScope.ejercicioCrear = () => {
     vm.ejercicio = $rootScope.ejercicio
   }
@@ -19,10 +20,13 @@ function EjercicioEscogidoController($rootScope,auth,$http,Upload) {
       headers: {'Authorization': auth.getToken()},
       data: {'ejercicio': vm.file}
     }).then((res) => {
-      if (res.data.success) {
+      if (res.data.resuelto) {
+        notie.alert('success', 'ejercicio correctamente resuelto', 2)
         $rootScope.resuelto()
+      } else {
+          $rootScope.resuelto()
+        notie.alert('warning', 'ejercicio no fue resuelto', 2)
       }
-      console.log(res)
     })
   }
 }

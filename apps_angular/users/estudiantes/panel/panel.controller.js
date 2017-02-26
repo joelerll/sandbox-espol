@@ -11,13 +11,12 @@ function PanelController (Estudiante,auth,$location) {
   }
 
   vm.tabs = {
-    perfil : true,
-    resolver : false
+    perfil : false,
+    resolver : true
   }
 
   vm.clicks = {
     perfil: () => {
-      console.log('perifl')
       vm.tabs.perfil = true
       vm.tabs.resolver = false
     },

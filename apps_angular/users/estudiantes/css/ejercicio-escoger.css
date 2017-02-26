@@ -1,3 +1,27 @@
 div.etiqueta {
   padding-top: 1%;
+  padding-bottom: 1%;
+  border: black solid 1px;
+  margin-bottom: 1%;
+}
+
+div.escogidos {
+  border: black solid 1px;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-bottom: 1%;
+}
+
+div.contenedor {
+  margin: 2%;
+}
+
+div.ejercicios {
+  margin-top: 2%;
+}
+
+div.ejercicio {
+  margin-top: : 2%;
+  padding-top: 2%;
+  
 }

@@ -26,6 +26,7 @@ AdminSchema.statics.getUser = function(username, cb) {
   return this.model('Admin').findOne({ username: username }, cb);
 }
 
+
 AdminSchema.statics.comparePass = function(password, hash, cb){
 	bcrypt.compare(password, hash, function(err, isMatch) {
     	if(err) throw err;

@@ -96,8 +96,8 @@ function getAllEtiquetas(req, res, next) {
 }
 
 function getByEtiquetaYDificultad(req, res, next) {
-  Ejercicio.getByEtiquetaYDificultad(req.query.etiqueta, req.query.dificultad, (err, ejercicios) => {
-    if (err) {
+  Ejercicio.getByEtiquetaYDificultad(req.query.etiqueta, req.query.dificultad,req.user._id, (err,err2, ejercicios) => {
+    if (err || err2) {
       res.status(400).json({success: false, message: 'ocurrio un error en el servido'})
       return;
     }
@@ -141,8 +141,10 @@ function comprobarEjercicio(req, res ,next) {
           var guardado = EstudianteController.registrarEjercicio('/upload/ejercicios/',archivo,ejercicio,req.user);
           res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no',resuelto: valido})
           return
+        } else {
+          var guardado = EstudianteController.registrarEjercicioMal('/upload/ejercicios/',archivo,ejercicio,req.user);
+          res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no', resuelto: false})
         }
-        res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no', resuelto: false})
       })
 
     })
