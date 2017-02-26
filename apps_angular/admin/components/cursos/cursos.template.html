@@ -1,92 +1,159 @@
-<h1>Cursos</h1>
-
-<form ng-show="!$ctrl.tabla_acciones.editar" class="">
-  <div class="form-group">
-    <input ng-model="$ctrl.curso.numero_paralelo" type="text" placeholder="numero paralelo" class="form-control">
-  </div>
-  <div class="form-group">
-    <button ng-click="$ctrl.create()" type="button" name="button" class="form-control">crear</button>
-  </div>
-</form>
-
-<div ng-show="$ctrl.tabla_acciones.tabla" class="cursos">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Paralelo
-        </th>
-        <th>Profesor
-        </th>
-        <th>Numero alumnos</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="curso in $ctrl.cursos">
-        <td>{{curso.numero_paralelo}}</td>
-        <td>{{curso._profesor.nombres }} {{curso._profesor.apellidos}}</td>
-        <td>{{curso._estudiantes.length}}</td>
-        <td>
-          <button ng-click="$ctrl.del(curso._id)" type="button" name="button">eliminar</button>
-          <button ng-click="$ctrl.editar(curso)" type="button" name="button">editar</button>
-          <!-- <button ng-click="$ctrl.ver(curso)" type="button" name="button">ver</button> -->
-        </td>
-    </tbody>
-  </table>
-</div>
-
-<div ng-show="$ctrl.tabla_acciones.ver" class="editar">
-  <button ng-click="$ctrl.tabla()" type="button" name="button">tabla</button>
-  <p>{{$ctrl.accionCurso}}</p>
-</div>
-
-<div ng-show="$ctrl.tabla_acciones.editar" class="editar">
-  <h3>CURSO {{$ctrl.accionCurso.numero_paralelo}}</h3>
-  <h4>Profesor</h4>
-  <input type="text" ng-model="$ctrl.profesor_escogido" placeholder="Buscar profesor" uib-typeahead="profes as profes.nombres for profes in $ctrl.buscarProfesor($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
-    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-  <div ng-show="noResults">
-    <i class="glyphicon glyphicon-remove"></i> No se encontro profesores
-  </div>
-  <h4>Alummnos</h4>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Identificacion</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Correo</th>
-        <th>Carrera</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="estudiante in $ctrl.accionCurso._estudiantes">
-        <td>{{estudiante.identificacion}}</td>
-        <td>{{estudiante.nombres}}</td>
-        <td>{{estudiante.apellidos}}</td>
-        <td>{{estudiante.correo}}</td>
-        <td>{{estudiante.carrera}}</td>
-        <td><button ng-click="$ctrl.deleteEstudiante(estudiante._id)" class="btn btn-danger"type="button" name="button">borrar</button></td>
-      </tr>
-    </tbody>
-  </table>
-  <form class="form">
+<div class="container">
+  
+  <h1>Cursos</h1>
+  <!--
+  <form ng-show="!$ctrl.tabla_acciones.editar" class="">
     <div class="form-group">
-      <input type="text" ng-model="$ctrl.alumno_escogido" placeholder="anadir alumno" uib-typeahead="alumno as alumno.nombres for alumno in $ctrl.buscarAlumno($viewValue)" typeahead-loading="loadingAlumno" typeahead-no-results="noAlumnos" class="form-control">
-        <i ng-show="loadingAlumno" class="glyphicon glyphicon-refresh"></i>
-      <div ng-show="noAlumnos">
-        <i class="glyphicon glyphicon-remove"></i> No se encontro alumnos
+      <input ng-model="$ctrl.curso.numero_paralelo" type="text" placeholder="numero paralelo" class="form-control">
+    </div>
+    <div class="form-group">
+      <button ng-click="$ctrl.create()" type="button" name="button" class="form-control">crear</button>
+    </div>
+  </form>
+  -->
+  <div ng-show="$ctrl.tabla_acciones.tabla" class="cursos">
+    <table class="table table-hover table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>
+            <span ng-click="sortType = 'numero_paralelo'; sortReverse = !sortReverse">
+              Paralelo
+              <span ng-show="sortType == 'numero_paralelo' && !sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="sortType == 'numero_paralelo' && sortReverse" class="fa fa-caret-up"></span>
+            </span>
+          </th>
+          <th>
+            <span ng-click="sortType = '_profesor.nombres'; sortReverse = !sortReverse">
+              Profesor
+              <span ng-show="sortType == '_profesor.nombres' && !sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="sortType == '_profesor.nombres' && sortReverse" class="fa fa-caret-up"></span>
+            </span>
+          </th>
+          <th>
+            <span ng-click="sortType = '_estudiantes.length'; sortReverse = !sortReverse">
+              Numero alumnos
+              <span ng-show="sortType == '_estudiantes.length' && !sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="sortType == '_estudiantes.length' && sortReverse" class="fa fa-caret-up"></span>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>
+            <input type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome" ng-model="searchParalelo">
+          </th>
+          <th>
+            <input type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome" ng-model="searchProfesor">
+          </th>
+          <th>
+            <input type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome" ng-model="searchNumAlum">
+          </th>
+          <th>
+            <button type="button" name="button" class="btn btn-primary" data-toggle="modal" data-target="#cursoNuevo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          </th>
+        </tr>
+        <tr ng-repeat="curso in $ctrl.cursos | orderBy:sortType:sortReverse | filter:searchParalelo | filter:searchProfesor | filter:searchNumAlum">
+          <td>
+              {{curso.numero_paralelo}}
+          </td>
+          <td>{{curso._profesor.nombres }} {{curso._profesor.apellidos}}</td>
+          <td>{{curso._estudiantes.length}}</td>
+          <td style="white-space: nowrap;">
+            <div class="buttons" ng-show="!form.$visible">
+              <button ng-click="$ctrl.del(curso._id)" type="button" name="button" class="btn btn-danger">
+                <i class="fa fa-trash-o"></i>
+              </button>
+              <button ng-click="$ctrl.editar(curso)" type="button" name="button" class="btn btn-primary">
+                <i class="fa fa-pencil-square-o"></i>
+              </button>
+              <!-- <button ng-click="$ctrl.ver(curso)" type="button" name="button">ver</button> -->
+            </div>
+            
+          </td>
+      </tbody>
+    </table>
+  </div>
+
+  <div ng-show="$ctrl.tabla_acciones.ver" class="editar">
+    <button ng-click="$ctrl.tabla()" type="button" name="button">tabla</button>
+    <p>{{$ctrl.accionCurso}}</p>
+  </div>
+
+  <div ng-show="$ctrl.tabla_acciones.editar" class="editar">
+    <h3>CURSO {{$ctrl.accionCurso.numero_paralelo}}</h3>
+    <h4>Profesor</h4>
+    <input type="text" ng-model="$ctrl.profesor_escogido" placeholder="Buscar profesor" uib-typeahead="profes as profes.nombres for profes in $ctrl.buscarProfesor($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    <div ng-show="noResults">
+      <i class="glyphicon glyphicon-remove"></i> No se encontro profesores
+    </div>
+    <h4>Alummnos</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Identificacion</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Correo</th>
+          <th>Carrera</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="estudiante in $ctrl.accionCurso._estudiantes">
+          <td>{{estudiante.identificacion}}</td>
+          <td>{{estudiante.nombres}}</td>
+          <td>{{estudiante.apellidos}}</td>
+          <td>{{estudiante.correo}}</td>
+          <td>{{estudiante.carrera}}</td>
+          <td><button ng-click="$ctrl.deleteEstudiante(estudiante._id)" class="btn btn-danger"type="button" name="button">borrar</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <form class="form">
+      <div class="form-group">
+        <input type="text" ng-model="$ctrl.alumno_escogido" placeholder="anadir alumno" uib-typeahead="alumno as alumno.nombres for alumno in $ctrl.buscarAlumno($viewValue)" typeahead-loading="loadingAlumno" typeahead-no-results="noAlumnos" class="form-control">
+          <i ng-show="loadingAlumno" class="glyphicon glyphicon-refresh"></i>
+        <div ng-show="noAlumnos">
+          <i class="glyphicon glyphicon-remove"></i> No se encontro alumnos
+        </div>
+        <button ng-click="$ctrl.addAlumno()" class="btn btn-primary" type="button" name="button">add alumno</button>
       </div>
-      <button ng-click="$ctrl.addAlumno()" class="btn btn-primary" type="button" name="button">add alumno</button>
+    </form>
+    <form class="" action="index.html" method="post">
+      <div class="form-group">
+        <!-- <div class="button" ></div> -->
+          <button ngf-select ng-model="$ctrl.file" name="archivo" ngf-pattern="'*/*'"
+          ngf-accept="'*/*'" class="btn btn-primary" type="button" name="button"><i class="fa fa-upload"></i></button>
+        <button ng-if="$ctrl.file" class="btn btn-warning" type="button" ng-click="$ctrl.subirAlumnos()">enviar</button>
+        <button ng-click="$ctrl.addProfesor(); $ctrl.tabla()" class="btn btn-info" type="button" name="button"><i class="fa fa-floppy-o"></i></button>
+        <button ng-click="$ctrl.tabla()" class="btn btn-default" type="button" name="button">cancelar</button>
+      </div>
+    </form>
+  </div>
+
+
+  <!-- modal nuevo curso -->
+  <div class="modal fade" id="cursoNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">Nuevo Curso</h4>
+        </div>
+        <div class="modal-body">
+          <form name="newCursoForm" novalidate>
+            <div class="form-group">
+              <label for="numero-paralelo" class="control-label"># Paralelo:</label>
+              <input type="text" name="paralelo" class="form-control" ng-model="$ctrl.curso.numero_paralelo" ng-required="true">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button ng-click="$ctrl.create()" type="button" class="btn btn-primary" ng-disabled="newCursoForm.$invalid" data-dismiss="modal">Crear</button>
+        </div>
+      </div>
     </div>
-  </form>
-  <form class="" action="index.html" method="post">
-    <div class="form-group">
-      <!-- <div class="button" ></div> -->
-        <button ngf-select ng-model="$ctrl.file" name="archivo" ngf-pattern="'*/*'"
-        ngf-accept="'*/*'" class="btn btn-primary" type="button" name="button"><i class="fa fa-upload"></i></button>
-      <button ng-if="$ctrl.file" class="btn btn-warning" type="button" ng-click="$ctrl.subirAlumnos()">enviar</button>
-      <button ng-click="$ctrl.addProfesor(); $ctrl.tabla()" class="btn btn-info" type="button" name="button"><i class="fa fa-floppy-o"></i></button>
-      <button ng-click="$ctrl.tabla()" class="btn btn-default" type="button" name="button">cancelar</button>
-    </div>
-  </form>
+  </div>
 </div>
