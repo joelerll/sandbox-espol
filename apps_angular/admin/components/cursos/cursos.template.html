@@ -80,16 +80,38 @@
     <p>{{$ctrl.accionCurso}}</p>
   </div>
 
+  <!--Editar curos-->
   <div ng-show="$ctrl.tabla_acciones.editar" class="editar">
     <h3>CURSO {{$ctrl.accionCurso.numero_paralelo}}</h3>
-    <h4>Profesor</h4>
+    <hr class="featurette-divider">
+    <h4><b>Profesor</b></h4>
+    <table class="table table-responsive table-hover">
+      <thead>
+        <tr>
+          <th>Identificacion</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Correo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{$ctrl.accionCurso._profesor.identificacion}}</td>
+          <td>{{$ctrl.accionCurso._profesor.nombres}}</td>    
+          <td>{{$ctrl.accionCurso._profesor.apellidos}}</td>    
+          <td>{{$ctrl.accionCurso._profesor.correo}}</td>        
+        </tr>
+      </tbody>
+    </table>
     <input type="text" ng-model="$ctrl.profesor_escogido" placeholder="Buscar profesor" uib-typeahead="profes as profes.nombres for profes in $ctrl.buscarProfesor($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
       <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
     <div ng-show="noResults">
       <i class="glyphicon glyphicon-remove"></i> No se encontro profesores
     </div>
-    <h4>Alummnos</h4>
-    <table class="table">
+    <button ng-click="$ctrl.addProfesor()" class="btn btn-primary" type="button" name="button">Añadir profesor</button>
+    <hr class="featurette-divider">
+    <h4><b>Alummnos</b></h4>
+    <table class="table table-responsive table-hover">
       <thead>
         <tr>
           <th>Identificacion</th>
@@ -117,9 +139,10 @@
         <div ng-show="noAlumnos">
           <i class="glyphicon glyphicon-remove"></i> No se encontro alumnos
         </div>
-        <button ng-click="$ctrl.addAlumno()" class="btn btn-primary" type="button" name="button">add alumno</button>
+        <button ng-click="$ctrl.addAlumno()" class="btn btn-primary" type="button" name="button">Añadir alumno</button>
       </div>
     </form>
+    <br>
     <form class="" action="index.html" method="post">
       <div class="form-group">
         <!-- <div class="button" ></div> -->
@@ -131,7 +154,7 @@
       </div>
     </form>
   </div>
-
+  <!--Fin de editar cursos-->
 
   <!-- modal nuevo curso -->
   <div class="modal fade" id="cursoNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -145,7 +168,9 @@
           <form name="newCursoForm" novalidate>
             <div class="form-group">
               <label for="numero-paralelo" class="control-label"># Paralelo:</label>
-              <input type="text" name="paralelo" class="form-control" ng-model="$ctrl.curso.numero_paralelo" ng-required="true">
+              <input type="text" name="paralelo" class="form-control" ng-model="$ctrl.curso.numero_paralelo" ng-required="true" validacion-Paralelo>
+              <p ng-show="newCursoForm.paralelo.$error.letterVal&&newCursoForm.paralelo.$touched">No se permiten letras</p>
+              <p ng-show="newCursoForm.paralelo.$error.specialCharVal&&newCursoForm.paralelo.$touched">No se permiten caracteres especiales</p>
             </div>
           </form>
         </div>
@@ -156,4 +181,5 @@
       </div>
     </div>
   </div>
+  <!--Fin modal nuevo curso-->
 </div>
