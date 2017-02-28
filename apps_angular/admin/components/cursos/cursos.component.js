@@ -104,6 +104,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
         notie.alert('success', 'Se guardo profesor', 2)
         vm.getAll();
         vm.profesor_escogido = ''
+        
         return
       }else{
         notie.alert('error', 'No se pudo añadir profesor', 2)
@@ -173,7 +174,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
       }
     } )
   }
-  
+
 }
 
 

@@ -8,27 +8,27 @@
   </div>
 
   <ul class="nav navbar-nav">
-      <li ng-click='vm.tabs.clicks.dashboard()'>
+      <li ng-click="vm.tabs.clicks.dashboard()" ng-class="{'colores': vm.tabs.dashboard}">
         <a>
             <i class="fa fa-bullseye"></i> <label for=""> Dashboard</label>
         </a>
       </li>
-      <li ng-click="vm.tabs.clicks.profesores()">
+      <li ng-click="vm.tabs.clicks.profesores()" ng-class="{'colores': vm.tabs.profesores}">
         <a>
             <i class="fa fa-university"></i> <label for=""> Profesores</label>
         </a>
       </li>
-      <li ng-click="vm.tabs.clicks.estudiantes()">
+      <li ng-click="vm.tabs.clicks.estudiantes()" ng-class="{'colores': vm.tabs.estudiantes}">
         <a>
           <i class="fa fa-user-o"></i> <label for="">  Estudiantes</label>
         </a>
       </li>
-      <li ng-click="vm.tabs.clicks.ayudantes()">
+      <li ng-click="vm.tabs.clicks.ayudantes()" ng-class="{'colores': vm.tabs.ayudantes}">
         <a>
           <i class="fa fa-briefcase"></i> <label for=""> Ayudantes</label>
         </a>
       </li>
-      <li ng-click="vm.tabs.clicks.cursos()">
+      <li ng-click="vm.tabs.clicks.cursos()" ng-class="{'colores': vm.tabs.cursos}">
         <a>
           <i class="fa fa-envelope"></i> <label for=""> Cursos</label>
         </a>
