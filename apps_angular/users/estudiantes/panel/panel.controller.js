@@ -5,14 +5,15 @@ PanelController.$inyect = ['Estudiante','auth','$location'];
 function PanelController (Estudiante,auth,$location) {
   var vm = this;
   vm.correo = auth.parseJwt().correo
+  vm.aux = Estudiante;
   vm.logout = () => {
     auth.logout()
     $location.path('/')
   }
 
   vm.tabs = {
-    perfil : false,
-    resolver : true
+    perfil : true,
+    resolver : false
   }
 
   vm.clicks = {

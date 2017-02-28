@@ -1,25 +1,25 @@
 <div class="panel-graficas">
-<div class="row">
-  <div class="col-md-6">
-    <p class="input-group">
-      <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}" ng-model="$ctrl.dt" is-open="$ctrl.popup1.opened" datepicker-options="$ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="$ctrl.altInputFormats" />
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="$ctrl.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-      </span>
-    </p>
+  <div class="row">
+    <div class="col-md-6">
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}" ng-model="$ctrl.dt" is-open="$ctrl.popup1.opened" datepicker-options="$ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="$ctrl.altInputFormats" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="$ctrl.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
+    <div class="col-md-6">
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}" ng-model="$ctrl.dt2" is-open="$ctrl.popup2.opened" datepicker-options="$ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="$ctrl.altInputFormats" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="$ctrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
   </div>
-  <div class="col-md-6">
-    <p class="input-group">
-      <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}" ng-model="$ctrl.dt2" is-open="$ctrl.popup2.opened" datepicker-options="$ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="$ctrl.altInputFormats" />
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="$ctrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-      </span>
-    </p>
-  </div>
-</div>
-<button ng-click="$ctrl.send()" class="btn btn-primary" type="button" name="button">enviar</button>
+  <button ng-click="$ctrl.send()" class="btn btn-primary" type="button" name="button">enviar</button>
 
-</style>
-<div id="main" class="bar" style="width: 800px;height:500px;"></div>
+  </style>
+  <div id="main" class="bar" style="width: 800px;height:500px;"></div>
 
 </div>
