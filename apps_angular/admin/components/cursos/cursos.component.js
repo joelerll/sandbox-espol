@@ -37,11 +37,11 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
   vm.create = function() {
     Curso.create(vm.curso,(res) => {
       if (res.data.success) {
-        notie.alert('success','ser creo correctamente', 2);
+        notie.alert('success','Se creo correctamente', 2);
         vm.getAll()
         vm.curso.numero_paralelo = ''
       } else {
-        notie.alert('danger', 'hubo un error', 2)
+        notie.alert('danger', 'Hubo un error', 2)
       }
     })
   }
@@ -101,10 +101,12 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
     if (!vm.profesor_escogido._id) return;
     Curso.addProfesor(vm.accionCurso._id,vm.profesor_escogido._id, (res) => {
       if (res.data.success) {
-        notie.alert('success', 'se guardo profesor', 2)
+        notie.alert('success', 'Se guardo profesor', 2)
         vm.getAll();
         vm.profesor_escogido = ''
         return
+      }else{
+        notie.alert('error', 'No se pudo añadir profesor', 2)
       }
       console.log(res.data)
     })
@@ -114,11 +116,13 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
     if (!vm.alumno_escogido._id) return;
     Curso.addAlumno(vm.accionCurso._id,vm.alumno_escogido._id, (res) => {
       if (res.data.success) {
-        notie.alert('success', 'se guardo profesor', 2)
+        notie.alert('success', 'Se guardo alumno', 2)
         vm.getAll();
         vm.alumno_escogido = ''
         vm.accionCurso = res.data.curso
         return
+      }else{
+        notie.alert('error', 'No se pudo añadir alumno', 2)
       }
       console.log(res.data)
     })
@@ -131,7 +135,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
   vm.deleteEstudiante = function(id_estudiante) {
     Curso.deleteEstudiante(vm.accionCurso._id, id_estudiante, (res) => {
       if (res.data.success) {
-        notie.alert('success', 'se borro el estudiante', 2);
+        notie.alert('success', 'Se borro el estudiante', 2);
         vm.getAll();
         actualizarAccionCursoBorrar(id_estudiante)
       } else {
@@ -163,7 +167,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
             $rootScope.getAllEstudiantes();
           }
         })
-        notie.alert('success', 'creados correctamnet', 2)
+        notie.alert('success', 'Creados correctamente', 2)
       } else {
         console.log(res)
       }
@@ -171,3 +175,29 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
   }
   
 }
+
+
+angular.module('cursos').directive('validacionParalelo', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(/[\W]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        if(/[A-Za-z]/.test(ngModelValue)){
+          ctrl.$setValidity('letterVal', false);
+        }else{
+          ctrl.$setValidity('letterVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})
