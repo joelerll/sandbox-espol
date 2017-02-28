@@ -5,3 +5,8 @@ h1 {
 button.login {
   content: inherit;
 }
+
+#logout{
+	margin: auto;
+	margin-top: 12px;
+}
