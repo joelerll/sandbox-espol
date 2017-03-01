@@ -40,8 +40,9 @@ function NuevoEjercicioController(Ayudante,$css,$rootScope) {
   }
 
   vm.guardar = () => {
+    //Guarda los valores de entrada y de salida en el objeto ejercicio
     vm.ejercicio.entradas = [];
-      vm.ejercicio.salidas = []
+    vm.ejercicio.salidas = []
     vm.val.forEach((valores) => {
       vm.ejercicio.entradas.push(valores.entrada);
       vm.ejercicio.salidas.push(valores.salida);
@@ -62,6 +63,7 @@ function NuevoEjercicioController(Ayudante,$css,$rootScope) {
     $rootScope.ejercicios = res.data.ejercicios
   })
   vm.crearEjercicio = () => {
+    vm.sanitizar();
     Ayudante.crearEjercicio(vm.ejercicio, (res) => {
       if (res.data.success) {
         vm.ejercicio = {
@@ -74,11 +76,13 @@ function NuevoEjercicioController(Ayudante,$css,$rootScope) {
         }
         vm.tags = []
         vm.val = []
-        //cargar los ejercicis en mis
+        //cargar los ejercicis en mis ejercicios
         $rootScope.cargar()
         $rootScope.cargar2()
+        notie.alert('success', 'Ejercicio creado', 1);
       } else {
-        console.log(res.data.errors)
+        console.log(res.data.errors);
+        notie.alert('error', 'Hubo un error al crear el ejercicio', 1);
         //errores
       }
     })
@@ -93,4 +97,43 @@ function NuevoEjercicioController(Ayudante,$css,$rootScope) {
   vm.cancel = () => {
 
   }
+
+  vm.sanitizar = () => {
+    vm.ejercicio.titulo = filterXSS(vm.ejercicio.titulo)
+    vm.ejercicio.descripcion = filterXSS(vm.ejercicio.descripcion)
+    vm.ejercicio.dificultad = filterXSS(vm.ejercicio.dificultad)
+    for (var i = 0; i < vm.val.length; i++) {
+      vm.val[i].entrada = filterXSS(vm.val[i].entrada);
+      vm.val[i].salida = filterXSS(vm.val[i].salida);
+    }
+  }
+
+  vm.prueba = () => {
+    console.log(vm.ejercicio.entradas);
+    console.log(vm.ejercicio.salidas);
+    console.log(vm.val);
+    //console.log(vm.ejercicio.salidas);
+  }
+
 }
+
+
+angular.module('nuevoEjercicio').directive('tituloVal', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(/[&<>%#()/''""\\/$^!-]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+          console.log('special Character')
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})

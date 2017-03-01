@@ -165,7 +165,7 @@ angular.module('ayudantes').directive('validacionNombresApellidosAyudante', func
     require: 'ngModel',
     link: function(scope, element, attr, ctrl){
       function customValidator(ngModelValue){
-        if(/[&<>%#()/''""\\/$^!-_]/.test(ngModelValue)){
+        if(/[&<>%#()/''""\\/$^!-]/.test(ngModelValue)){
           ctrl.$setValidity('specialCharVal', false);
         }else{
           ctrl.$setValidity('specialCharVal', true);

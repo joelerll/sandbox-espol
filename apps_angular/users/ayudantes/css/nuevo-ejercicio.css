@@ -7,3 +7,7 @@ div.container-nuevo {
   margin-left: 5%;
   margin-right: 5%;
 }
+
+#btnIngresar[disabled]{
+	background-color: grey;
+}
