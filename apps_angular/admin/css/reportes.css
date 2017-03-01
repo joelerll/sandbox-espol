@@ -1,8 +1,12 @@
 div.panel-graficas {
   padding: 2%;
-  padding-top: 5%;
+  padding-top: 2%;
 }
 
 div.bar {
-  
+
+}
+
+h3 {
+  padding-top: 1%;
 }

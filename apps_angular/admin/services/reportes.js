@@ -11,7 +11,16 @@ function Reportes (auth,$http) {
     }).then(cb)
   }
 
+  var getCursosEjercicios = (cb) => {
+    $http({
+      method: 'GET',
+      url: '/api/v1/admin/reportes/ejercicios/cursos',
+      headers: {'Authorization': auth.getToken()}
+    }).then(cb)
+  }
+
   return {
-    getDias: getDias
+    getDias: getDias,
+    getCursosEjercicios: getCursosEjercicios
   }
 }
