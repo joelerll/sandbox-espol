@@ -35,7 +35,7 @@ gulp.task('browser-sync', function() {
         browser: "default",
         startPath: '/admin',
         port: 7000,
-        tunnel: false,
+        tunnel: 'sandbox',
         online: true,
         open: "local",
         injectChanges: true,

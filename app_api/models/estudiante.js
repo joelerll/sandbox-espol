@@ -180,6 +180,11 @@ EstudianteSchema.pre('save',function (next) {
   }
 });
 
+EstudianteSchema.statics.cambioClave = function(id_estudiante, nueva_clave_hash, cb) {
+  this.model('Estudiante').findOneAndUpdate({_id:id_estudiante}, {$set: {clave: nueva_clave_hash}}, cb)
+}
+
+
 EstudianteSchema.methods.generarJwt = function() {
   var expiracion = new Date();
   expiracion.setDate(expiracion.getDate() + 5);

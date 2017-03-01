@@ -65,7 +65,7 @@ AyudanteSchema.pre('save', function (next) {
   if (this.isNew) {
     let clave = shortId.generate()
     ayudante.clave = clave;
-    // ayudante.clave = '2'
+    ayudante.clave = '1'
     console.log('clave ayudante ' + ayudante.clave)
     //error = mail.enviar(this.correo,ayudante.clave);
     // if (error) {
@@ -97,10 +97,21 @@ AyudanteSchema.statics.getPorCorreo = function(correo, cb)  {
   this.model('Ayudante').findOne({correo: correo}, cb);
 }
 
+AyudanteSchema.pre('update', function(next) {
+  console.log('editado')
+  next()
+})
+
+AyudanteSchema.statics.cambioClave = function(id_ayudante, nueva_clave_hash, cb) {
+  this.model('Ayudante').findOneAndUpdate({_id:id_ayudante}, {$set: {clave: nueva_clave_hash}}, cb)
+}
+
 AyudanteSchema.statics.comparePass = function(password, hash, cb){
-  console.log('compare')
 	bcrypt.compare(password, hash, function(err, isMatch) {
-    	if(err) throw err;
+    	if(err) {
+        console.log('error');
+        cb(null,false)
+      }
     	cb(null, isMatch);
 	});
 }
@@ -111,6 +122,10 @@ AyudanteSchema.methods.create = function(cb) {
 
 AyudanteSchema.statics.getById = function(id, cb) {
   this.model('Ayudante').findOne({ _id:  id },{clave: 0}, cb);
+}
+
+AyudanteSchema.statics.getByIdCompleto = function(id, cb) {
+  this.model('Ayudante').findOne({ _id:  id }, cb);
 }
 
 AyudanteSchema.statics.delete = function(id, cb) {

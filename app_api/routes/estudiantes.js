@@ -20,6 +20,7 @@ var upload = multer({ storage: storage })
 router.get('/etiquetas',auth, EjercicioController.getAllEtiquetas);
 router.get('/ejercicios',auth, EjercicioController.getByEtiquetaYDificultad);
 router.get('/perfil',auth, EstudianteController.perfil);
+router.post('/clave', auth,EstudianteController.cambiarClave)
 router.post('/ejercicio/:id_ejercicio/file',auth, upload.single('ejercicio'), EjercicioController.comprobarEjercicio);
 
 require('../config/passport.estudiante.login.js')(passport);

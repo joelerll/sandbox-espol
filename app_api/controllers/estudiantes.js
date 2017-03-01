@@ -137,6 +137,40 @@ function perfil (req, res, next) {
     res.status(200).json({message: 'user encontrado', estudiante: estudiante, success: true})
   })
 }
+var bcrypt = require('bcryptjs')
+function cambiarClave(req, res, next) {
+  if (req.body.clave != req.body.clave_confirmacion) {
+    res.status(200).json({success: false, message: 'no esta confirmado la clave'})
+    return
+  }
+  Estudiante.getById(req.user._id,(err, estudiante) => {
+    Estudiante.comparePass(req.body.clave, estudiante.clave, (cosa,isMatch) => {
+      if (!isMatch) {
+        res.status(200).json({success: false, message: 'la clave no es valida'})
+        return;
+      }
+      bcrypt.genSalt(10, function (err, salt) {
+        if (err) {
+          res.status(400).json({message: 'error al cambiar clave', success: false});
+          return;
+        }
+        bcrypt.hash(req.body.clave_nueva, salt, function(err, hash) {
+          if (err) {
+            res.status(400).json({message: 'error al cambiar clave', success: false});
+            return;
+          }
+          Estudiante.cambioClave(req.user._id,hash, (err) => {
+            if (err) {
+              res.status(400).json({message: 'error al cambiar clave', success: false});
+            } else {
+              res.status(200).json({message: 'se pudo cambiar correctamente la clave', success: true});
+            }
+          })
+        });
+      });
+    })
+  })
+}
 
 module.exports = {
   // admin control
@@ -149,5 +183,6 @@ module.exports = {
   login: login,
   updateClave: updateClave,
   registrarEjercicio: registrarEjercicio,
-  registrarEjercicioMal: registrarEjercicioMal
+  registrarEjercicioMal: registrarEjercicioMal,
+  cambiarClave: cambiarClave
 }
