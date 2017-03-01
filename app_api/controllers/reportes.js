@@ -1,5 +1,7 @@
-var Estudiantes = require('../models/estudiante');
+var Estudiantes = require('../models/estudiante'),
+Curso           = require('../models/curso'),
 moment          = require('moment'),
+asyn            = require("async"),
 _               = require('lodash');
 
 function cantidadEjerciciosDia(req, res, next) {
@@ -54,7 +56,33 @@ function cantidadEjerciciosDia(req, res, next) {
 }
 
 function cantidadEjericiosPorCurso(req, res, next) {
-  res.send('curso')
+  Curso.getAll((err, cursos) => {
+    if (err) {
+      res.status(400).json({success: false, message: 'ocurrio un error en el servidor'})
+      return
+    } else {
+      var todos = []
+      asyn.each(cursos,function(curso,callback) {
+        Curso.populateCursoReporte(curso._id, (err, curso) => {
+          console.log(curso);
+          if (err) {
+            callback(err)
+          }
+          var m = _.dropRightWhile(_.flatten(_.map(curso._estudiantes, '_ejercicios')), function(o) {return !o.resuelto;})
+          var cant = m.length
+          todos.push({curso: {numero_paralelo: curso.numero_paralelo, _id: curso._id}, cantidad: cant})
+          console.log(cant);
+          callback(null)
+        })
+      },function(err,data) {
+        if (err) {
+          res.status(200).json({success: false ,messages: 'error'})
+        } else {
+          res.status(200).json({cantidad: todos, messages: 'ejercicios resueltos por este curso', success: true})
+        }
+      });
+    }
+  })
 }
 
 module.exports = {

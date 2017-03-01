@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/joelerll/sandbox-espol#readme",
   "dependencies": {
+    "async": "^2.1.5",
     "bcryptjs": "^2.4.0",
     "body-parser": "~1.15.2",
     "connect-flash": "^0.1.1",

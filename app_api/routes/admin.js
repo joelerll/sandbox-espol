@@ -58,7 +58,7 @@ router.post('/cursos/file/:id',auth, upload.single('curso'), CursosController.es
 
 //reportes
 router.get('/reportes/ejercicios', ReportesController.cantidadEjerciciosDia);//?anio1=base&anio2=tope&mes1=base&mes2=tope&dia1=base&dia2=tope
-router.get('/reportes/ejercicios/cursos/:id_curso', ReportesController.cantidadEjericiosPorCurso)
+router.get('/reportes/ejercicios/cursos', ReportesController.cantidadEjericiosPorCurso)
 
 // passport strategies
 require('../config/passport.admin.login')( passport );

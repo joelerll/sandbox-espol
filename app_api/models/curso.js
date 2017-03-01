@@ -44,6 +44,10 @@ CursoSchema.statics.populateCurso = function(id_curso, cb) {
   this.model('Curso').findOne({_id: id_curso}).populate({path: '_estudiantes _profesor', select: '-clave -_desafios -desafios -_ejercicios'}).exec(cb)
 }
 
+CursoSchema.statics.populateCursoReporte = function(id_curso, cb) {
+  this.model('Curso').findOne({_id: id_curso},{'_estudiantes': 1, 'numero_paralelo': 1}).populate({path: '_estudiantes', select: '-clave'}).exec(cb)
+}
+
 CursoSchema.statics.existeEnOtroCurso = function(id_estudiante, cb) {
   this.model('Curso').findOne({_estudiantes: id_estudiante},cb)
 }
