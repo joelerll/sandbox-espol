@@ -16,11 +16,14 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
     }
   })
   vm.etiqueta = ''
-  vm.etiqueta_escogida = (etiqueta) => {
+  vm.selected = false
+  vm.etiqueta_escogida = (etiqueta,index) => {
     vm.etiqueta = etiqueta
+    vm.selected = index
+    console.log(etiqueta);
   }
 
-  vm.dificultad_escogida = ''
+  vm.dificultad_escogida = 'facil'
   vm.ejercicios_posibles = []
   vm.ejercicio = null
   vm.mostrar = false
@@ -30,8 +33,7 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
     vm.mostrar_escogido = true
     vm.ejercicio = ejercicio;
     $rootScope.ejercicio = vm.ejercicio_slide
-    console.log(vm.ejercicio_slide);
-    $rootScope.ejercicioCrear()
+    $rootScope.ejercicioCrear() //function de ejercicio-escogido
   }
   vm.ejercicio_slide = null
   vm.mostrar = false

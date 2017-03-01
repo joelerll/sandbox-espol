@@ -1,1 +1,1 @@
-angular.module('ejercicioEscoger',['angularCSS','ejercicioEscogido'])
+angular.module('ejercicioEscoger',['angularCSS','ejercicioEscogido','ui.bootstrap'])
