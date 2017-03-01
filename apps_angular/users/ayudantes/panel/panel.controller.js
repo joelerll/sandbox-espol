@@ -22,6 +22,7 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
     mis: true,
     todos: false,
     editar: false,
+    clave: false,
   }
 
   vm.tabs.clicks = {
@@ -31,24 +32,35 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
       vm.tabs.mis = false
       vm.tabs.todos = false
       vm.tabs.editar = false
+      vm.tabs.clave = false
     },
     mis: () => {
       vm.tabs.nuevo = false
       vm.tabs.mis = true
       vm.tabs.todos = false
       vm.tabs.editar = false
+      vm.tabs.clave = false
     },
     todos: () => {
       vm.tabs.nuevo = false
       vm.tabs.mis = false
       vm.tabs.todos = true
       vm.tabs.editar = false
+      vm.tabs.clave = false
     },
     editar: () => {
       vm.tabs.nuevo = false
       vm.tabs.mis = false
       vm.tabs.todos = false
       vm.tabs.editar = true
+      vm.tabs.clave = false
+    },
+    clave: () => {
+      vm.tabs.nuevo = false
+      vm.tabs.mis = false
+      vm.tabs.todos = false
+      vm.tabs.editar = false
+      vm.tabs.clave = true
     }
   }
 

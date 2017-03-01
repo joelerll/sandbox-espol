@@ -54,6 +54,15 @@ function AyudanteController(auth,$http) {
       }).then(cb)
     }
 
+    var cambiarClave = function (claves, cb) {
+      $http({
+        method: 'POST',
+        url: '/api/v1/ayudantes/clave',
+        headers: {'Authorization': auth.getToken()},
+        data: claves
+      }).then(cb)
+    }
+
 
   return {
     misEjercicios: misEjercicios,
@@ -61,6 +70,7 @@ function AyudanteController(auth,$http) {
     todoLosEjercicios: todoLosEjercicios,
     eliminarEjercicio: eliminarEjercicio,
     getEjercicioById: getEjercicioById,
-    updateEjercicio: updateEjercicio
+    updateEjercicio: updateEjercicio,
+    cambiarClave: cambiarClave
   }
 }

@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="errores">
+    <div uib-alert ng-repeat="alert in $ctrl.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="$ctrl.closeAlert($index)">{{alert.msg}}</div>
+  </div>
+  <form class="" action="index.html" method="post">
+    <div class="form-group">
+      <span>Clave</span>
+      <input ng-model="$ctrl.claves.clave" type="password" name="" value="" placeholder="clave">
+    </div>
+    <div class="form-group">
+      <span>Confirmar clave</span>
+      <input ng-model="$ctrl.claves.clave_confirmacion" type="password" name="" value="" placeholder="clave confirmacion">
+    </div>
+    <div class="form-group">
+      <span>Nueva clave</span>
+      <input ng-model="$ctrl.claves.clave_nueva" type="password" name="" value="" placeholder="nueva clave">
+    </div>
+    <button ng-click="$ctrl.actualizarClave()" type="button" name="button">enviar</button>
+  </form>
+</div>

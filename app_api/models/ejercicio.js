@@ -116,6 +116,7 @@ EjercicioSchema.statics.esCreador = function(id_ejercicio,id_creador, cb) {
 }
 
 EjercicioSchema.statics.update = function(id,ejercicio_nuevo, cb ) {
+  console.log(ejercicio_nuevo);
    this.model('Ejercicio').findOneAndUpdate({_id: id}, ejercicio_nuevo, {upsert:true}, cb);
 }
 
