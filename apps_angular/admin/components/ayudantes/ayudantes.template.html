@@ -17,6 +17,9 @@
           <th st-sort="correo">
             <span>Correo</span>
           </th>
+          <th st-sort="carrera">
+            <span>Carrera</span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +29,8 @@
           </th>
           <th><input st-search="apellidos" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome"></th>
           <th><input st-search="correo" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome">
+          </th>
+          <th><input st-search="carrera" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome">
           </th>
           <th>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ayudanteNuevo"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -52,6 +57,12 @@
           <td>
             <span editable-text="ayudante.correo" e-name="correo" e-form="form" onbeforesave="$ctrl.checkCorreo($data)">
               {{ayudante.correo}}
+            </span>
+
+          </td>
+          <td>
+            <span editable-text="ayudante.carrera" e-name="carrera" e-form="form" onbeforesave="$ctrl.checkCarrera($data)">
+              {{ayudante.carrera}}
             </span>
 
           </td>
@@ -120,19 +131,25 @@
             <div class="form-group">
               <label for="nombres-ayudante" class="control-label">Nombres:</label>
               <input ng-model="$ctrl.ayudante.nombres" type="text" class="form-control" id="nombres-ayudante" ng-required="true" name="nombres" validacion-Nombres-Apellidos-Ayudante>
-              <p ng-show="newAyudanteForm.nombres.$error.numberVal&&newAyudanteForm.nombres.$touched">No se permiten numeros</p>
+              <p ng-show="newAyudanteForm.nombres.$error.numberVal&&newAyudanteForm.nombres.$touched">No se permiten números</p>
               <p ng-show="newAyudanteForm.nombres.$error.specialCharVal&&newAyudanteForm.nombres.$touched">No se permiten caracteres especiales</p>
             </div>
             <div class="form-group">
               <label for="apellidos-ayudante" class="control-label">Apellidos:</label>
               <input ng-model="$ctrl.ayudante.apellidos" type="text" class="form-control" id="apellidos-ayudante" name="apellidos" ng-required="true" validacion-Nombres-Apellidos-Ayudante>
-              <p ng-show="newAyudanteForm.apellidos.$error.numberVal&&newAyudanteForm.apellidos.$touched">No se permiten numeros</p>
+              <p ng-show="newAyudanteForm.apellidos.$error.numberVal&&newAyudanteForm.apellidos.$touched">No se permiten números</p>
               <p ng-show="newAyudanteForm.apellidos.$error.specialCharVal&&newAyudanteForm.apellidos.$touched">No se permiten caracteres especiales</p>
             </div>
             <div class="form-group">
               <label for="correo-ayudante" class="control-label">Correo:</label>
               <input ng-model="$ctrl.ayudante.correo" type="text" class="form-control" id="correo-ayudante" ng-required="true" name="correo" validacion-Email-Ayudante>
               <p ng-show="newAyudanteForm.correo.$error.emailVal&&newAyudanteForm.correo.$touched">Correo invalido</p>
+            </div>
+            <div class="form-group">
+              <label for="carrera-ayudante" class="control-label">Carrera:</label>
+              <input ng-model="$ctrl.ayudante.carrera" type="text" class="form-control" id="carrera-ayudante" ng-required="true" name="carrera" validacion-Nombres-Apellidos-Ayudante>
+              <p ng-show="newAyudanteForm.carrera.$error.numberVal&&newAyudanteForm.carrera.$touched">No se permiten números</p>
+              <p ng-show="newAyudanteForm.carrera.$error.specialCharVal&&newAyudanteForm.carrera.$touched">No se permiten caracteres especiales</p>
             </div>
           </form>
         </div>

@@ -17,7 +17,8 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
     identificacion: '',
     nombres: '',
     apellidos: '',
-    correo: ''
+    correo: '',
+    carrera: ''
   };
 
   Estudiante.getAll((res) => {
@@ -32,6 +33,7 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
 
 
   self.newEstudiante = () => {
+    self.sanitizar();
     Estudiante.create(self.estudiante,  (res)=>{
       if (!res.data.success) {
         notie.alert('error', 'Hubo un error al intentar crear', 2);
@@ -68,6 +70,7 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
 
 
   self.editEstudiante = (estudiante, id) => {
+    self.sanitizar();
     self.estudiantes.forEach((estudiante) => {
       if (estudiante._id == id) {
         Estudiante.edit(id, estuiante, (res) => {
@@ -121,6 +124,15 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
     $('.modal').modal('hide');
   }
 
+
+  self.sanitizar = () => {
+    self.estudiante.identificacion = filterXSS(self.estudiante.identificacion)
+    self.estudiante.nombres = filterXSS(self.estudiante.nombres)
+    self.estudiante.apellidos = filterXSS(self.estudiante.apellidos)
+    self.estudiante.correo = filterXSS(self.estudiante.correo)
+    self.estudiante.carrera = filterXSS(self.estudiante.carrera)
+  }
+
 }
 
 
@@ -131,7 +143,7 @@ angular.module('estudiantes').directive('validacionNombresApellidosEst', functio
     require: 'ngModel',
     link: function(scope, element, attr, ctrl){
       function customValidator(ngModelValue){
-        if(/[\W]/.test(ngModelValue)){
+        if(/[&<>%#()/''""\\/$^!-_]/.test(ngModelValue)){
           ctrl.$setValidity('specialCharVal', false);
         }else{
           ctrl.$setValidity('specialCharVal', true);

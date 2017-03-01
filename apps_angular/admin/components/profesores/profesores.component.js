@@ -26,6 +26,7 @@ function ProfesoresController($css,$http,Profesores, $scope) {
   //TODO: enviar mensajes de error al form, no cerrar el form cuando de crear y hay errores
   //TODO: angular messajes para form de profesor
   self.newProfesor = () => {
+    self.sanitizar();
     Profesores.create(self.profesor,(res) => {
       if (!res.data.success) {
         notie.alert('error', 'Hubo un error al intentar crear', 2);
@@ -67,6 +68,7 @@ function ProfesoresController($css,$http,Profesores, $scope) {
   }
 
   self.editProfesor = (profesor, id) => {
+    self.sanitizar();
     self.profesores.forEach((profesor) => {
       if (profesor._id == id) {
         Profesores.edit(id,profesor, (res) => {
@@ -124,6 +126,15 @@ function ProfesoresController($css,$http,Profesores, $scope) {
     $('.modal').modal('hide');
   }
 
+
+  self.sanitizar = () => {
+    self.profesor.identificacion = filterXSS(self.profesor.identificacion)
+    self.profesor.nombres = filterXSS(self.profesor.nombres)
+    self.profesor.apellidos = filterXSS(self.profesor.apellidos)
+    self.profesor.correo = filterXSS(self.profesor.correo)
+  }
+
+
 }
 
 
@@ -136,7 +147,7 @@ angular.module('profesores').directive('validacionNombresApellidosProf', functio
     require: 'ngModel',
     link: function(scope, element, attr, ctrl){
       function customValidator(ngModelValue){
-        if(/[\W]/.test(ngModelValue)){
+        if(/[&<>%#()/''""\\/$^!-_]/.test(ngModelValue)){
           ctrl.$setValidity('specialCharVal', false);
         }else{
           ctrl.$setValidity('specialCharVal', true);
