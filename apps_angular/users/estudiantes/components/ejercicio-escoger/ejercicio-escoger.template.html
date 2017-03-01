@@ -1,35 +1,38 @@
 <div class="contenedor">
-<h1>Escoja su ejercicio</h1>
-<div class="etiquetas">
+<div class="escoger">
   <div class="row">
-    <div  ng-repeat="etiqueta in $ctrl.etiquetas"  class="col-md-2 etiqueta">
-        <span ng-click="$ctrl.etiqueta_escogida(etiqueta)"> {{etiqueta}}</span>
+    <div class="col-md-6">
+      <div class="filtro form-group">
+        <input ng-model="etiq" type="text" class="form-group busqueda-tag" placeholder="buscar tag">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="dificultad">
+        <div class="btn-group">
+          <label class="btn btn-default" ng-model="$ctrl.dificultad_escogida" uib-btn-radio="'facil'" uncheckable>facil</label>
+          <label class="btn btn-default" ng-model="$ctrl.dificultad_escogida" uib-btn-radio="'intermedio'" uncheckable>intermedio</label>
+          <label class="btn btn-default" ng-model="$ctrl.dificultad_escogida" uib-btn-radio="'dificil'" uib-uncheckable="uncheckable">dificil</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="boton-ver">
+        <button ng-click="$ctrl.escogerEjercicios()" type="button" name="button" class="btn btn-primary">ver opciones</button>
+      </div>
     </div>
   </div>
-</div>
-<div class="row escogidos">
-  <div class="col-md-5">
-    <span>La etiqueta escogida es: </span><span style="color: blue"> {{$ctrl.etiqueta}}</span>
+  <div class="etiquetas">
+    <div class="row">
+      <div  class="col-md-2 etiquetas">
+            <a   ng-click="$ctrl.etiqueta_escogida(etiqueta,$index)" ng-class="{sel: $index == $ctrl.selected}" ng-repeat="etiqueta in $ctrl.etiquetas  | filter: etiq"  class="etiqueta-nombre">{{etiqueta}}</a>
+      </div>
+    </div>
   </div>
-  <div class="dificultad col-md-5">
-      <select ng-model="$ctrl.dificultad_escogida">
-        <option value=""> </option>
-        <option value="facil">facil</option>
-        <option value="intermedio">intermedio</option>
-        <option value="dificil">dificil</option>
-      </select>
-  </div>
+
 </div>
 
-<div class="boton-ver">
-  <button ng-click="$ctrl.escogerEjercicios()" type="button" name="button" class="btn btn-primary">ver ejercicio</button>
-</div>
-<div class="ejercicio row">
-  <div class="col-md-2">
-
-  </div>
-  <div class="col-md-8 text-center">
-    <div class="titulo">
+<div  ng-show="!$ctrl.mostrar_escogido" class="ejercicio row">
+  <div class="titulo">
       <span>Titulo: </span><span>{{$ctrl.ejercicio_slide.titulo}}</span>
     </div>
     <div class="descripcion">
@@ -38,29 +41,16 @@
     <div class="etiquetas">
       <span>Etiquetas: </span><span ng-repeat="eti in $ctrl.ejercicio_slide.etiquetas">{{eti}}</span>
     </div>
+    <div class="entradas">
+      <span>Entradas: </span><span ng-repeat="entrada in $ctrl.ejercicio_slide.entradas">{{entrada}}</span>
+    </div>
+    <div class="salidas">
+      <span>Salidas: </span><span ng-repeat="entrada in $ctrl.ejercicio_slide.salidas">{{entrada}}</span>
+    </div>
     <button ng-show="$ctrl.mostrar" ng-click="$ctrl.ejercicio_escoger_boton($ctrl.ejercicio_slide)"type="button" name="button" class="btn btn-primary text-center">resolver</button>
-  </div>
-  <div class="col-md-2">
-
-  </div>
+    <button ng-click="$ctrl.ejercicio_siguiente()" type="button" name="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button>
 </div>
 
-<!-- <div class="ejercicios row">
-
-  <div ng-repeat="ejercicio in $ctrl.ejercicios_posibles" class="ejercicio col-md-6">
-    <div class="titulo">
-      <span>Titulo: </span><span>{{ejercicio.titulo}}</span>
-    </div>
-    <div class="descripcion">
-      <span>Descripcion: </span><span>{{ejercicio.descripcion}}</span>
-    </div>
-    <div class="etiquetas">
-      <span>Etiquetas: </span><span ng-repeat="eti in ejercicio.etiquetas">{{eti}}</span>
-    </div>
-    <button ng-show="$ctrl.mostrar" ng-click="$ctrl.ejercicio_escoger_boton(ejercicio)"type="button" name="button">resolver</button>
-  </div>
-</div> -->
-<button ng-click="$ctrl.ejercicio_siguiente()" type="button" name="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button>
-<div ng-show="$ctrl.mostrar_escogido">
-    <ejercicio-escogido></ejercicio-escogido>
+<div ng-show="$ctrl.mostrar_escogido" class="escogido">
+  <ejercicio-escogido></ejercicio-escogido>
 </div>

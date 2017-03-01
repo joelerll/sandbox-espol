@@ -1,22 +1,23 @@
 <div class="escogido-mio">
   <div class="ejercicio">
     <div class="titulo">
-      <h3>{{$ctrl.ejercicio.titulo}}</h3>
+      <h3>{{$root.ejercicio.titulo}}</h3>
     </div>
     <div class="descripcion">
-      <p>{{$ctrl.ejercicio.descripcion}}</p>
+      <h4>descripcion</h4>
+      <p>{{$root.ejercicio.descripcion}}</p>
     </div>
     <div class="etiquetas">
-      <span>Etiquetas: </span><span ng-repeat="etiqueta in $ctrl.ejercicio.etiquetas">{{etiqueta}} </span>
+      <span>Etiquetas: </span><span ng-repeat="etiqueta in $root.ejercicio.etiquetas">{{etiqueta}} </span>
     </div>
     <div class="creador">
-      <span>Creador: </span><span>{{$ctrl.ejercicio.creador.nombres}} {{$ctrl.ejercicio.creador.apellidos}}</span>
+      <span>Creador: </span><span>{{$root.ejercicio.creador.nombres}} {{$root.ejercicio.creador.apellidos}}</span>
     </div>
     <div class="entradas">
-      <span>Entradas: </span><span ng-repeat="entrada in $ctrl.ejercicio.entradas">{{entrada}}</span>
+      <span>Entradas: </span><span ng-repeat="entrada in $root.ejercicio.entradas">{{entrada}}</span>
     </div>
     <div class="salidas">
-      <span>Salidas: </span><span ng-repeat="salida in $ctrl.ejercicio.salidas">{{salida}}</span>
+      <span>Salidas: </span><span ng-repeat="salida in $root.ejercicio.salidas">{{salida}}</span>
     </div>
   </div>
   <form name="form">

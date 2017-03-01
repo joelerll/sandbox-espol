@@ -1,10 +1,3 @@
-div.etiqueta {
-  padding-top: 1%;
-  padding-bottom: 1%;
-  border: black solid 1px;
-  margin-bottom: 1%;
-}
-
 div.escogidos {
   border: black solid 1px;
   padding-top: 1%;
@@ -21,7 +14,50 @@ div.ejercicios {
 }
 
 div.ejercicio {
-  margin-top: : 2%;
+  margin-top: : 0.5%;
   padding-top: 2%;
-  
+}
+
+div.etiquetas {
+  margin-bottom: 1%;
+}
+
+
+a.etiqueta-nombre {
+  text-decoration: none;
+  color: #349ef3!important;
+  border: 1px solid #349ef3;
+  border-radius: 3.5px;
+  margin-right: 3%;
+  padding: 7%;
+  cursor: pointer;
+}
+
+div.escoger {
+  margin-top: 1%;
+  margin-bottom: 0.5%;
+  padding-bottom: 0.5%;
+  border-bottom: #e5e5e5 solid 4px;
+}
+
+input.busqueda-tag {
+    width: 400px;
+    padding: 0 20px;
+    font-size: 1.2em;
+    line-height: 3;
+    border: none;
+    outline: 0;
+    font-weight: 200;
+    color: #5d686f;
+    width: 100%;
+}
+
+a.sel {
+  color: red;
+  background-color: #c2e1fb;
+}
+
+div.boton-ver {
+  margin-top: 2%;
+  text-align:center;
 }
