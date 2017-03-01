@@ -8,19 +8,21 @@
       width: 100%;
   }
   </style>
-  <form class="">
+  <form class="" name="nuevoEjercicioForm" novalidate>
     <div class="form-group">
       <label for="titulo">Titulo</label>
-      <input ng-model="$ctrl.ejercicio.titulo"  class="form-control" type="text" placeholder="Título">
+      <input ng-model="$ctrl.ejercicio.titulo"  class="form-control" type="text" placeholder="Título" ng-required="true" name="titulo" titulo-Val>
+      
+      <p ng-show="nuevoEjercicioForm.titulo.$error.specialCharVal&&nuevoEjercicioForm.titulo.$touched">No se permiten caracteres especiales</p>
     </div>
     <div class="form-group">
-      <textarea ng-model="$ctrl.ejercicio.descripcion" class="form-control" type="text" rows="5" placeholder="Descripción"></textarea>
+      <textarea ng-model="$ctrl.ejercicio.descripcion" class="form-control" type="text" rows="5" placeholder="Descripción" name="descripcion" ng-required="true"></textarea>
     </div>
     <div class="form-group">
-      <tags-input ng-model="$ctrl.tags" on-tag-added="$ctrl.tagAdded($tag)" on-tag-removed="$ctrl.tagRemoved($tag)" placeholder="Añada una etiqueta"></tags-input>
+      <tags-input ng-model="$ctrl.tags" on-tag-added="$ctrl.tagAdded($tag)" on-tag-removed="$ctrl.tagRemoved($tag)" placeholder="Añada una etiqueta" ng-required="true"></tags-input>
     </div>
     <div class="form-group">
-      <select ng-model="$ctrl.ejercicio.dificultad" class="" name="">
+      <select ng-model="$ctrl.ejercicio.dificultad" class="" name="" ng-required="true">
         <option value=""> </option>
         <option value="facil">Fácil</option>
         <option value="intermedio">Intermedio</option>
@@ -60,12 +62,13 @@
       </div>
       <div class="btn-form" ng-show="tableform.$visible">
         <button type="button" ng-disabled="tableform.$waiting" ng-click="$ctrl.addRow()" class="btn btn-default pull-left"><i class="fa fa-plus fa-lg"></i></button>
-        <button type="submit" ng-disabled="tableform.$waiting"  class="btn btn-primary"><i class="fa fa-floppy-o fa-lg"></i></button>
+        <button type="submit" ng-disabled="tableform.$waiting"  class="btn btn-primary" ng-click="$ctrl.guardar()"><i class="fa fa-floppy-o fa-lg"></i></button>
         <button type="button" ng-disabled="tableform.$waiting" ng-click="tableform.$cancel()" class="btn btn-default">Cancelar</button>
       </div>
   </form>
 
   <div class="form-group">
-    <button ng-click="$ctrl.guardar();$ctrl.crearEjercicio()" class="form-control" type="button" name="button">Ingresar</button>
+    <button ng-click="$ctrl.guardar();$ctrl.crearEjercicio()" class="form-control btn btn-primary" type="button" name="button" ng-disabled="nuevoEjercicioForm.$invalid" id="btnIngresar">Ingresar</button>
+    <button ng-click="$ctrl.prueba()">Prueba</button>
   </div>
 </div>
