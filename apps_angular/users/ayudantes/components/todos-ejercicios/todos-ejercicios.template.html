@@ -2,28 +2,34 @@
 <div class="ejercicios">
   <div  ng-repeat="ejercicio in $ctrl.ejercicios" class="ejercicio">
     <div class="contenedor">
-      <div class="row">
-        <div class="col-md-8">
-          <span>Titulo: </span><span class="titulo">{{ejercicio.titulo}}</span>
-          <br>
-          <span>descripcion: </span><span class="descripcion">{{ejercicio.descripcion}}</span>
-        </div>
-        <div class="col-md-3">
-          <span class="dificultad">{{ejercicio.dificultad}}</span>
-        </div>
-        <div class="col-md-1">
-          <span class="fecha-creacion">{{ejercicio.creador.correo}}</span>
-        </div>
-      </div>
+      <h3 class="titulo">{{ejercicio.titulo}}</h2>
+      <span class="tag">Descripción</span>
+      <p class="descripcion">{{ejercicio.descripcion}}</p>      
+      <table class="table table-responsive table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Entrada</th>
+            <th>Salida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entrada in ejercicio.entradas">
+            <td>
+              {{entrada}}
+            </td>
+            <td>
+              {{ejercicio.salidas[$index]}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <div class="etiquetas">
-        <span>Etiquetas: </span><span ng-repeat="etiqueta in ejercicio.etiquetas"> {{etiqueta}}</span>
+        <span class="tag">Tags: </span>
+        <span ng-repeat="etiqueta in ejercicio.etiquetas">
+          {{etiqueta}}
+        </span>
       </div>
-      <div class="entradas">
-        <span>Entradas: </span><span ng-repeat="entrada in ejercicio.entradas"> {{entrada}}</span>
-      </div>
-      <div class="salidas">
-        <span>Salidas: </span><span ng-repeat="salida in ejercicio.salidas"> {{salida}}</span>
-      </div>
+      
     </div>
   </div>
 </div>
