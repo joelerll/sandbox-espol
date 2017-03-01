@@ -36,7 +36,8 @@ var EstudianteSchema = mongoose.Schema({
     type: String
   },
   puntaje: {
-    type:Number
+    type:Number,
+    default: 0
   },
   badge: {
     type:String,

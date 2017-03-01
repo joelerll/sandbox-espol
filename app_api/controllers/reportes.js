@@ -85,7 +85,30 @@ function cantidadEjericiosPorCurso(req, res, next) {
   })
 }
 
+function mejoresEstudiantesCurso(req, res, next) {
+  var cursos_mejores = []
+  Curso.CursosMejores((err, cursos) => {
+    if (err) {
+      res.send('error')
+    } else {
+      asyn.each(cursos, function(curso, cb) {
+        if (err) {
+          cb('error')
+        }
+        cursos_mejores.push({curso: {_id: curso._id, numero_paralelo: curso.numero_paralelo},estudiantes: _.remove(_.orderBy(curso._estudiantes,['puntaje'],['desc']).slice(0,3),function(n) {return n.puntaje != 0})})
+        cb(null)
+      }, function(error) {
+        if (error) {
+          res.send(error)
+        }
+        console.log('terminado');
+        res.send(cursos_mejores)
+      })
+    }
+  })
+}
 module.exports = {
   cantidadEjericiosPorCurso: cantidadEjericiosPorCurso,
-  cantidadEjerciciosDia: cantidadEjerciciosDia
+  cantidadEjerciciosDia: cantidadEjerciciosDia,
+  mejoresEstudiantesCurso: mejoresEstudiantesCurso
 }
