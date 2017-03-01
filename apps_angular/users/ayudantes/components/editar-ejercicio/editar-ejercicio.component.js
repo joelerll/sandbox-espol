@@ -3,10 +3,11 @@ angular.module('editarEjercicio').component('editarEjercicio', {
   controller: EditarEjercicioController
 })
 
-EditarEjercicioController.$inyect = ['$rootScope','Ayudante']
+EditarEjercicioController.$inyect = ['$rootScope','Ayudante', '$css']
 
-function EditarEjercicioController($rootScope,Ayudante) {
+function EditarEjercicioController($rootScope,Ayudante, $css) {
   var vm = this;
+  $css.add('./css/nuevo-ejercicio.css')
   $rootScope.editadoId = (id) => {
     vm.id = id
     Ayudante.getEjercicioById(id, (res) => {
@@ -30,6 +31,7 @@ function EditarEjercicioController($rootScope,Ayudante) {
 
   // importante al momento de guardar regresa a mis ejerciicos
   vm.guardar_ejercicio = () => {
+    //guarda el ejercicio => te regresa a mis ejercicios 
     $rootScope.guardar()
   }
 
@@ -83,10 +85,16 @@ function EditarEjercicioController($rootScope,Ayudante) {
   Ayudante.misEjercicios((res) => {
     $rootScope.ejercicios = res.data.ejercicios
   })
+
   vm.updateEjercicio = () => {
+    vm.sanitizar();
+    //console.log(vm.ejercicio);
     Ayudante.updateEjercicio(vm.id, vm.ejercicio, (res) => {
       if (res.data.success) {
-        $rootScope.cargar()
+        $rootScope.cargar();
+        notie.alert('success', 'Actualizado correctamente', 1);
+      }else{
+        notie.alert('error', 'No se pudo actualizar', 1);
       }
     })
   }
@@ -101,4 +109,34 @@ function EditarEjercicioController($rootScope,Ayudante) {
 
   }
 
+
+  vm.sanitizar = () => {
+    vm.ejercicio.titulo = filterXSS(vm.ejercicio.titulo)
+    vm.ejercicio.descripcion = filterXSS(vm.ejercicio.descripcion)
+    vm.ejercicio.dificultad = filterXSS(vm.ejercicio.dificultad)
+    for (var i = 0; i < vm.val.length; i++) {
+      vm.val[i].entrada = filterXSS(vm.val[i].entrada);
+      vm.val[i].salida = filterXSS(vm.val[i].salida);
+    }
+  }
 }
+
+angular.module('editarEjercicio').directive('tituloVal', function(){
+  return{
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl){
+      function customValidator(ngModelValue){
+        if(/[&<>%#()/''""\\/$^!-]/.test(ngModelValue)){
+          ctrl.$setValidity('specialCharVal', false);
+          console.log('special Character')
+        }else{
+          ctrl.$setValidity('specialCharVal', true);
+          //console.log('No se permiten caracteres especiales');
+        }
+        return ngModelValue;
+      }
+      ctrl.$parsers.push(customValidator);
+    }
+  }
+})

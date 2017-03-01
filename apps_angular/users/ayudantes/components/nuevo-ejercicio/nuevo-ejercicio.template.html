@@ -12,17 +12,18 @@
     <div class="form-group">
       <label for="titulo">Titulo</label>
       <input ng-model="$ctrl.ejercicio.titulo"  class="form-control" type="text" placeholder="Título" ng-required="true" name="titulo" titulo-Val>
-      
       <p ng-show="nuevoEjercicioForm.titulo.$error.specialCharVal&&nuevoEjercicioForm.titulo.$touched">No se permiten caracteres especiales</p>
     </div>
     <div class="form-group">
+      <span><strong>Descripción</strong></span>
       <textarea ng-model="$ctrl.ejercicio.descripcion" class="form-control" type="text" rows="5" placeholder="Descripción" name="descripcion" ng-required="true"></textarea>
     </div>
     <div class="form-group">
       <tags-input ng-model="$ctrl.tags" on-tag-added="$ctrl.tagAdded($tag)" on-tag-removed="$ctrl.tagRemoved($tag)" placeholder="Añada una etiqueta" ng-required="true"></tags-input>
     </div>
     <div class="form-group">
-      <select ng-model="$ctrl.ejercicio.dificultad" class="" name="" ng-required="true">
+      <label for="selectList">Seleccione la dificultad:</label>
+      <select ng-model="$ctrl.ejercicio.dificultad" class="form-control" name="" ng-required="true" id="selectList">
         <option value=""> </option>
         <option value="facil">Fácil</option>
         <option value="intermedio">Intermedio</option>
@@ -69,6 +70,5 @@
 
   <div class="form-group">
     <button ng-click="$ctrl.guardar();$ctrl.crearEjercicio()" class="form-control btn btn-primary" type="button" name="button" ng-disabled="nuevoEjercicioForm.$invalid" id="btnIngresar">Ingresar</button>
-    <button ng-click="$ctrl.prueba()">Prueba</button>
   </div>
 </div>

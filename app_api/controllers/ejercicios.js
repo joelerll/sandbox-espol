@@ -52,6 +52,7 @@ function getAllMisEjercicios (req, res ,next) {
 }
 
 function update (req, res, next) {
+  console.log(req.body)
   Ejercicio.update(req.params.id,req.body, (err, ejercicio) => {
     if (err) {
       res.send('error')
