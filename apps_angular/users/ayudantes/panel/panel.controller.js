@@ -26,6 +26,7 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
 
   vm.tabs.clicks = {
     nuevo: () => {
+      console.log(auth.parseJwt())
       vm.tabs.nuevo = true
       vm.tabs.mis = false
       vm.tabs.todos = false

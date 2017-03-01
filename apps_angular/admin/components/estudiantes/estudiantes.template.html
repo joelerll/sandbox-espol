@@ -17,6 +17,9 @@
           <th st-sort="correo">
             <span>Correo</span>
           </th>
+          <th st-sort="carrera">
+            <span>Carrera</span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +29,8 @@
           </th>
           <th><input st-search="apellidos" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome"></th>
           <th><input st-search="correo" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome">
+          </th>
+          <th><input st-search="carrera" type="text" placeholder="&#xf0b0;" class="form-control" style="font-family:Arial, FontAwesome">
           </th>
           <th>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#estudianteNuevo"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -52,6 +57,12 @@
           <td>
             <span editable-text="estudiante.correo" e-name="correo" e-form="form" onbeforesave="$ctrl.checkCorreo($data)">
               {{estudiante.correo}}
+            </span>
+
+          </td>
+          <td>
+            <span editable-text="estudiante.correo" e-name="correo" e-form="form" onbeforesave="$ctrl.checkCorreo($data)">
+              {{estudiante.carrera}}
             </span>
 
           </td>
@@ -133,6 +144,12 @@
               <label for="correo-estudiante" class="control-label">Correo:</label>
               <input ng-model="$ctrl.estudiante.correo" type="text" class="form-control" id="correo-estudiante" ng-required="true" name="correo" validacion-Email-Est>
               <p ng-show="newEstudianteForm.correo.$error.emailVal&&newEstudianteForm.correo.$touched">Correo invalido</p>
+            </div>
+            <div class="form-group">
+              <label for="carrera-estudiante" class="control-label">Carrera:</label>
+              <input ng-model="$ctrl.estudiante.carrera" type="text" class="form-control" id="carrera-estudiante" ng-required="true" name="carrera" validacion-Nombres-Apellidos-Est>
+              <p ng-show="newEstudianteForm.carrera.$error.numberVal&&newEstudianteForm.carrera.$touched">No se permiten números</p>
+              <p ng-show="newEstudianteForm.carrera.$error.specialCharVal&&newEstudianteForm.carrera.$touched">No se permiten caracteres especiales</p>
             </div>
           </form>
         </div>

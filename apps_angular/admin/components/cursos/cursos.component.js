@@ -35,6 +35,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
   vm.getAll();
 
   vm.create = function() {
+    self.sanitizar();
     Curso.create(vm.curso,(res) => {
       if (res.data.success) {
         notie.alert('success','Se creo correctamente', 2);
@@ -98,6 +99,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
   }
 
   vm.addProfesor = function() {
+    
     if (!vm.profesor_escogido._id) return;
     Curso.addProfesor(vm.accionCurso._id,vm.profesor_escogido._id, (res) => {
       if (res.data.success) {
@@ -173,6 +175,11 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
         console.log(res)
       }
     } )
+  }
+
+
+    self.sanitizar = () => {
+    self.curso.numero_paralelo = filterXSS(self.curso.numero_paralelo)
   }
 
 }

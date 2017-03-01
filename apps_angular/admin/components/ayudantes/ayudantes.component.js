@@ -7,6 +7,7 @@ AyudantesController.$inyect = ['$css','$http','Ayudantes'];
 
 
 function AyudantesController($css,$http,Ayudantes) {
+  
   var self = this;
   $css.remove('./css/profesores.css');
   $css.add('./css/ayudantes.css');
@@ -17,7 +18,8 @@ function AyudantesController($css,$http,Ayudantes) {
     identificacion: '',
     nombres: '',
     apellidos: '',
-    correo: ''
+    correo: '',
+    carrera: ''
   };
 
   Ayudantes.getAll((res) => {
@@ -27,6 +29,7 @@ function AyudantesController($css,$http,Ayudantes) {
   //TODO: enviar mensajes de error al form, no cerrar el form cuando de crear y hay errores
   //TODO: angular messajes para form de ayudante
   self.newAyudante = () => {
+    self.sanitizar();
     Ayudantes.create(self.ayudante,(res) => {
       if (!res.data.success) {
         notie.alert('error', 'Hubo un error al intentar crear', 2);
@@ -67,6 +70,7 @@ function AyudantesController($css,$http,Ayudantes) {
   }
 
   self.editAyudante = (ayudante, id) => {
+    self.sanitizar();
     self.ayudantes.forEach((ayudante) => {
       if (ayudante._id == id) {
         Ayudantes.edit(id,ayudante, (res) => {
@@ -124,6 +128,34 @@ function AyudantesController($css,$http,Ayudantes) {
     $('.modal').modal('hide');
   }
 
+  self.checkCarrera = (carrera) =>{
+    if (!carrera) {
+      return "carrera vacia";
+    }
+  }
+
+  self.prueba = () => {
+    /*
+    console.log('Sin sanitizar: ' + self.ayudante.nombres)
+    console.log('Sanitizado: ' + $sanitize(self.ayudante.nombres))
+    console.log('Sanitizado2: ' + filterXSS(self.ayudante.nombres))
+    */
+    console.log('Antes')
+    console.log(self.ayudante)
+    self.sanitizar();
+    console.log('Despues')
+    console.log(self.ayudante)
+  }
+
+
+  self.sanitizar = () => {
+    self.ayudante.identificacion = filterXSS(self.ayudante.identificacion)
+    self.ayudante.nombres = filterXSS(self.ayudante.nombres)
+    self.ayudante.apellidos = filterXSS(self.ayudante.apellidos)
+    self.ayudante.correo = filterXSS(self.ayudante.correo)
+    self.ayudante.carrera = filterXSS(self.ayudante.carrera)
+  }
+
 }
 
 
@@ -133,7 +165,7 @@ angular.module('ayudantes').directive('validacionNombresApellidosAyudante', func
     require: 'ngModel',
     link: function(scope, element, attr, ctrl){
       function customValidator(ngModelValue){
-        if(/[\W]/.test(ngModelValue)){
+        if(/[&<>%#()/''""\\/$^!-_]/.test(ngModelValue)){
           ctrl.$setValidity('specialCharVal', false);
         }else{
           ctrl.$setValidity('specialCharVal', true);
