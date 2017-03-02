@@ -6,6 +6,7 @@ jwt             = require('jsonwebtoken'),
 shortId         = require('shortid'),
 mail            = require('../config/mail.js');
 
+require('../config/main.js').colors
 var ProfesorSchema = mongoose.Schema({
   _id: {
 	    type: String,
@@ -67,11 +68,11 @@ ProfesorSchema.pre('save', function (next) {
   if (this.isNew) {
     let clave = shortId.generate()
     profesor.clave = clave;
-    console.log('clave profesor ' + profesor.clave)
-    error = mail.enviar(this.correo,profesor.clave);
-    if (error) {
-      next(new Error('error al enviar mail'));
-    }
+    console.log(`clave profesor ${profesor.clave}`.info)
+    // error = mail.enviar(this.correo,profesor.clave);
+    // if (error) {
+    //   next(new Error('error al enviar mail'));
+    // }
   }
   if (this.isModified('clave') || this.isNew) {
     bcrypt.genSalt(10, function (err, salt) {

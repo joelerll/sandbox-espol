@@ -33,10 +33,10 @@ function ProfesoresController($css,$http,Profesores, $scope) {
         return;
       }
       notie.alert('success', 'Profesor creado correctamente', 2);
-      self.profesores.push(res.data.profesor);
+      self.profesores.unshift(res.data.profesor);
       self.profesor = {};
     });
-      
+
   }
 
   //tabla botones

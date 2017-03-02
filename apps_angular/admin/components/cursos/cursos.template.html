@@ -1,5 +1,5 @@
 <div class="container">
-  
+
   <h1>Cursos</h1>
   <!--
   <form ng-show="!$ctrl.tabla_acciones.editar" class="">
@@ -15,21 +15,21 @@
     <table class="table table-hover table-condensed table-striped">
       <thead>
         <tr>
-          <th>
+          <th class="cursor" >
             <span ng-click="sortType = 'numero_paralelo'; sortReverse = !sortReverse">
               Paralelo
               <span ng-show="sortType == 'numero_paralelo' && !sortReverse" class="fa fa-caret-down"></span>
               <span ng-show="sortType == 'numero_paralelo' && sortReverse" class="fa fa-caret-up"></span>
             </span>
           </th>
-          <th>
+          <th class="cursor" >
             <span ng-click="sortType = '_profesor.nombres'; sortReverse = !sortReverse">
               Profesor
               <span ng-show="sortType == '_profesor.nombres' && !sortReverse" class="fa fa-caret-down"></span>
               <span ng-show="sortType == '_profesor.nombres' && sortReverse" class="fa fa-caret-up"></span>
             </span>
           </th>
-          <th>
+          <th class="cursor" >
             <span ng-click="sortType = '_estudiantes.length'; sortReverse = !sortReverse">
               Numero alumnos
               <span ng-show="sortType == '_estudiantes.length' && !sortReverse" class="fa fa-caret-down"></span>
@@ -69,7 +69,7 @@
               </button>
               <!-- <button ng-click="$ctrl.ver(curso)" type="button" name="button">ver</button> -->
             </div>
-            
+
           </td>
       </tbody>
     </table>
@@ -97,9 +97,10 @@
       <tbody>
         <tr>
           <td>{{$ctrl.accionCurso._profesor.identificacion}}</td>
-          <td>{{$ctrl.accionCurso._profesor.nombres}}</td>    
-          <td>{{$ctrl.accionCurso._profesor.apellidos}}</td>    
-          <td>{{$ctrl.accionCurso._profesor.correo}}</td>        
+          <td>{{$ctrl.accionCurso._profesor.nombres}}</td>
+          <td>{{$ctrl.accionCurso._profesor.apellidos}}</td>
+          <td>{{$ctrl.accionCurso._profesor.correo}}</td>
+          <td><button ng-show="$ctrl.accionCurso._profesor" ng-click="$ctrl.deleteProfesor($ctrl.accionCurso._profesor._id)" type="button" class="btn btn-danger" name="button"><i class="fa fa-trash-o fa-lg"></i></button></td>
         </tr>
       </tbody>
     </table>
@@ -149,8 +150,8 @@
           <button ngf-select ng-model="$ctrl.file" name="archivo" ngf-pattern="'*/*'"
           ngf-accept="'*/*'" class="btn btn-primary" type="button" name="button"><i class="fa fa-upload"></i></button>
         <button ng-if="$ctrl.file" class="btn btn-warning" type="button" ng-click="$ctrl.subirAlumnos()">enviar</button>
-        <button ng-click="$ctrl.addProfesor(); $ctrl.tabla()" class="btn btn-info" type="button" name="button"><i class="fa fa-floppy-o"></i></button>
-        <button ng-click="$ctrl.tabla()" class="btn btn-default" type="button" name="button">cancelar</button>
+        <!-- <button ng-click="$ctrl.addProfesor(); $ctrl.tabla()" class="btn btn-info" type="button" name="button"><i class="fa fa-floppy-o"></i></button> -->
+        <button ng-click="$ctrl.tabla();" class="btn btn-default" type="button" name="button">cancelar</button>
       </div>
     </form>
   </div>

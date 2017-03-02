@@ -5,3 +5,9 @@ div.table {
 h1: {
   text-align: center;
 }
+
+.cursor {
+  /*font-family: FontAwesome;*/
+  cursor: pointer;, auto;
+  /*content: "\f0a9";*/
+}

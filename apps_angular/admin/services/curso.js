@@ -105,6 +105,14 @@ function CursosController($http,auth,Upload) {
     }).then(cb)
   }
 
+  var deleteProfesor = function(id_curso,id_profesor,cb) {
+    $http({
+      method: 'DELETE',
+      url: `/api/v1/admin/cursos/profesores/${id_curso}/${id_profesor}`,
+      headers: {'Authorization': auth.getToken()},
+    }).then(cb)
+  }
+
   return {
     getAll: getAll,
     create: create,
@@ -115,6 +123,7 @@ function CursosController($http,auth,Upload) {
     addAlumno: addAlumno,
     deleteEstudiante: deleteEstudiante,
     getById: getById,
-    upload: upload
+    upload: upload,
+    deleteProfesor:deleteProfesor
   }
 }

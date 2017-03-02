@@ -5,16 +5,16 @@
     <table st-table="$ctrl.profesores_backup" st-safe-src="$ctrl.profesores" st-watch-changes="true" class="table table-hover table-condensed table-striped">
       <thead>
         <tr>
-          <th st-sort="identificacion">
-            <span>Identificacion</span>
+          <th class="cursor" st-sort="identificacion">
+            <span>Cedula</span>
           </th>
-          <th  st-sort="nombres">
+          <th class="cursor"  st-sort="nombres">
             <span>Nombres</span>
           </th>
-          <th st-sort="apellidos">
+          <th class="cursor"  st-sort="apellidos">
             <span>Apellidos</span>
           </th>
-          <th st-sort="correo">
+          <th class="cursor"  st-sort="correo">
             <span>Correo</span>
           </th>
         </tr>
@@ -111,7 +111,7 @@
         <div class="modal-body">
           <form name="newProfesorForm" novalidate>
             <div class="form-group">
-              <label for="indentificacion-profesor" class="control-label">Indentificacion:</label>
+              <label for="indentificacion-profesor" class="control-label">Cedula:</label>
               <input ng-model="$ctrl.profesor.identificacion" type="text" class="form-control" id="indentificacion-profesor" ng-required="true" name="identificacion" validacion-Identificacion-Prof>
               <p ng-show="newProfesorForm.identificacion.$error.letterVal&&newProfesorForm.identificacion.$touched">No se permiten letras</p>
               <p ng-show="newProfesorForm.identificacion.$error.specialCharVal&&newProfesorForm.identificacion.$touched">No se permiten caracteres especiales</p>

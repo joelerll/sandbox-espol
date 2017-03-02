@@ -23,7 +23,6 @@ function ReportesController (Reportes,$css) {
         vm.cursoChartData.x.push('Curso ' + curso.curso.numero_paralelo);
         vm.cursoChartData.data.push({xAxis:0, y: 350,name: curso.curso.numero_paralelo,symbolSize:20, symbol: ''})
       })
-      console.log(vm.cursoChartData);
       vm.EjerciciosPorCurso()
     } else {
       console.log('sad');
@@ -175,7 +174,7 @@ function ReportesController (Reportes,$css) {
              saveAsImage : {show: true, title : 'descargar',}
          }
        },
-        
+
         xAxis: {
             data: vm.labels
         },

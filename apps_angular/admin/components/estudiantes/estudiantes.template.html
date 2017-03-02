@@ -5,19 +5,19 @@
     <table st-table="$ctrl.estudiantes_backup" st-safe-src="$ctrl.estudiantes" st-watch-changes="true" class="table table-hover table-condensed table-striped">
       <thead>
         <tr>
-          <th st-sort="identificacion">
-            <span>Identificacion</span>
+          <th class="cursor" st-sort="identificacion">
+            <span>Matricula</span>
           </th>
-          <th  st-sort="nombres">
+          <th class="cursor" st-sort="nombres">
             <span>Nombres</span>
           </th>
-          <th st-sort="apellidos">
+          <th class="cursor" st-sort="apellidos">
             <span>Apellidos</span>
           </th>
-          <th st-sort="correo">
+          <th class="cursor" st-sort="correo">
             <span>Correo</span>
           </th>
-          <th st-sort="carrera">
+          <th class="cursor" st-sort="carrera">
             <span>Carrera</span>
           </th>
         </tr>
@@ -122,7 +122,7 @@
         <div class="modal-body">
           <form name="newEstudianteForm" novalidate>
             <div class="form-group">
-              <label for="indentificacion-estudiante" class="control-label">Indentificacion:</label>
+              <label for="indentificacion-estudiante" class="control-label">Matricula:</label>
               <input ng-model="$ctrl.estudiante.identificacion" type="text" class="form-control" id="indentificacion-estudiante" ng-required="true" name="identificacion" validacion-Identificacion-Est>
               <p ng-show="newEstudianteForm.identificacion.$error.letterVal&&newEstudianteForm.identificacion.$touched">No se permiten letras</p>
               <p ng-show="newEstudianteForm.identificacion.$error.specialCharVal&&newEstudianteForm.identificacion.$touched">No se permiten caracteres especiales</p>

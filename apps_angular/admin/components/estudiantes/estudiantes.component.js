@@ -41,7 +41,7 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
       }
       console.log('creado EstudianteController');
       notie.alert('success', 'Estudiante creado correctamente', 2);
-      self.estudiantes.push(res.data.estudiante);
+      self.estudiantes.unshift(res.data.estudiante);
       self.estudiante = {};
     })
   }

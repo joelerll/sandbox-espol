@@ -7,7 +7,6 @@ AyudantesController.$inyect = ['$css','$http','Ayudantes'];
 
 
 function AyudantesController($css,$http,Ayudantes) {
-  
   var self = this;
   $css.remove('./css/profesores.css');
   $css.add('./css/ayudantes.css');
@@ -37,7 +36,7 @@ function AyudantesController($css,$http,Ayudantes) {
         return;
       }
       notie.alert('success', 'Ayudante creado correctamente', 2);
-      self.ayudantes.push(res.data.ayudante);
+      self.ayudantes.unshift(res.data.ayudante);
       self.ayudante = {};
     })
   }

@@ -7,6 +7,7 @@ config          = require('../config/main'),
 mail            = require('../config/mail.js'),
 uniqueValidator = require('mongoose-unique-validator');
 
+require('../config/main.js').colors
 mongoose.Promise = global.Promise;
 
 var EstudianteSchema = mongoose.Schema({
@@ -75,10 +76,10 @@ var EstudianteSchema = mongoose.Schema({
 
 EstudianteSchema.plugin(uniqueValidator);
 
-EstudianteSchema.pre('update', function(next) {
-  console.log('editado')
-  next()
-})
+// EstudianteSchema.pre('update', function(next) {
+//   console.log('editado')
+//   next()
+// })
 
 EstudianteSchema.statics.registrarEjercicio = function(user,ejercicio,nombre_archivo,path_archivo,cb) {
   let ejercicio_nuevo = {
@@ -90,7 +91,6 @@ EstudianteSchema.statics.registrarEjercicio = function(user,ejercicio,nombre_arc
     },
      _id: ''
   }
-  console.log(ejercicio_nuevo)
   this.model('Estudiante').update({_id: user._id},{$addToSet: {'_ejercicios': ejercicio_nuevo}},{safe: true, upsert: true},cb )
 }
 
@@ -104,7 +104,6 @@ EstudianteSchema.statics.registrarEjercicioMal = function(user,ejercicio,nombre_
     },
      _id: ''
   }
-  console.log(ejercicio_nuevo)
   this.model('Estudiante').update({_id: user._id},{$addToSet: {'_ejercicios': ejercicio_nuevo}},{safe: true, upsert: true},cb )
 }
 
@@ -152,23 +151,17 @@ EstudianteSchema.statics.insignia = function(id_user,insignia,cb) {
 
 EstudianteSchema.pre('save',function (next) {
   const estudiante = this;
-  this.model('Estudiante').findOne({$or: [{identificacion: estudiante.identificacion}, {correo: estudiante.correo}]}).exec((err, estu) => {
-    if (estu) {
-      console.log('existe' + estudiante.correo)
-    }
-  })
   if (this.isNew) {
     let clave = shortId.generate()
     estudiante.clave = clave;
-    estudiante.clave = '1'
-    console.log('clave estudiante ' + estudiante.clave)
-    error = mail.enviar(this.correo,estudiante.clave);
-    if (error) {
-      next(new Error('error al enviar mail'));
-    }
+    // estudiante.clave = '1'
+    console.log(`clave estudiante ${estudiante.clave}`.info)
+    // error = mail.enviar(this.correo,estudiante.clave);
+    // if (error) {
+    //   next(new Error('error al enviar mail'));
+    // }
   }
   if (this.isModified('clave') || this.isNew) {
-    console.log('modificado clave')
     bcrypt.genSalt(10, function (err, salt) {
       if (err) {
         return next(err);

@@ -137,13 +137,14 @@ function deleteEstudiante(req, res, next) {
 }
 
 function deleteProfesor(req, res, next) {
+  console.log(req.params);
   Curso.deleteProfesor(req.params.id_curso, req.params.id_profesor, (err) => {
     if (err) {
       console.log(err)
       res.send('no borado')
       return;
     }
-    res.send('borrado')
+    res.status(200).json({success: true, message: 'eliminado profesor de curso'})
   })
 }
 

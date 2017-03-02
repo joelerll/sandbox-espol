@@ -1,7 +1,9 @@
 var Estudiante = require('../models/estudiante'),
-_ = require('lodash'),
-moment = require('moment'),
+_              = require('lodash'),
+moment         = require('moment'),
 passport       = require('passport');
+
+require('../config/main.js').colors
 
 function login(req, res, next) {
   passport.authenticate('estudiante-local', function(err, estudiante, info) {
@@ -23,11 +25,10 @@ function create(req, res, next) {
     clave: req.body.clave,
     carrera: req.body.carrera
   })
-  console.log(estudiante)
   estudiante.create((err) => {
-    console.log('ni fa')
     if (err) {
       res.status(400).json({success: false, message: 'hubo un error al momento de crear'})
+      console.log(`${err}`.warn);
       return;
     }
     Estudiante.getById(estudiante.id, (err, estudiante) => {

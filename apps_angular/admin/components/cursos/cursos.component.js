@@ -3,9 +3,9 @@ angular.module('cursos').component('cursos', {
   controller: CursosController
 })
 
-CursosController.$inyect = ['Curso','auth','$http','Upload','$rootScope'];
+CursosController.$inyect = ['Curso','auth','$http','Upload','$rootScope','$scope','$window'];
 
-function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
+function CursosController(Curso,auth,$http,Upload,$rootScope,$scope,$window) {
   $scope.sortType = 'numero_paralelo';
   $scope.sortReverse = false;
   $scope.searchParalelo = '';
@@ -71,6 +71,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
     vm.tabla_acciones.editar = false
     vm.tabla_acciones.tabla = true
     vm.tabla_acciones.ver = false
+    $window.scrollTo(0, 0);
     vm.file = '' //limpiar el archivo
   }
   vm.editar = function(curso) {
@@ -78,6 +79,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
     vm.tabla_acciones.editar = true
     vm.tabla_acciones.tabla = false
     vm.tabla_acciones.var = false
+    $window.scrollTo(0, 0);
   }
   vm.ver = function(curso) {
     accionVer(curso)
@@ -99,14 +101,14 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
   }
 
   vm.addProfesor = function() {
-    
+
     if (!vm.profesor_escogido._id) return;
     Curso.addProfesor(vm.accionCurso._id,vm.profesor_escogido._id, (res) => {
       if (res.data.success) {
         notie.alert('success', 'Se guardo profesor', 2)
         vm.getAll();
+        vm.accionCurso._profesor = res.data.curso._profesor
         vm.profesor_escogido = ''
-        
         return
       }else{
         notie.alert('error', 'No se pudo añadir profesor', 2)
@@ -147,6 +149,18 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
     })
   }
 
+  vm.deleteProfesor = function(id_profesor) {
+    Curso.deleteProfesor(vm.accionCurso._id, id_profesor, (res) => {
+      if (res.data.success) {
+        notie.alert('success', 'Se borro el profesor de curso',2);
+        vm.accionCurso._profesor = ''
+        vm.getAll();
+      } else {
+        console.log(res.data);
+      }
+    })
+  }
+
   var actualizarAccionCursoBorrar = (id_estudiante) => {
     var cons = 0
     vm.accionCurso._estudiantes.forEach((estudiante) => {
@@ -162,7 +176,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
     var curso_id = ''
     Curso.upload(vm.accionCurso._id,vm.file,(res) => {
       if (res.data.success) {
-        console.log(res.data);
+        vm.file = false
         Curso.getById(vm.accionCurso._id, (res) => {
           if (res.data.success) {
             vm.accionCurso._estudiantes = res.data.curso._estudiantes
@@ -173,6 +187,7 @@ function CursosController(Curso,auth,$http,Upload,$rootScope, $scope) {
         notie.alert('success', 'Creados correctamente', 2)
       } else {
         console.log(res)
+        notie.alert('warning', 'hubo un error ', 2)
       }
     } )
   }
