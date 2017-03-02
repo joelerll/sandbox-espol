@@ -27,9 +27,20 @@ function AyudanteController(auth,$http) {
       headers: {'Authorization': auth.getToken()}
     }).then(cb)
   }
+
+  var cambiarClave = function (claves, cb) {
+    $http({
+      method: 'POST',
+      url: '/api/v1/estudiantes/clave',
+      headers: {'Authorization': auth.getToken()},
+      data: claves
+    }).then(cb)
+  }
+
   return {
     getEtiquetas: getEtiquetas,
     getEjerciciosEtiquetaYDificultad: getEjerciciosEtiquetaYDificultad,
-    perfil: perfil
+    perfil: perfil,
+    cambiarClave: cambiarClave
   }
 }

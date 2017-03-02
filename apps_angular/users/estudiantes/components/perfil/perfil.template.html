@@ -1,7 +1,7 @@
 <div class="col-lg-12 col-sm-12">
   <!--
   <div class="card hovercard">
-    
+
     <div class="card-background">
 
     </div>
@@ -18,7 +18,7 @@
   <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="..." data-toggle="buttons">
 
     <div class="btn-group" role="group">
-      <label class="btn btn-default" data-active-class="primary" data-toggle="tab"  href="#tabPerfil"> 
+      <label class="btn btn-default" data-active-class="primary" data-toggle="tab"  href="#tabPerfil">
         <input type="radio" name="options" id="perfil" autocomplete="off" data-toggle="tab" checked >
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         <div class="hidden-xs">Perfil</div>
@@ -26,10 +26,17 @@
     </div>
 
     <div class="btn-group" role="group">
-      <label class="btn btn-default" data-active-class="primary" data-toggle="tab"  href="#tabEjercicios"> 
+      <label class="btn btn-default" data-active-class="primary" data-toggle="tab"  href="#tabEjercicios">
         <input type="radio" name="options" id="ejercicios" autocomplete="off" checked>
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         <div class="hidden-xs">Ejercicios</div>
+      </label>
+    </div>
+    <div class="btn-group" role="group">
+      <label class="btn btn-default" data-active-class="primary" data-toggle="tab"  href="#tabCambiarClave">
+        <input type="radio" name="options" id="clave" autocomplete="off" checked>
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        <div class="hidden-xs">Cambiar Clave</div>
       </label>
     </div>
 
@@ -71,11 +78,14 @@
               </div>
 
             </div>
-            
+
           </div>
         </div>
         <div class="tab-pane fade in" id="tabEjercicios">
           <ejercicio-escoger></ejercicio-escoger>
+        </div>
+        <div class="tab-pane fade in" id="tabCambiarClave">
+          <cambiar-clave></cambiar-clave>
         </div>
     </div>
   </div>

@@ -4,5 +4,6 @@ angular.module('estudiantesApp',[
   'angularCSS',
   'ejercicioEscoger',
   'ejercicioEscogido',
-  'perfil'
+  'perfil',
+  'cambiarClave'
 ])
