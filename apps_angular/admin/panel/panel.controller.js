@@ -1,8 +1,8 @@
 angular.module('adminApp').controller('panelController', PanelController)
 
-PanelController.$inyect = ['auth','$location']
+PanelController.$inyect = ['auth','$location','$window']
 
-function PanelController (auth,$location) {
+function PanelController (auth,$location,$window) {
   var vm = this;
 
   vm.logout = () => {
@@ -25,6 +25,7 @@ function PanelController (auth,$location) {
       vm.tabs.ayudantes = false;
       vm.tabs.profesores = false;
       vm.tabs.cursos = false;
+      $window.scrollTo(0, 0);
     },
     estudiantes: function () {
       vm.tabs.dashboard = false;
@@ -32,6 +33,7 @@ function PanelController (auth,$location) {
       vm.tabs.ayudantes = false;
       vm.tabs.profesores = false;
       vm.tabs.cursos = false;
+      $window.scrollTo(0, 0);
     },
     ayudantes: function () {
       vm.tabs.dashboard = false;
@@ -39,6 +41,7 @@ function PanelController (auth,$location) {
       vm.tabs.ayudantes = true;
       vm.tabs.profesores = false;
       vm.tabs.cursos = false;
+      $window.scrollTo(0, 0);
     },
     profesores: function () {
       vm.tabs.dashboard = false;
@@ -46,6 +49,7 @@ function PanelController (auth,$location) {
       vm.tabs.ayudantes = false;
       vm.tabs.profesores = true;
       vm.tabs.cursos = false;
+      $window.scrollTo(0, 0);
     },
     cursos: function () {
       vm.tabs.dashboard = false;
@@ -53,6 +57,7 @@ function PanelController (auth,$location) {
       vm.tabs.ayudantes = false;
       vm.tabs.profesores = false;
       vm.tabs.cursos = true;
+      $window.scrollTo(0, 0);
     },
   }
 }

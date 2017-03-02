@@ -18,9 +18,9 @@
           <li  ng-class="{'selecionado': vm.tabs.todos}"><a ng-click="vm.tabs.clicks.todos()" class="cursor">Todos los Ejercicios</a></li>
           <li  ng-class="{'selecionado': vm.tabs.clave}"><a ng-click="vm.tabs.clicks.clave()" class="cursor">Cambiar Clave</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right" id="logout">
+        <ul style="cursor: pointer;" class="nav navbar-nav navbar-right" id="logout">
           <li>
-            <span class="glyphicon glyphicon-log-out"></span>
+            <span  class="glyphicon glyphicon-log-out"></span>
             <strong  ng-click="vm.logout()">Logout</strong>
           </li>
         </ul>

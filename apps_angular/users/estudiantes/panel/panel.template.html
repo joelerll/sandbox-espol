@@ -1,6 +1,6 @@
 
 <div class="container">
-  
+
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -8,15 +8,15 @@
           <p>Estudiante</p>
         </a>
       </div>
-      <ul class="nav navbar-nav navbar-right" id="logout">
+      <ul style="cursor: pointer;"  class="nav navbar-nav navbar-right" id="logout">
         <li>
           <span class="glyphicon glyphicon-log-out"></span>
-          <strong  ng-click="vm.logout()">Logout</strong>
+          <strong ng-click="vm.logout()">Logout</strong>
         </li>
       </ul>
     </div>
   </nav>
-  
+
   <div class="contenerdor">
     <div ng-show="vm.tabs.perfil" class="">
       <perfil></perfil>
@@ -27,4 +27,3 @@
   </div>
 
 </div>
-
