@@ -87,7 +87,6 @@ function cantidadEjericiosPorCurso(req, res, next) {
 function mejoresEstudiantesCurso(req, res, next) {
   var cursos_mejores = []
   Curso.CursosMejores((err, cursos) => {
-    console.log(cursos);
     if (err) {
       res.send('error')
     } else {

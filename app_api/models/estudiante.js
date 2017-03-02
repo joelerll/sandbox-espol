@@ -110,29 +110,35 @@ EstudianteSchema.statics.registrarEjercicioMal = function(user,ejercicio,nombre_
 EstudianteSchema.statics.puntajeYBadge = function(user) {
   this.model('Estudiante').findOne({_id: user._id}).populate({path: ' _ejercicios.ejercicio'}).exec((err, data) => {
     data.puntaje = 0;
+    data.badge = ''
     let puntaje = data.puntaje;
-    console.log(data.puntaje);
+    let ejercicios_validos = []
+    let cont = 0
     data._ejercicios.forEach((ejercicio)=> {
-      if (ejercicio.ejercicio.dificultad == 'facil' && ejercicio.resuelto) {
-        puntaje = puntaje + 5
-      } else if (ejercicio.ejercicio.dificultad == 'intermedio' && ejercicio.resuelto) {
-        puntaje = puntaje + 10
-      } else if (ejercicio.ejercicio.dificultad == 'dificil' && ejercicio.resuelto) {
-        puntaje = puntaje + 15
+      if (ejercicio.ejercicio) {
+        if (ejercicio.ejercicio.dificultad == 'facil' && ejercicio.resuelto) {
+          puntaje = puntaje + 5
+          cont = cont + 1
+        } else if (ejercicio.ejercicio.dificultad == 'intermedio' && ejercicio.resuelto) {
+          puntaje = puntaje + 10
+          cont = cont + 1
+        } else if (ejercicio.ejercicio.dificultad == 'dificil' && ejercicio.resuelto) {
+          puntaje = puntaje + 15
+          cont = cont + 1
+        }
       }
     })
-    let badge = ''
-    if (data._ejercicios.length > 10) {
+    var badge = ''
+    if (cont >= 10) {
       badge = 'novato'
     }
-    if (data._ejercicios.length > 20) {
+    if (cont >= 20) {
       badge = 'pro'
     }
-    if (data._ejercicios.length > 30) {
+    if (cont >= 30) {
       badge = 'experto'
     }
     this.model('Estudiante').update({_id: user._id},{$set: {puntaje: puntaje, badge: badge}}, (err) => {
-
     })
   })
 }

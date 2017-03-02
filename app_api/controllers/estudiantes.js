@@ -146,7 +146,6 @@ function insigniasUltimas(id_user) {
     var j = 0
     var x = 0
     var insignia = ''
-    console.log(dias_ordenado);
     for (var i = 0; i < dias_ordenado.length; i++) {
       dias_ordenado[i]
       if (i - 4 >= 0){
@@ -158,7 +157,6 @@ function insigniasUltimas(id_user) {
         x = moment(new Date(f2[0],f2[1],f2[2])).diff(new Date(f1[0],f1[1],f1[2]));
         if (x/604800 <= 1) {
           if (insignia != 'duro_de_matar' && insignia != 'rapidos_y_furiosos') {
-            console.log('es indestructible');
             insignia = 'indestructible'
           }
         }
@@ -170,7 +168,6 @@ function insigniasUltimas(id_user) {
         x = moment(new Date(f2[0],f2[1],f2[2])).diff(new Date(f1[0],f1[1],f1[2]));
         if (x/604800) {
           if (insignia != 'rapidos_y_furiosos') {
-            console.log('es duro de matar');
             insignia = 'duro_de_matar'
           }
         }
@@ -181,7 +178,6 @@ function insigniasUltimas(id_user) {
         f2 = dias_ordenado[i].split('-')
         x = moment(new Date(f2[0],f2[1],f2[2])).diff(new Date(f1[0],f1[1],f1[2]));
         if (x/604800) {
-          console.log('es rapidos y furiosos');
           insignia = 'rapidos_y_furiosos'
         }
       }
@@ -215,6 +211,7 @@ function perfil (req, res, next) {
       res.status(400).json({'message': 'user no encontrado', success: false})
       return
     }
+    Estudiante.puntajeYBadge(estudiante);
     res.status(200).json({message: 'user encontrado', estudiante: estudiante, success: true})
   })
 }
