@@ -16,7 +16,7 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
     }
   })
   vm.etiqueta = ''
-  vm.selected = false
+  vm.selected = NaN
   vm.etiqueta_escogida = (etiqueta,index) => {
     vm.etiqueta = etiqueta
     vm.selected = index
@@ -28,6 +28,8 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
   vm.ejercicio = null
   vm.mostrar = false
   vm.mostrar_escogido = false
+  vm.mostrar_opcion = false
+  vm.resuelto = false
   $rootScope.ejercicio = null
   vm.ejercicio_escoger_boton = (ejercicio) => {
     vm.mostrar_escogido = true
@@ -53,6 +55,7 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
   }
   vm.escogerEjercicios = () => {
     vm.cont = 0
+    vm.mostrar_opcion = true
     vm.mostrar_escogido = false
     Estudiante.getEjerciciosEtiquetaYDificultad(vm.etiqueta,vm.dificultad_escogida, (res) => {
       vm.ejercicios_posibles = res.data.ejercicios

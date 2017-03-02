@@ -7,8 +7,8 @@ function PanelController (Estudiante,auth,$location) {
   vm.correo = auth.parseJwt().correo
   vm.estudiante = {}
   //vm.estudiante = auth.parseJwt();
-  
-  
+
+
   console.log(Estudiante.perfil)
   console.log(auth.parseJwt())
   console.log(vm.estudiante)
@@ -20,8 +20,8 @@ function PanelController (Estudiante,auth,$location) {
   }
 
   vm.tabs = {
-    perfil : true,
-    resolver : false
+    perfil : false,
+    resolver : true
   }
 
   vm.clicks = {

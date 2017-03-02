@@ -153,6 +153,9 @@ function comprobarEjercicio(req, res ,next) {
 }
 
 function probrarValidezEjercicio(results, args) {
+  console.log('orbar valides');
+  console.log(args);
+  console.log(results);
   if (!results) {
     return false
   }
@@ -161,7 +164,9 @@ function probrarValidezEjercicio(results, args) {
     return false
   }
   for (var i = 0; i < results.length; i++) {
-    if (results[i])
+    console.log(results[i].toString().localeCompare(args[i]));
+    console.log(results[i].toString());
+    console.log(args[i]);
     if (results[i].toString().localeCompare(args[i]) === -1) {
       return false
     }
