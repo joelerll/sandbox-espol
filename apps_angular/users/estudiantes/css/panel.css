@@ -10,3 +10,11 @@ button.login {
 	margin: auto;
 	margin-top: 12px;
 }
+
+
+
+.btn.active[data-active-class="primary"] {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
