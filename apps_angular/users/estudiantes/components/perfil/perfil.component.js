@@ -26,3 +26,4 @@ function PerfilController(Estudiante,$css,$rootScope) {
     console.log(res)
   })
 }
+
