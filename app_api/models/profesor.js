@@ -89,6 +89,30 @@ ProfesorSchema.pre('save', function (next) {
   }
 });
 
+ProfesorSchema.methods.generarJwt = function() {
+  var expiracion = new Date();
+  expiracion.setDate(expiracion.getDate() + 5);
+  return jwt.sign({
+    id: this._id,
+    correo: this.correo,
+    nombres: this.nombres,
+    apellidos: this.apellidos,
+    exp: parseInt(expiracion.getTime() / 1000),
+  }, config.secret );// process.env.JWT_SECRET
+};
+
+ProfesorSchema.statics.getPorCorreo = function(correo, cb) {
+  this.model('Profesor').findOne({correo: correo}, cb)
+}
+
+ProfesorSchema.statics.comparePass = function(password, hash, cb){
+	bcrypt.compare(password, hash, function(err, isMatch) {
+    	if(err) throw err;
+    	cb(null, isMatch);
+	});
+}
+
+
 ProfesorSchema.methods.create = function(cb) {
   this.save(cb);
 }

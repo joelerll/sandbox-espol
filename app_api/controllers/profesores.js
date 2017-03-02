@@ -2,6 +2,19 @@ var mongoose = require('mongoose'),
 xss          = require('xss'),
 Profesor     = require('../models/profesor');
 
+module.exports.login = function(req, res,next) {
+    passport.authenticate('profesor-local', function(err, profesor, info) {
+    if( profesor ) {
+      token = profesor.generarJwt()
+      res.status(info.status).json({ success: info.success, token: 'JWT ' + token });
+      return;
+     } else {
+       res.status(info.status).json({ success: info.success, message: info.message });
+       return;
+     }
+    })(req, res);
+}
+
 module.exports.create = function(req, res, next) {
   req.body.nombres = xss(req.body.nombres);
   req.body.apellidos = xss(req.body.apellidos);
