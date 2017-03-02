@@ -13,10 +13,10 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li><a ng-click="vm.tabs.clicks.nuevo()" class="cursor">Nuevo Ejercicio</a></li>
-          <li class="active"><a ng-click="vm.tabs.clicks.mis()" class="cursor">Mis Ejercicios</a></li>
-          <li><a ng-click="vm.tabs.clicks.todos()" class="cursor">Todos los Ejercicios</a></li>
-          <li><a ng-click="vm.tabs.clicks.clave()" class="cursor">Cambiar Clave</a></li>
+          <li  ng-class="{'selecionado': vm.tabs.nuevo}" ><a ng-click="vm.tabs.clicks.nuevo()" class="cursor">Nuevo Ejercicio</a></li>
+          <li  ng-class="{'selecionado': vm.tabs.mis}"><a ng-click="vm.tabs.clicks.mis()" class="cursor">Mis Ejercicios</a></li>
+          <li  ng-class="{'selecionado': vm.tabs.todos}"><a ng-click="vm.tabs.clicks.todos()" class="cursor">Todos los Ejercicios</a></li>
+          <li  ng-class="{'selecionado': vm.tabs.clave}"><a ng-click="vm.tabs.clicks.clave()" class="cursor">Cambiar Clave</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" id="logout">
           <li>

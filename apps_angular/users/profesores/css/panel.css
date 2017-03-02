@@ -13,3 +13,7 @@ a.cursor {
       color: #000;
       background: #d65c14;
  }
+
+ .selecionado {
+   background:rgba(128, 129, 143, 0.75);
+ }
