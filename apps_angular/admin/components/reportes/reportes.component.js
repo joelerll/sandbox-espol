@@ -175,9 +175,7 @@ function ReportesController (Reportes,$css) {
              saveAsImage : {show: true, title : 'descargar',}
          }
        },
-        legend: {
-            data:['Ejercicios']
-        },
+        
         xAxis: {
             data: vm.labels
         },
