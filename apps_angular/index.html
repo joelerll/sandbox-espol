@@ -4,9 +4,24 @@
     <meta charset="utf-8">
     <title>pagina</title>
   </head>
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <style media="screen">
+    h1 {
+      text-align: center;
+    }
+  </style>
   <body>
-    <h1>Pagina prinvila</h1>
-    <a href="http://localhost:7000/estudiantes"><button type="button" name="button">estudiantes</button></a>
-<a href="http://localhost:7000/ayudantes"><button type="button" name="button">ayudentes</button></a>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Pagina principal</h1>
+        <p><a href="/admin"><button class="btn btn-primary" type="button" name="button">admin</button></a></p>
+        <p><a href="/estudiantes"><button class="btn btn-primary" type="button" name="button">estudiantes</button></a></p>
+        <p><a href="/ayudantes"><button class="btn btn-primary" type="button" name="button">ayudentes</button></a></p>
+        <p><a href="/profesores"><button class="btn btn-primary" type="button" name="button">profesores</button></a></p>
+      </div>
+    </div>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

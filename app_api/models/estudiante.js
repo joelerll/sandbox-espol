@@ -4,6 +4,7 @@ uniqueValidator = require('mongoose-unique-validator'),
 shortId         = require('shortid'),
 jwt             = require('jsonwebtoken'),
 config          = require('../config/main'),
+mail            = require('../config/mail.js'),
 uniqueValidator = require('mongoose-unique-validator');
 
 mongoose.Promise = global.Promise;
@@ -161,10 +162,10 @@ EstudianteSchema.pre('save',function (next) {
     estudiante.clave = clave;
     estudiante.clave = '1'
     console.log('clave estudiante ' + estudiante.clave)
-    //error = mail.enviar(this.correo,estudiante.clave);
-    // if (error) {
-    //   next(new Error('error al enviar mail'));
-    // }
+    error = mail.enviar(this.correo,estudiante.clave);
+    if (error) {
+      next(new Error('error al enviar mail'));
+    }
   }
   if (this.isModified('clave') || this.isNew) {
     console.log('modificado clave')

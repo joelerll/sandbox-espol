@@ -4,3 +4,4 @@ pruebas/
 public/cached_uglify
 app_api/config/mail_config.js
 public/upload
+scripts/ngrok.exe

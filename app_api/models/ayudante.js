@@ -3,6 +3,7 @@ bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
 shortId         = require('shortid'),
 jwt             = require('jsonwebtoken'),
+mail            = require('../config/mail.js'),
 config          = require('../config/main');
 
 mongoose.Promise = global.Promise;
@@ -65,12 +66,12 @@ AyudanteSchema.pre('save', function (next) {
   if (this.isNew) {
     let clave = shortId.generate()
     ayudante.clave = clave;
-    ayudante.clave = '1'
+    // ayudante.clave = '1'
     console.log('clave ayudante ' + ayudante.clave)
-    //error = mail.enviar(this.correo,ayudante.clave);
-    // if (error) {
-    //   next(new Error('error al enviar mail'));
-    // }
+    error = mail.enviar(this.correo,ayudante.clave);
+    if (error) {
+      next(new Error('error al enviar mail'));
+    }
   }
   console.log(this.isModified('clave'))
   console.log(this.isNew)

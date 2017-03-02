@@ -1,9 +1,9 @@
 var mongoose    = require('mongoose'),
 bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
-config = require('../config/main')
-jwt = require('jsonwebtoken'),
-shortId         = require('shortid');
+config          = require('../config/main')
+jwt             = require('jsonwebtoken'),
+shortId         = require('shortid'),
 mail            = require('../config/mail.js');
 
 var ProfesorSchema = mongoose.Schema({
@@ -67,12 +67,11 @@ ProfesorSchema.pre('save', function (next) {
   if (this.isNew) {
     let clave = shortId.generate()
     profesor.clave = clave;
-    profesor.clave = '1';
     console.log('clave profesor ' + profesor.clave)
-    //error = mail.enviar(this.correo,profesor.clave);
-    // if (error) {
-    //   next(new Error('error al enviar mail'));
-    // }
+    error = mail.enviar(this.correo,profesor.clave);
+    if (error) {
+      next(new Error('error al enviar mail'));
+    }
   }
   if (this.isModified('clave') || this.isNew) {
     bcrypt.genSalt(10, function (err, salt) {
@@ -111,6 +110,7 @@ ProfesorSchema.statics.getPorCorreo = function(correo, cb) {
 ProfesorSchema.statics.getByIdCompleto = function(id, cb) {
   this.model('Profesor').findOne({ _id:  id }, cb);
 }
+
 
 ProfesorSchema.statics.getById = function(id, cb) {
   this.model('Profesor').findOne({ _id:  id },{clave: 0}, cb);

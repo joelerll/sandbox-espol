@@ -83,6 +83,10 @@ EjercicioSchema.statics.getByCreador = function(id, cb) {
   this.model('Ejercicio').find({'creador._id': id}, cb);
 } //SypzZFrKl
 
+EjercicioSchema.statics.updateEjerciciosCreador = function(id,user, cb) {
+  this.model('Ejercicio').updateMany({'creador._id': id}, {$set: {'creador.nombres': user.nombres, 'creador.apellidos': user.apellidos, 'creador.correo': user.correo}}, cb);
+}
+
 EjercicioSchema.statics.getOneByCreadorandId = function(id,id_ejercicio, cb) {
   this.model('Ejercicio').findOne({'creador._id': id, _id: id_ejercicio}, cb);
 }

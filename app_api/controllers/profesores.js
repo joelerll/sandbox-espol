@@ -1,8 +1,9 @@
 var mongoose = require('mongoose'),
 xss          = require('xss'),
-passport = require('passport'),
-jwt = require('jsonwebtoken'),
-bcrypt = require('bcryptjs'),
+passport     = require('passport'),
+jwt          = require('jsonwebtoken'),
+bcrypt       = require('bcryptjs'),
+Ejercicio    = require('../models/ejercicio'),
 Profesor     = require('../models/profesor');
 
 module.exports.login = function(req, res,next) {
@@ -106,6 +107,13 @@ module.exports.update = function(req, res, next) {
         if (err) {
           return res.status(404).json({success: false, message: 'error al buscar profesor editado'})
         }
+        Ejercicio.updateEjerciciosCreador(req.params.id,profesor, (err, res) => {
+          if (err) {
+              res.status(404).json({success: false, message: 'no se pudo editar al ayudante'})
+              return;
+          }
+          console.log(res);
+        })
         res.status(200).json({success: true, message: 'profesor editado', profesor: profesor});
       })
     })

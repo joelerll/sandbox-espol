@@ -1,4 +1,5 @@
 var passport = require('passport'),
+Ejercicio    = require('../models/ejercicio'),
 Ayudante     = require('../models/ayudante');
 
 function log(req, res,next) {
@@ -60,6 +61,13 @@ function update(req, res, next) {
         res.status(404).json({success: false, message: 'no se pudo encontrar al profesor creado'})
         return;
       }
+      Ejercicio.updateEjerciciosCreador(req.params.id,ayudante, (err, res) => {
+        if (err) {
+            res.status(404).json({success: false, message: 'no se pudo editar al ayudante'})
+            return;
+        }
+        console.log(res);
+      })
       res.status(200).json({success: true, message: 'se pudo editar el ayudante', ayudante: ayudante})
     })
   })

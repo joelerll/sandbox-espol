@@ -19,7 +19,8 @@
     "browser-sync": "browser-sync",
     "nodemon": "nodemon",
     "webpack": "webpack",
-    "eslint": "eslint"
+    "eslint": "eslint",
+    "lt": "localtunnel"
   },
   "repository": {
     "type": "git",
@@ -93,6 +94,7 @@
     "gulp-uglify": "^2.0.1",
     "gulp-webpack": "^1.5.0",
     "jsonfile": "^2.4.0",
+    "localtunnel": "^1.8.2",
     "mocha": "^3.2.0",
     "protractor": "^5.1.0",
     "pump": "^1.0.2",
