@@ -45,7 +45,7 @@ a.cursor {
     left: 0;
     right: 0;
 }
-.card.hovercard .useravatar img {
+.useravatar img {
     width: 100px;
     height: 100px;
     max-width: 100px;
@@ -53,7 +53,7 @@ a.cursor {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    border: 5px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 .card.hovercard .card-info {
     position: absolute;
@@ -84,4 +84,23 @@ a.cursor {
 }
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
+}
+
+.tag{
+    font-weight: bold;
+}
+
+#tabPerfil{
+    padding: 10px;
+}
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+
+
+.estudiante{
+    margin: 0 50px;
 }

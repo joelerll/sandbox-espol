@@ -1,5 +1,7 @@
 <div class="col-lg-12 col-sm-12">
+  <!--
   <div class="card hovercard">
+    
     <div class="card-background">
 
     </div>
@@ -12,7 +14,7 @@
       </span>
     </div>
   </div>
-
+  -->
   <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="..." data-toggle="buttons">
 
     <div class="btn-group" role="group">
@@ -37,27 +39,39 @@
     <div class="tab-content">
       <div class="tab-pane fade in active" id="tabPerfil">
           <div class="estudiante">
-            <div class="perfil">
-              <span>Nombres: </span><span>{{$ctrl.estudiante.nombres}}</span>
+            <div class="row row-eq-height">
+              <div class="col-xs-8">
+                <div class="perfil">
+                  <span class="tag">Nombres: </span><span>{{$ctrl.estudiante.nombres}}</span>
+                </div>
+                <div class="apellidos">
+                  <span class="tag">Apellidos: </span><span>{{$ctrl.estudiante.apellidos}}</span>
+                </div>
+                <div class="correo">
+                  <span class="tag">Correo: </span><span>{{$ctrl.estudiante.correo}}</span>
+                </div>
+                <div class="puntaje">
+                  <span class="tag">Puntaje: </span><span>{{$ctrl.estudiante.puntaje}}</span>
+                </div>
+                <div class="badgei">
+                  <span class="tag">Badge: </span><span>{{$ctrl.estudiante.badge}}</span>
+                </div>
+                <div class="insignia">
+                  <span class="tag">Insignia: </span><span>{{$ctrl.estudiante.insignia}}</span>
+                </div>
+                <div class="numero-ejercicios">
+                  <span class="tag">Numero ejercicios: </span><span>{{$ctrl.estudiante._ejercicios.length}}</span>
+                </div>
+              </div>
+
+              <div class="col-xs-4">
+                <div class="useravatar">
+                  <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="img-responsive">
+                </div>
+              </div>
+
             </div>
-            <div class="apellidos">
-              <span>Apellidos: </span><span>{{$ctrl.estudiante.apellidos}}</span>
-            </div>
-            <div class="correo">
-              <span>Correo: </span><span>{{$ctrl.estudiante.correo}}</span>
-            </div>
-            <div class="puntaje">
-              <span>Puntaje: </span><span>{{$ctrl.estudiante.puntaje}}</span>
-            </div>
-            <div class="badgei">
-              <span>Badge: </span><span>{{$ctrl.estudiante.badge}}</span>
-            </div>
-            <div class="insignia">
-              <span>Insignia: </span><span>{{$ctrl.estudiante.insignia}}</span>
-            </div>
-            <div class="numero-ejercicios">
-              <span>Numero ejercicios: </span><span>{{$ctrl.estudiante._ejercicios.length}}</span>
-            </div>
+            
           </div>
         </div>
         <div class="tab-pane fade in" id="tabEjercicios">
