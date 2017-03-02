@@ -3,10 +3,11 @@ angular.module('cambioClave').component('cambioClave', {
   controller: CambioClaveController
 })
 
-CambioClaveController.$inyect = ['Ayudante'];
+CambioClaveController.$inyect = ['Ayudante', '$css'];
 
-function CambioClaveController(Ayudante) {
+function CambioClaveController(Ayudante, $css) {
   var vm = this;
+  $css.add('./css/cambio-clave.css')
   vm.claves = {
     clave: '',
     clave_confirmacion: '',

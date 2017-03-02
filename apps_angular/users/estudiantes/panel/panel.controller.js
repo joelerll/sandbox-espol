@@ -12,8 +12,8 @@ function PanelController (Estudiante,auth,$location) {
   }
 
   vm.tabs = {
-    perfil : false,
-    resolver : true
+    perfil : true,
+    resolver : false
   }
 
   vm.clicks = {
