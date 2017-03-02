@@ -99,7 +99,7 @@ function readOne(req, res, next) {
 var bcrypt = require('bcryptjs')
 function cambiarClave(req, res, next) {
   console.log(req.user);
-  if (req.body.clave != req.body.clave_confirmacion) {
+  if (req.body.clave_nueva != req.body.clave_confirmacion) {
     res.status(200).json({success: false, message: 'no esta confirmado la clave'})
     return
   } else {

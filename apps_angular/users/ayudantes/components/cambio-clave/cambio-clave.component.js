@@ -25,8 +25,11 @@ function CambioClaveController(Ayudante, $css) {
 
   vm.actualizarClave = () => {
     Ayudante.cambiarClave(vm.claves,(res) => {
+      vm.alerts = []
       if (res.data.success) {
         console.log('clave cambiada');
+        vm.claves = {}
+          vm.alerts.push({type: 'success', msg: res.data.message});
       } else {
         vm.alerts.push({type: 'danger', msg: res.data.message});
       }
