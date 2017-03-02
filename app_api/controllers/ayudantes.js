@@ -2,6 +2,8 @@ var passport = require('passport'),
 Ejercicio    = require('../models/ejercicio'),
 Ayudante     = require('../models/ayudante');
 
+require('../config/main.js').colors;
+
 function log(req, res,next) {
     passport.authenticate('ayudante-local', function(err, ayudante, info) {
     if( ayudante ) {
@@ -23,11 +25,10 @@ function create(req, res, next) {
     correo: req.body.correo,
     carrera: req.body.carrera
   })
-  console.log(ayudante)
   ayudante.create((err) => {
-    console.log(err)
     if (err) {
       res.status(400).json({success: false, message: 'error al crear'})
+
       return;
     }
     Ayudante.getById(ayudante._id, (err, estudiante) => {
@@ -43,6 +44,7 @@ function create(req, res, next) {
 function del (req, res ,next) {
   Ayudante.delete(req.params.id, (err) => {
     if (err) {
+      console.log(`${err}`.warn);
       res.status(403).json({success: false, message: 'no se pudo borrar'})
       return;
     }

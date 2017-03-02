@@ -39,6 +39,7 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
         notie.alert('error', 'Hubo un error al intentar crear', 2);
         return;
       }
+      console.log('creado EstudianteController');
       notie.alert('success', 'Estudiante creado correctamente', 2);
       self.estudiantes.push(res.data.estudiante);
       self.estudiante = {};

@@ -32,9 +32,9 @@ router.delete('/profesores/:id', auth, ProfesorController.delete );
 router.get('/profesores/:id', auth, ProfesorController.readOne );
 
 // ayudante CRUD
-router.post('/ayudantes',auth, ValidacionesAyudante.create, AyudanteController.create );
+router.post('/ayudantes',auth, AyudanteController.create );
 router.get('/ayudantes',auth,  AyudanteController.read ); // ?like
-router.put('/ayudantes/:id',auth, ValidacionesAyudante.create, AyudanteController.update );
+router.put('/ayudantes/:id',auth,  AyudanteController.update );
 router.delete('/ayudantes/:id',auth, AyudanteController.del );
 router.get('/ayudantes/:id',auth, AyudanteController.readOne );
 

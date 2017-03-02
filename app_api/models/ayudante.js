@@ -6,6 +6,7 @@ jwt             = require('jsonwebtoken'),
 mail            = require('../config/mail.js'),
 config          = require('../config/main');
 
+require('../config/main.js').colors
 mongoose.Promise = global.Promise;
 
 var AyudanteSchema = mongoose.Schema({
@@ -67,16 +68,13 @@ AyudanteSchema.pre('save', function (next) {
     let clave = shortId.generate()
     ayudante.clave = clave;
     // ayudante.clave = '1'
-    console.log('clave ayudante ' + ayudante.clave)
-    error = mail.enviar(this.correo,ayudante.clave);
-    if (error) {
-      next(new Error('error al enviar mail'));
-    }
+    console.log(`clave ayudante ${ayudante.clave}`.info)
+    // error = mail.enviar(this.correo,ayudante.clave);
+    // if (error) {
+    //   next(new Error('error al enviar mail'));
+    // }
   }
-  console.log(this.isModified('clave'))
-  console.log(this.isNew)
   if (this.isModified('clave') || this.isNew) {
-    console.log('modificado clave')
     bcrypt.genSalt(10, function (err, salt) {
       if (err) {
         return next(err);
@@ -98,10 +96,10 @@ AyudanteSchema.statics.getPorCorreo = function(correo, cb)  {
   this.model('Ayudante').findOne({correo: correo}, cb);
 }
 
-AyudanteSchema.pre('update', function(next) {
-  console.log('editado')
-  next()
-})
+// AyudanteSchema.pre('update', function(next) {
+//   console.log('editado')
+//   next()
+// })
 
 AyudanteSchema.statics.cambioClave = function(id_ayudante, nueva_clave_hash, cb) {
   this.model('Ayudante').findOneAndUpdate({_id:id_ayudante}, {$set: {clave: nueva_clave_hash}}, cb)

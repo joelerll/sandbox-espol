@@ -10,6 +10,12 @@ function LoginController (auth,$location) {
     password: ''
   };
 
+  $(document).keypress(function(e){
+    if (e.keyCode == 13) {
+      vm.submit()
+    }
+  });
+
   // alerts
   vm.alerts = [];
 

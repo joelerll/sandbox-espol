@@ -63,14 +63,12 @@ function cantidadEjericiosPorCurso(req, res, next) {
       var todos = []
       asyn.each(cursos,function(curso,callback) {
         Curso.populateCursoReporte(curso._id, (err, curso) => {
-          console.log(curso);
           if (err) {
             callback(err)
           }
           var m = _.dropRightWhile(_.flatten(_.map(curso._estudiantes, '_ejercicios')), function(o) {return !o.resuelto;})
           var cant = m.length
           todos.push({curso: {numero_paralelo: curso.numero_paralelo, _id: curso._id}, cantidad: cant})
-          console.log(cant);
           callback(null)
         })
       },function(err,data) {
@@ -100,7 +98,6 @@ function mejoresEstudiantesCurso(req, res, next) {
         if (error) {
           res.send(error)
         }
-        console.log('terminado');
         res.send(cursos_mejores)
       })
     }
