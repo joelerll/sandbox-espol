@@ -1,4 +1,6 @@
 var Estudiante = require('../models/estudiante'),
+_ = require('lodash'),
+moment = require('moment'),
 passport       = require('passport');
 
 function login(req, res, next) {
@@ -113,7 +115,85 @@ function registrarEjercicio(carpeta,archivo,ejercicio,user) {
       return false;
     }
     Estudiante.puntajeYBadge(user);
+    insigniasUltimas(user._id)
     return true
+  })
+}
+
+function insigniasUltimas(id_user) {
+  Estudiante.getByIdPopulate(id_user,(err, estudiante) => {
+    if (err) {
+      res.send(error);
+      return;
+    }
+    var fechas = []
+    //sacar fechas
+    estudiante._ejercicios.forEach((ejercicio) => {
+      var fecha = moment(ejercicio.fecha_resuelto).format('YYYY-MM-DD')
+      if (ejercicio.resuelto) {
+        fechas.push(fecha);
+      }
+    })
+    //ordenar fechas por si acaso
+    var dias_ordenado = fechas.sort(function(a,b) {
+      var f1 = a.split('-')
+      var f2 = b.split('-')
+      return moment(new Date(f1[0],f1[1],f1[2])).isSameOrAfter(new Date(f2[0],f2[1],f2[2]))
+    });
+    var cont = 0
+    var f1 = ''
+    var f2 = ''
+    var j = 0
+    var x = 0
+    var insignia = ''
+    console.log(dias_ordenado);
+    for (var i = 0; i < dias_ordenado.length; i++) {
+      dias_ordenado[i]
+      if (i - 4 >= 0){
+        j = i - 4
+        f1 = dias_ordenado[j].split('-')
+        f2 = dias_ordenado[i].split('-')
+        // console.log(new Date(2016,1,20).toISOString());
+        // console.log(moment(new Date(2016,1,20).toISOString()).format('YYYY-MM-DD'));
+        x = moment(new Date(f2[0],f2[1],f2[2])).diff(new Date(f1[0],f1[1],f1[2]));
+        if (x/604800 <= 1) {
+          if (insignia != 'duro_de_matar' && insignia != 'rapidos_y_furiosos') {
+            console.log('es indestructible');
+            insignia = 'indestructible'
+          }
+        }
+      }
+      if (i - 9 >= 0) {
+        j = i - 9
+        f1 = dias_ordenado[j].split('-')
+        f2 = dias_ordenado[i].split('-')
+        x = moment(new Date(f2[0],f2[1],f2[2])).diff(new Date(f1[0],f1[1],f1[2]));
+        if (x/604800) {
+          if (insignia != 'rapidos_y_furiosos') {
+            console.log('es duro de matar');
+            insignia = 'duro_de_matar'
+          }
+        }
+      }
+      if (i - 14 >= 0) {
+        j = i - 14
+        f1 = dias_ordenado[j].split('-')
+        f2 = dias_ordenado[i].split('-')
+        x = moment(new Date(f2[0],f2[1],f2[2])).diff(new Date(f1[0],f1[1],f1[2]));
+        if (x/604800) {
+          console.log('es rapidos y furiosos');
+          insignia = 'rapidos_y_furiosos'
+        }
+      }
+    }
+    Estudiante.insignia(id_user,insignia, (err) => {
+      if (err) {
+        console.log('error');
+        return
+      }
+      console.log('no error');
+      return
+    })
   })
 }
 
@@ -124,6 +204,7 @@ function registrarEjercicioMal(carpeta,archivo,ejercicio,user) {
       return false;
     }
     Estudiante.puntajeYBadge(user);
+    insigniasUltimas(user._id)
     return true
   })
 }
@@ -179,6 +260,7 @@ module.exports = {
   update: update,
   del: del,
   // estudiante control
+  insigniasUltimas: insigniasUltimas,
   perfil: perfil,
   login: login,
   updateClave: updateClave,

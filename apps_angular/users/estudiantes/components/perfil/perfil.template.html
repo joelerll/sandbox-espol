@@ -1,7 +1,7 @@
 <div class="col-lg-12 col-sm-12">
   <div class="card hovercard">
     <div class="card-background">
-      
+
     </div>
     <div class="useravatar">
       <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png">
@@ -14,7 +14,7 @@
   </div>
 
   <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
-    
+
     <div class="btn-group" role="group">
       <button type="button" id="perfil" class="btn btn-primary" href="#tabPerfil" data-toggle="tab">
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -47,8 +47,11 @@
             <div class="puntaje">
               <span>Puntaje: </span><span>{{$ctrl.estudiante.puntaje}}</span>
             </div>
+            <div class="badgei">
+              <span>Badge: </span><span>{{$ctrl.estudiante.badge}}</span>
+            </div>
             <div class="insignia">
-              <span>Insignia: </span><span>{{$ctrl.estudiante.badge}}</span>
+              <span>Insignia: </span><span>{{$ctrl.estudiante.insignia}}</span>
             </div>
             <div class="numero-ejercicios">
               <span>Numero ejercicios: </span><span>{{$ctrl.estudiante._ejercicios.length}}</span>

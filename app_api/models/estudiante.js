@@ -113,7 +113,6 @@ EstudianteSchema.statics.puntajeYBadge = function(user) {
     let puntaje = data.puntaje;
     console.log(data.puntaje);
     data._ejercicios.forEach((ejercicio)=> {
-      console.log(ejercicio.resuelto);
       if (ejercicio.ejercicio.dificultad == 'facil' && ejercicio.resuelto) {
         puntaje = puntaje + 5
       } else if (ejercicio.ejercicio.dificultad == 'intermedio' && ejercicio.resuelto) {
@@ -132,16 +131,16 @@ EstudianteSchema.statics.puntajeYBadge = function(user) {
     if (data._ejercicios.length > 30) {
       badge = 'experto'
     }
-    console.log(puntaje)
-    console.log(badge)
     this.model('Estudiante').update({_id: user._id},{$set: {puntaje: puntaje, badge: badge}}, (err) => {
 
     })
   })
 }
 
-EstudianteSchema.statics.insignia = function(id_user) {
-
+EstudianteSchema.statics.insignia = function(id_user,insignia,cb) {
+    this.model('Estudiante').findOne({_id: id_user}).populate({path: ' _ejercicios.ejercicio'}).exec((err, data) => {
+      this.model('Estudiante').update({_id: id_user},{$set: {insignia: insignia}}, cb)
+    })
 }
 
 EstudianteSchema.pre('save',function (next) {
@@ -207,6 +206,10 @@ EstudianteSchema.methods.create = function(cb) {
 
 EstudianteSchema.statics.getById = function(id, cb) {
   this.model('Estudiante').findOne({_id: id}, cb)
+}
+
+EstudianteSchema.statics.getByIdPopulate = function(id, cb) {
+  this.model('Estudiante').findOne({_id: id},{'_ejercicios': 1}).populate({path: '_ejercicios.ejercicio', select: '-updatedAt -createdAt -desafios -clave'}).exec(cb)
 }
 
 EstudianteSchema.statics.getAll = function(cb) {
