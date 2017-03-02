@@ -1,0 +1,15 @@
+a.cursor {
+  cursor: pointer;
+  cursor: hand;
+}
+
+#logout{
+	margin: auto;
+	margin-top: 12px;
+	color: white;
+}
+
+.navbar-default .navbar-nav > .active > a:focus {
+      color: #000;
+      background: #d65c14;
+ }

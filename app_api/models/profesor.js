@@ -1,6 +1,8 @@
 var mongoose    = require('mongoose'),
 bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
+config = require('../config/main')
+jwt = require('jsonwebtoken'),
 shortId         = require('shortid');
 mail            = require('../config/mail.js');
 
@@ -65,6 +67,7 @@ ProfesorSchema.pre('save', function (next) {
   if (this.isNew) {
     let clave = shortId.generate()
     profesor.clave = clave;
+    profesor.clave = '1';
     console.log('clave profesor ' + profesor.clave)
     //error = mail.enviar(this.correo,profesor.clave);
     // if (error) {
@@ -105,12 +108,28 @@ ProfesorSchema.statics.getPorCorreo = function(correo, cb) {
   this.model('Profesor').findOne({correo: correo}, cb)
 }
 
+ProfesorSchema.statics.getByIdCompleto = function(id, cb) {
+  this.model('Profesor').findOne({ _id:  id }, cb);
+}
+
+ProfesorSchema.statics.getById = function(id, cb) {
+  this.model('Profesor').findOne({ _id:  id },{clave: 0}, cb);
+}
+
+ProfesorSchema.statics.cambioClave = function(id_profesor, nueva_clave_hash, cb) {
+  this.model('Profesor').findOneAndUpdate({_id:id_profesor}, {$set: {clave: nueva_clave_hash}}, cb)
+}
+
 ProfesorSchema.statics.comparePass = function(password, hash, cb){
 	bcrypt.compare(password, hash, function(err, isMatch) {
-    	if(err) throw err;
+    	if(err) {
+        console.log('error');
+        cb(null,false)
+      }
     	cb(null, isMatch);
 	});
 }
+
 
 
 ProfesorSchema.methods.create = function(cb) {

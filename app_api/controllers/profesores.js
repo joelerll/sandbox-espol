@@ -1,5 +1,8 @@
 var mongoose = require('mongoose'),
 xss          = require('xss'),
+passport = require('passport'),
+jwt = require('jsonwebtoken'),
+bcrypt = require('bcryptjs'),
 Profesor     = require('../models/profesor');
 
 module.exports.login = function(req, res,next) {
@@ -138,4 +141,40 @@ module.exports.readOne = function(req, res, next) {
     }
     res.status(200).json({success: true, message: 'profesor encontrado', profesor: profesor});
   })
+}
+
+module.exports.cambiarClave = function (req, res, next) {
+  if (req.body.clave_nueva != req.body.clave_confirmacion) {
+    res.status(200).json({success: false, message: 'no esta confirmado la clave'})
+    return
+  } else {
+    Profesor.getByIdCompleto(req.user._id,(err, ayudante) => {
+      Profesor.comparePass(req.body.clave, ayudante.clave, (cosa,isMatch) => {
+        if (!isMatch) {
+          res.status(200).json({success: false, message: 'la clave no es valida'});
+          return;
+        } else {
+          bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+              res.status(400).json({message: 'error al cambiar clave', success: false});
+              return;
+            }
+            bcrypt.hash(req.body.clave_nueva, salt, function(err, hash) {
+              if (err) {
+                res.status(400).json({message: 'error al cambiar clave', success: false});
+                return;
+              }
+              Profesor.cambioClave(req.user._id,hash, (err) => {
+                if (err) {
+                 res.status(400).json({message: 'error al cambiar clave', success: false});
+                } else {
+                  res.status(200).json({message: 'se pudo cambiar correctamente la clave', success: true});
+                }
+              })
+            });
+          });
+        }
+      })
+    })
+  }
 }

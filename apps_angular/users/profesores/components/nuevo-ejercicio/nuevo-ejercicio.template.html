@@ -1,0 +1,74 @@
+<div class="container-nuevo">
+  <h1>Nuevo Ejercicio</h1>
+  <style media="screen">
+    div[ng-app] { margin: 10px; }
+  .table {width: 100% }
+  form[editable-form] > div {margin: 10px 0;}
+  .editable-wrap {
+      width: 100%;
+  }
+  </style>
+  <form class="" name="nuevoEjercicioForm" novalidate>
+    <div class="form-group">
+      <label for="titulo">Titulo</label>
+      <input ng-model="$ctrl.ejercicio.titulo"  class="form-control" type="text" placeholder="Título" ng-required="true" name="titulo" titulo-Val>
+      <p ng-show="nuevoEjercicioForm.titulo.$error.specialCharVal&&nuevoEjercicioForm.titulo.$touched">No se permiten caracteres especiales</p>
+    </div>
+    <div class="form-group">
+      <span><strong>Descripción</strong></span>
+      <textarea ng-model="$ctrl.ejercicio.descripcion" class="form-control" type="text" rows="5" placeholder="Descripción" name="descripcion" ng-required="true"></textarea>
+    </div>
+    <div class="form-group">
+      <tags-input ng-model="$ctrl.tags" on-tag-added="$ctrl.tagAdded($tag)" on-tag-removed="$ctrl.tagRemoved($tag)" placeholder="Añada una etiqueta" ng-required="true"></tags-input>
+    </div>
+    <div class="form-group">
+      <label for="selectList">Seleccione la dificultad:</label>
+      <select ng-model="$ctrl.ejercicio.dificultad" class="form-control" name="" ng-required="true" id="selectList">
+        <option value=""> </option>
+        <option value="facil">Fácil</option>
+        <option value="intermedio">Intermedio</option>
+        <option value="dificil">Difícil</option>
+      </select>
+    </div>
+  </form>
+
+  <form editable-form name="tableform" onaftersave="$ctrl.saveTable()" oncancel="$ctrl.cancel()">
+    <table class="table table-bordered table-hover table-condensed">
+      <thead>
+        <tr font-weight: bold>
+          <td style="width:50%">Entradas</td>
+          <td style="width:50%">Salidas</td>
+          <td style="width:30%"><span ng-show="tableform.$visible">Borrar</span></td>
+        </tr>
+      </thead>
+      <tr ng-repeat="row in $ctrl.val">
+        <td>
+          <span style="padding: inherit;" editable-text="row.entrada" e-form="tableform" onbeforesave="checkName($data, user.id)">
+            {{row.entrada}}
+          </span>
+        </td>
+        <td>
+          <span editable-text="row.salida" e-form="tableform" onbeforesave="checkName($data, user.id)">
+            {{row.salida}}
+          </span>
+        </td>
+        <td><button type="button" ng-show="tableform.$visible" ng-click="$ctrl.deleteKey(row.id)" class="btn btn-danger pull-right"><i class="fa fa-trash-o fa-lg"></i></button></td>
+      </tr>
+    </table>
+    <!-- buttons -->
+      <div class="btn-edit">
+        <button type="button" class="btn btn-default" ng-show="!tableform.$visible" ng-click="tableform.$show()">
+          Editar
+        </button>
+      </div>
+      <div class="btn-form" ng-show="tableform.$visible">
+        <button type="button" ng-disabled="tableform.$waiting" ng-click="$ctrl.addRow()" class="btn btn-default pull-left"><i class="fa fa-plus fa-lg"></i></button>
+        <button type="submit" ng-disabled="tableform.$waiting"  class="btn btn-primary" ng-click="$ctrl.guardar()"><i class="fa fa-floppy-o fa-lg"></i></button>
+        <button type="button" ng-disabled="tableform.$waiting" ng-click="tableform.$cancel()" class="btn btn-default">Cancelar</button>
+      </div>
+  </form>
+
+  <div class="form-group">
+    <button ng-click="$ctrl.guardar();$ctrl.crearEjercicio()" class="form-control btn btn-primary" type="button" name="button" ng-disabled="nuevoEjercicioForm.$invalid" id="btnIngresar">Ingresar</button>
+  </div>
+</div>

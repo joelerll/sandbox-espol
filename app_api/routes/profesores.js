@@ -15,7 +15,6 @@ router.get('/ejercicios', auth, EjercicioController.getAllMisEjercicios);
 router.get('/ejercicios/:id', auth, EjercicioController.getOne);
 router.delete('/ejercicios/:id', auth, EjercicioController.esCreador, EjercicioController.del);
 router.put('/ejercicios/:id', auth, EjercicioController.update);
-// router.post('/clave', auth,ProfesoresController.cambiarClave)
-
+router.post('/clave', auth,ProfesoresController.cambiarClave);
 router.get('/ejercicios/mis/todos',auth, EjercicioController.getAllOfAll);
 module.exports = router

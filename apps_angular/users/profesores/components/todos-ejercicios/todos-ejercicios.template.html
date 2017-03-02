@@ -1,0 +1,35 @@
+<h1>Todos los ejercicios</h1>
+<div class="ejercicios">
+  <div  ng-repeat="ejercicio in $ctrl.ejercicios" class="ejercicio">
+    <div class="contenedor">
+      <h3 class="titulo">{{ejercicio.titulo}}</h2>
+      <span class="tag">Descripción</span>
+      <p class="descripcion">{{ejercicio.descripcion}}</p>      
+      <table class="table table-responsive table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Entrada</th>
+            <th>Salida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entrada in ejercicio.entradas">
+            <td>
+              {{entrada}}
+            </td>
+            <td>
+              {{ejercicio.salidas[$index]}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="etiquetas">
+        <span class="tag">Tags: </span>
+        <span ng-repeat="etiqueta in ejercicio.etiquetas">
+          {{etiqueta}}
+        </span>
+      </div>
+      
+    </div>
+  </div>
+</div>
