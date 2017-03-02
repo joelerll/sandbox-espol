@@ -18,6 +18,7 @@ require('./app_api/models/db');
 admin_api          = require('./app_api/routes/admin');
 ayudante_api = require('./app_api/routes/ayudantes');
 estudiante_api = require('./app_api/routes/estudiantes');
+profesor_api = require('./app_api/routes/profesores');
 // nunjucks
 nunjucks.configure('./errors/views', {
 	autoescape: true,
@@ -73,6 +74,7 @@ app.use('/', express.static(path.join(__dirname + "/apps_angular")));
 app.use('/api/v1/admin', admin_api);
 app.use('/api/v1/ayudantes', ayudante_api);
 app.use('/api/v1/estudiantes', estudiante_api);
+app.use('/api/v1/profesores', profesor_api);
 // app.use('/api/v1/estudiante', estudiante_api);
 // app.user('/api/v1/ayudante', ayudante_api);
 app.use('/docs', express.static(path.join(__dirname + "/public/documentacion")));

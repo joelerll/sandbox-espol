@@ -74,6 +74,7 @@ EjercicioSchema.statics.getAllEtiquetas = function(cb) {
   this.model('Ejercicio').find({},{etiquetas: 1, _id: 0},cb)
 }
 
+
 EjercicioSchema.statics.getAll = function(cb) {
   this.model('Ejercicio').find({}, cb);
 }
