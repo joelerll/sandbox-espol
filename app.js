@@ -54,6 +54,9 @@ app.use(expressValidator({
     isLength: function(value) {
       return validator.isLength(value, {min:5, max: undefined});
     },
+    isCedula: function(value) {
+      return validator.isLength(value, {min:10, max: 10});
+    },
     empty: function(value) {
       return !validator.isLength(value, {min:0, max: 0});
     },

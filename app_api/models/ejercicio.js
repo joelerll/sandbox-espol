@@ -1,10 +1,11 @@
 var mongoose    = require('mongoose'),
 bcrypt          = require('bcryptjs'),
 uniqueValidator = require('mongoose-unique-validator'),
-shortId         = require('shortid');
+shortId         = require('shortid'),
+Estudiante      = require('./estudiante'),
+_               = require('lodash');
+
 mongoose.Promise = global.Promise;
-var Estudiante  = require('./estudiante');
-var _ = require('lodash')
 
 var EjercicioSchema = mongoose.Schema({
   _id: {

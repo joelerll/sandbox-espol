@@ -1,29 +1,59 @@
+<style media="screen">
+  .archivos {
+    width: 50%;
+  margin: 0 auto;
+  }
+</style>
 <div class="escogido-mio">
   <div class="ejercicio">
     <div class="titulo">
-      <h3>{{$root.ejercicio.titulo}}</h3>
+      <h3 class="titulo">{{$root.ejercicio.titulo}}</h3>
     </div>
     <div class="descripcion">
-      <h4>descripcion</h4>
-      <p>{{$root.ejercicio.descripcion}}</p>
+      <span class="tag">Descripción</span>
+      <p class="descripcion">{{$root.ejercicio.descripcion}}</p>
     </div>
-    <div class="etiquetas">
-      <span>Etiquetas: </span><span ng-repeat="etiqueta in $root.ejercicio.etiquetas">{{etiqueta}} </span>
+
+    <div class="tabla">
+      <table class="table table-responsive table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Entrada</th>
+            <th>Salida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entrada in  $root.ejercicio.entradas">
+            <td>
+              {{entrada}}
+            </td>
+            <td>
+              {{ $root.ejercicio.salidas[$index]}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="creador">
-      <span>Creador: </span><span>{{$root.ejercicio.creador.nombres}} {{$root.ejercicio.creador.apellidos}}</span>
+      <span class="tag">Creador:</span>
+      <p>{{$root.ejercicio.creador.nombres}} {{$root.ejercicio.creador.apellidos}}</p>
     </div>
-    <div class="entradas">
-      <span>Entradas: </span><span ng-repeat="entrada in $root.ejercicio.entradas">{{entrada}}</span>
-    </div>
-    <div class="salidas">
-      <span>Salidas: </span><span ng-repeat="salida in $root.ejercicio.salidas">{{salida}}</span>
+    <div class="etiquetas">
+      <span class="tag">Tags: </span>
+      <span>Etiquetas: </span><span ng-repeat="etiqueta in $root.ejercicio.etiquetas">{{etiqueta}} </span>
     </div>
   </div>
   <form name="form">
-    <span>Subir el archivo</span>
-    <div class="button" ngf-select ng-model="$ctrl.file" name="archivo" ngf-pattern="'*/*'"
-      ngf-accept="'*/*'"><button type="button" name="button" class="btn btn-primary">subir archivo</button></div>
-    <button type="submit" ng-click="$ctrl.subirEjercicio()" class="btn btn-success">enviar archivo</button>
+    <div class="etiquetas">
+      <span class="tag">Subir el archivo</span>
+      <div class="button" ngf-select ng-model="$ctrl.file" name="archivo" ngf-pattern="'*/*'"
+        ngf-accept="'*/*'"><button type="button" name="button" class="btn btn-primary">subir archivo</button>
+      </div>
+      <br>
+      <div ng-show="$ctrl.file != ''"class="enviar">
+        <button type="submit" ng-click="$ctrl.subirEjercicio()" class="btn btn-success">enviar archivo</button>
+      </div>
+    </div>
   </form>
+  <p style="color: red;">{{$ctrl.errores}}</p>
 </div>

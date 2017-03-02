@@ -142,7 +142,6 @@ AyudanteSchema.statics.getAyudanteLike = function(query, cb) {
 }
 
 AyudanteSchema.statics.update = function(id,admin_nuevo, cb ) {
-  console.log(admin_nuevo)
    this.model('Ayudante').findOneAndUpdate({_id: id}, {$set: {identificacion: admin_nuevo.identificacion, nombres: admin_nuevo.nombres, apellidos: admin_nuevo.apellidos, cedula: admin_nuevo.cedula, carrera: admin_nuevo.carrera, correo: admin_nuevo.correo}}, {upsert:true}, cb);
 }
 

@@ -11,10 +11,8 @@ function EjercicioEscogidoController($rootScope,auth,$http,Upload,$css) {
   $rootScope.ejercicioCrear = () => {
     vm.ejercicio = {}
     vm.ejercicio = $rootScope.ejercicio
-    console.log('si cargado');
-    console.log(vm.ejercicio);
   }
-  vm.file = {}
+  vm.file = ''
   vm.subirEjercicio = () => {
     console.log(vm.file)
     Upload.upload({
@@ -22,14 +20,22 @@ function EjercicioEscogidoController($rootScope,auth,$http,Upload,$css) {
       headers: {'Authorization': auth.getToken()},
       data: {'ejercicio': vm.file}
     }).then((res) => {
+      console.log(res);
       if (res.data.resuelto) {
         $rootScope.ejercicio = {}
         notie.alert('success', 'ejercicio correctamente resuelto', 2)
         $rootScope.resuelto() //usada en perfil
       } else {
-        $rootScope.ejercicio = {}
+        console.log('no resuleto');
+        if (!res.data.success) {
+          notie.alert('warning', res.data.message, 2)
+          vm.errores = res.data.errores
+        } else {
+          notie.alert('warning', 'ejercicio no resuleto correctamente', 2)
+          vm.errores = ''
+          $rootScope.ejercicio = {}
           $rootScope.resuelto() //usada en perfil
-        notie.alert('warning', 'ejercicio no fue resuelto', 2)
+        }
       }
     })
   }

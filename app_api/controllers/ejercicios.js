@@ -134,7 +134,7 @@ function comprobarEjercicio(req, res ,next) {
       }
       PythonShell.run(archivo, options,function (err, results) {
         if (err) {
-          res.status(400).json({success: false, message: 'el archivo python tiene los siguientes errores', errores: err})
+          res.status(200).json({success: false, message: 'el archivo python tiene los siguientes errores', errores: err})
           return;
         };
         var valido = probrarValidezEjercicio(results, ejercicio.salidas);
