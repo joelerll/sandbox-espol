@@ -3,15 +3,15 @@ angular.module('cursos').component('cursos', {
   controller: CursosController
 })
 
-CursosController.$inyect = ['Curso','auth','$http','Upload','$rootScope','$scope','$window'];
+CursosController.$inyect = ['Curso','auth','$http','Upload','$rootScope','$scope','$window'],'$css';
 
-function CursosController(Curso,auth,$http,Upload,$rootScope,$scope,$window) {
+function CursosController(Curso,auth,$http,Upload,$rootScope,$scope,$window,$css) {
   $scope.sortType = 'numero_paralelo';
   $scope.sortReverse = false;
   $scope.searchParalelo = '';
   $scope.searchProfesor = '';
   $scope.searchNumAlum = '';
-
+  $css.add('./css/cursos.css')
   var vm = this
   vm.cursos = []
   vm.curso = {
