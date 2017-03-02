@@ -65,6 +65,7 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
         self.estudiantes = res.data.estudiantes;
       })
       $('.modal').modal('hide');
+      $rootScope.actualizarCurso()
       notie.alert('error', 'Borrado exitosamente', 2);
     })
   }
@@ -74,7 +75,7 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
     self.sanitizar();
     self.estudiantes.forEach((estudiante) => {
       if (estudiante._id == id) {
-        Estudiante.edit(id, estuiante, (res) => {
+        Estudiante.edit(id, estudiante, (res) => {
           if (!res.data.success) {
             notie.alert('error', 'Hubo un error al querer actualizar', 2);
             return;
@@ -82,6 +83,7 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
           Estudiante.getAll((res) => {
             if (res.data.success) {
               self.estudiantes.estudiantes = res.data.etudiantes;
+              $rootScope.actualizarCurso()
               notie.alert('success', 'Actualizado exitosamente', 2);
             }else{
               notie.alert('error', 'Hubo un error en servidor', 2);
@@ -95,7 +97,7 @@ function EstudianteController($css, $http, Estudiante,$rootScope){
     if ( !identificacion ) {
       return "identificacion vacio";
     }
-    if ( identificacion.length != 10 ) {
+    if ( identificacion.length != 9 ) {
       return "tamano no valido";
     }
   }

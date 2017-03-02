@@ -3,10 +3,10 @@ angular.module('profesores').component('profesores', {
    controller: ProfesoresController
  });
 
-ProfesoresController.$inyect = ['$css','$http','Profesores'];
+ProfesoresController.$inyect = ['$css','$http','Profesores','$rootScope'];
 
 
-function ProfesoresController($css,$http,Profesores, $scope) {
+function ProfesoresController($css,$http,Profesores, $scope,$rootScope) {
   var self = this;
   $css.add('./css/profesores.css');
 
@@ -44,6 +44,7 @@ function ProfesoresController($css,$http,Profesores, $scope) {
     self.profesores.forEach((profesor) => {
       if (profesor._id == id) {
         self.profesor_borrar = profesor;
+        $rootScope.actualizarCurso()
       }
     })
   }
@@ -60,6 +61,7 @@ function ProfesoresController($css,$http,Profesores, $scope) {
         self.profesores = res.data.profesores;
       })
       $('.modal').modal('hide');
+      $rootScope.actualizarCurso()
       //FIXME: no se borra de la lista directamente, si no que lo borra el anterior y no el que es
       // self.profesores.splice(self.profesores.indexOf(self.profesor_borrar) + 1, 1);
       notie.alert('success', 'Borrado Exitosamente', 2);
@@ -79,6 +81,7 @@ function ProfesoresController($css,$http,Profesores, $scope) {
           Profesores.getAll((res) => {
             if (res.data.success) {
               self.profesores.profesores = res.data.profesores;
+              $rootScope.actualizarCurso()
               notie.alert('success', 'Actualizado Exitosamente', 2);
             } else {
               notie.alert('error', 'Hubo un error en servidor', 2);

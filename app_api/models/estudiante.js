@@ -213,7 +213,7 @@ EstudianteSchema.statics.getByIdPopulate = function(id, cb) {
 }
 
 EstudianteSchema.statics.getAll = function(cb) {
-  this.model('Estudiante').find({}, cb);
+  this.model('Estudiante').find({},{clave: 0}, cb);
 }
 EstudianteSchema.statics.getAllDetails = function(cb) {
   this.model('Estudiante').find({},{'_ejercicios.fecha_resuelto': 1, '_id': 0}).populate({path: ' _ejercicios.ejercicio'}).exec(cb)
@@ -222,7 +222,6 @@ EstudianteSchema.statics.getAllDetails = function(cb) {
 
 EstudianteSchema.methods.update = function(id,cb) {
   let estudiante = this
-  console.log(estudiante)
   this.model('Estudiante').update({ _id: id }, { $set: { nombres: estudiante.nombres, apellidos: estudiante.apellidos, correo: estudiante.correo, carrera: estudiante.carrera, identificacion: estudiante.identificacion }}, cb);
 }
 

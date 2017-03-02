@@ -3,10 +3,10 @@ angular.module('ayudantes').component('ayudantes', {
    controller: AyudantesController
  });
 
-AyudantesController.$inyect = ['$css','$http','Ayudantes'];
+AyudantesController.$inyect = ['$css','$http','Ayudantes','$rootScope'];
 
 
-function AyudantesController($css,$http,Ayudantes) {
+function AyudantesController($css,$http,Ayudantes,$rootScope) {
   var self = this;
   $css.remove('./css/profesores.css');
   $css.add('./css/ayudantes.css');
@@ -48,6 +48,7 @@ function AyudantesController($css,$http,Ayudantes) {
         self.profesor_borrar = ayudante;
       }
     })
+
   }
 
   self.deleteConfirmar = () => {
@@ -60,6 +61,7 @@ function AyudantesController($css,$http,Ayudantes) {
       Ayudantes.getAll((res) => {
         self.ayudantes = res.data.ayudantes;
       })
+      $rootScope.actualizarCurso()
       $('.modal').modal('hide');
       //FIXME: no se borra de la lista directamente, si no que lo borra el anterior y no el que es
       // self.ayudantes.splice(self.ayudantes.indexOf(self.profesor_borrar) + 1, 1);
@@ -80,6 +82,7 @@ function AyudantesController($css,$http,Ayudantes) {
           Ayudantes.getAll((res) => {
             if (res.data.success) {
               self.ayudantes.ayudantes = res.data.ayudantes;
+              $rootScope.actualizarCurso()
               notie.alert('success', 'Actualizado Exitosamente', 2);
             } else {
               notie.alert('error', 'Hubo un error en servidor', 2);
@@ -97,7 +100,7 @@ function AyudantesController($css,$http,Ayudantes) {
     if ( !identificacion ) {
       return "identificacion vacio";
     }
-    if ( identificacion.length != 10 ) {
+    if ( identificacion.length != 9 ) {
       return "tamano no valido";
     }
   }

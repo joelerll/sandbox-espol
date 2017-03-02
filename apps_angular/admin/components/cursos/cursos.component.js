@@ -22,6 +22,22 @@ function CursosController(Curso,auth,$http,Upload,$rootScope,$scope,$window) {
   vm.profesor_escogido = ''
   vm.accionCurso = {}
 
+  $rootScope.actualizarCurso = function(){
+    Curso.getAll((res) => {
+      if (res.data.success) {
+        vm.cursos = res.data.cursos
+        res.data.cursos.forEach((curso) => {
+          if (curso._id == vm.accionCurso._id) {
+            vm.accionCurso = curso
+            return
+          }
+        })
+      } else {
+        console.log(res)
+      }
+    })
+  }
+
   vm.getAll = function() {
     //Lleno el array cursos con los datos obtenidos de Mongo
     Curso.getAll((res) => {

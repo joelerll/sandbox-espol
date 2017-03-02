@@ -65,7 +65,7 @@ function update (req, res, next) {
   let estudiante = new Estudiante({
     identificacion: req.body.identificacion,
     nombres: req.body.nombres,
-    apellidos: req.body.identificacion,
+    apellidos: req.body.apellidos,
     correo: req.body.correo,
     clave: req.body.clave,
     carrera: req.body.carrera
