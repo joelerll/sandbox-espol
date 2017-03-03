@@ -205,7 +205,7 @@ EstudianteSchema.methods.create = function(cb) {
 }
 
 EstudianteSchema.statics.getById = function(id, cb) {
-  this.model('Estudiante').findOne({_id: id}, cb)
+  this.model('Estudiante').findOne({_id: id}).populate({path: '_ejercicios.ejercicio', select: '-updatedAt -createdAt -desafios -clave'}).exec(cb)
 }
 
 EstudianteSchema.statics.getByIdPopulate = function(id, cb) {

@@ -1,5 +1,5 @@
 <div class="contenedor-perfil">
-  
+
   <div class="row-perfil">
     <div class="col-xs-4 col-xs-offset-4 useravatar col-perfil">
       <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="img-responsive img-perfil">
@@ -7,11 +7,15 @@
       <p>{{$ctrl.estudiante.correo}}</p>
     </div>
   </div>
-  
+
   <div class="row-perfil" id="rowEjercicios">
-    <div class="col-xs-6 col-numero-ejercicios">
-      <p>{{$ctrl.estudiante._ejercicios.length}}</p>
+    <div class="col-xs-3 col-numero-ejercicios">
+      <p>{{$ctrl.ejercicios.resueltos.length}}</p>
       <p class="tag">Ejercicios resueltos</p>
+    </div>
+    <div class="col-xs-3 col-numero-ejercicios">
+      <p>{{$ctrl.ejercicios.noResueltos.length}}</p>
+      <p class="tag">Ejercicios no resueltos</p>
     </div>
     <div class="col-xs-6 col-puntaje">
       <p>{{$ctrl.estudiante.puntaje}}</p>
@@ -29,6 +33,23 @@
       <p class="tag">Badge</p>
     </div>
   </div>
-  
-</div>
 
+  <div class="row-ejercicios-resueltos">
+    <h2>Resueltos</h2>
+    <div ng-repeat="ejercicio in $ctrl.ejercicios.resueltos" class="col-md-12">
+      <div class="resuelto">
+        <span>{{ejercicio.ejercicio.titulo}}</span> <span>{{ejercicio.fecha_resuelto}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-ejercicios-no-resueltos">
+    <h2>Mal Resueltos</h2>
+    <div ng-repeat="ejercicio in $ctrl.ejercicios.noResueltos" class="col-md-12">
+      <div class="resuelto">
+        <span>{{ejercicio.ejercicio.titulo}}</span> <span am-time-ago="ejercicio.fecha_resuelto"> </span>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,1 +1,1 @@
-angular.module('perfil',['angularCSS'])
+angular.module('perfil',['angularCSS','angularMoment'])
