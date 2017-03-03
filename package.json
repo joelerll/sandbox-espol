@@ -11,7 +11,7 @@
     "test-ay": "npm run mocha ./tests/api/ayudantes.test.js",
     "postinstall": "bower install",
     "gulp": "gulp",
-    "start": "node app.js",
+    "start": "node ./bin/www",
     "bower": "bower",
     "aglio": "aplio",
     "webdriver-manager": "webdriver-manager",
