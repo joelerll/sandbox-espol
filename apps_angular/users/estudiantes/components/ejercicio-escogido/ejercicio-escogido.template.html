@@ -51,6 +51,12 @@
       <button ng-show="$ctrl.file != ''" class="enviar btn btn-success" type="submit" ng-click="$ctrl.subirEjercicio()">enviar archivo</button>
     </div>
   </form>
+    <div class="codemirror">
+      <div ui-codemirror="{ onLoad : $ctrl.codemirrorLoaded }" ng-model="$ctrl.content" ui-refresh="$ctrl.refresh"></div>
+      <div class="">
+        <button ng-click="$ctrl.enviarEjercicio()" class="btn btn-primary" type="button" name="button">enviar</button>
+      </div>
+    </div>
   <div class="errores">
     <p style="color: rgb(218, 82, 90);">Su archivo contiene los siguientes errores</p>
     <textarea rows="8" style="color: rgb(218, 82, 90); width: 100%; heigth: 50%" disabled>{{$ctrl.errores}}</textarea>

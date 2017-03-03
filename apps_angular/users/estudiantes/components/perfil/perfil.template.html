@@ -1,125 +1,26 @@
-<div class="col-lg-12 col-sm-12">
-  <!--
-  <div class="card hovercard">
-
-    <div class="card-background">
-
-    </div>
-    <div class="useravatar">
-      <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png">
-    </div>
-    <div class="card-info">
-      <span class="card-title">
-        {{$ctrl.estudiante.nombres + " " + $ctrl.estudiante.apellidos}}
-      </span>
+<div class="contenedor-perfil">
+  
+  <div class="row-perfil">
+    <div class="col-xs-4 col-xs-offset-4 useravatar col-perfil">
+      <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="img-responsive img-perfil">
+      <p>{{$ctrl.estudiante.nombres + " " + $ctrl.estudiante.apellidos}}</p>
+      <p>{{$ctrl.estudiante.correo}}</p>
     </div>
   </div>
-  -->
-  <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="..." data-toggle="buttons">
-
-    <div class="btn-group" role="group">
-      <label class="btn btn-default" data-active-class="primary" data-toggle="tab"  href="#tabPerfil">
-        <input type="radio" name="options" id="perfil" autocomplete="off" data-toggle="tab" checked >
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-        <div class="hidden-xs">Perfil</div>
-      </label>
+  
+  <div class="row-perfil" id="rowEjercicios">
+    <div class="col-xs-6 col-numero-ejercicios">
+      <p>{{$ctrl.estudiante._ejercicios.length}}</p>
+      <p class="tag">Ejercicios resueltos</p>
     </div>
-
-    <div class="btn-group" role="group">
-      <label class="btn btn-default" data-active-class="primary" data-toggle="tab"  href="#tabEjercicios">
-        <input type="radio" name="options" id="ejercicios" autocomplete="off" checked>
-        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-        <div class="hidden-xs">Ejercicios</div>
-      </label>
-    </div>
-    <div class="btn-group" role="group">
-      <label class="btn btn-default" data-active-class="primary" data-toggle="tab"  href="#tabCambiarClave">
-        <input type="radio" name="options" id="clave" autocomplete="off" checked>
-        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-        <div class="hidden-xs">Cambiar Clave</div>
-      </label>
-    </div>
-
-  </div>
-
-  <div class="well">
-    <div class="tab-content">
-      <div class="tab-pane fade in active" id="tabPerfil">
-          <div class="estudiante">
-            <div class="row row-eq-height">
-              <div class="col-xs-8">
-                <div class="perfil">
-                  <span class="tag">Nombres: </span><span>{{$ctrl.estudiante.nombres}}</span>
-                </div>
-                <div class="apellidos">
-                  <span class="tag">Apellidos: </span><span>{{$ctrl.estudiante.apellidos}}</span>
-                </div>
-                <div class="correo">
-                  <span class="tag">Correo: </span><span>{{$ctrl.estudiante.correo}}</span>
-                </div>
-                <div class="puntaje">
-                  <span class="tag">Puntaje: </span><span>{{$ctrl.estudiante.puntaje}}</span>
-                </div>
-                <div class="badgei">
-                  <span class="tag">Badge: </span><span>{{$ctrl.estudiante.badge}}</span>
-                </div>
-                <div class="insignia">
-                  <span class="tag">Insignia: </span><span>{{$ctrl.estudiante.insignia}}</span>
-                </div>
-                <div class="numero-ejercicios">
-                  <span class="tag">Numero ejercicios: </span><span>{{$ctrl.estudiante._ejercicios.length}}</span>
-                </div>
-              </div>
-
-              <div class="col-xs-4">
-                <div class="useravatar">
-                  <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="img-responsive">
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-        <div class="tab-pane fade in" id="tabEjercicios">
-          <ejercicio-escoger></ejercicio-escoger>
-        </div>
-        <div class="tab-pane fade in" id="tabCambiarClave">
-          <cambiar-clave></cambiar-clave>
-        </div>
+    <div class="col-xs-6 col-puntaje">
+      <p>{{$ctrl.estudiante.puntaje}}</p>
+      <p class="tag">Puntaje</p>
     </div>
   </div>
 
+  <div class="row-perfil" id="rowInsignias">
+    <div></div>
+  </div>
 </div>
 
-
-
-
-
-
-
-
-
-<!--
-<h1>Mi perfil</h1>
-<div class="estudiante">
-  <div class="perfil">
-    <span>Nombres: </span><span>{{$ctrl.estudiante.nombres}}</span>
-  </div>
-  <div class="apellidos">
-    <span>Apellidos: </span><span>{{$ctrl.estudiante.apellidos}}</span>
-  </div>
-  <div class="correo">
-    <span>Correo: </span><span>{{$ctrl.estudiante.correo}}</span>
-  </div>
-  <div class="puntaje">
-    <span>Puntaje: </span><span>{{$ctrl.estudiante.puntaje}}</span>
-  </div>
-  <div class="insignia">
-    <span>Insignia: </span><span>{{$ctrl.estudiante.badge}}</span>
-  </div>
-  <div class="numero-ejercicios">
-    <span>Numero ejercicios: </span><span>{{$ctrl.estudiante._ejercicios.length}}</span>
-  </div>
-</div>
--->

@@ -56,8 +56,6 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
   }
   vm.escogerEjercicios = () => {
     vm.cont = 0
-    vm.mostrar_opcion = true
-    vm.mostrar_escogido = false
     Estudiante.getEjerciciosEtiquetaYDificultad(vm.etiqueta,vm.dificultad_escogida, (res) => {
       vm.ejercicios_posibles = res.data.ejercicios
       vm.ejercicio_slide = vm.ejercicios_posibles[0]
@@ -66,6 +64,8 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
       } else {
         vm.mostrar = true
         notie.alert('success', `Se encontraron ${vm.ejercicios_posibles.length} ejercicios` , 2)
+        vm.mostrar_opcion = true
+        vm.mostrar_escogido = false
       }
     })
   }
