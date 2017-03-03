@@ -1,3 +1,4 @@
 angular.module('ejercicioEscogido',[
-  'ngFileUpload'
+  'ngFileUpload',
+  'ui.bootstrap'
 ])

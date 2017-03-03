@@ -20,7 +20,7 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
   vm.etiqueta_escogida = (etiqueta,index) => {
     vm.etiqueta = etiqueta
     vm.selected = index
-    console.log(etiqueta);
+
   }
 
   vm.dificultad_escogida = 'facil'
@@ -36,6 +36,7 @@ function EscogerEjercicioController(Estudiante,$css,$rootScope) {
     vm.ejercicio = ejercicio;
     $rootScope.ejercicio = vm.ejercicio_slide
     $rootScope.ejercicioCrear() //function de ejercicio-escogido
+    $rootScope.limpiarErrores()
   }
   vm.ejercicio_slide = null
   vm.mostrar = false

@@ -106,6 +106,8 @@ function getByEtiquetaYDificultad(req, res, next) {
   })
 }
 
+
+const spawn = require('child_process').spawn;
 function comprobarEjercicio(req, res ,next) {
   if (!req.file) {
     res.status(200).json({message: 'archivo null'})
@@ -114,7 +116,7 @@ function comprobarEjercicio(req, res ,next) {
   var carpeta = path.join(__dirname, '../../public/upload/ejercicios/');
   var archivo = req.user._id +'@'+ req.params.id_ejercicio + '.py';
   Ejercicio.getById(req.params.id_ejercicio, (err, ejercicio) => {
-    if (err) {
+    if (err || ejercicio.entradas == null) {
       res.status(400).json({success: false, message: 'ejercicio no existe'})
       return;
     }
@@ -134,8 +136,17 @@ function comprobarEjercicio(req, res ,next) {
       }
       PythonShell.run(archivo, options,function (err, results) {
         if (err) {
-          res.status(200).json({success: false, message: 'el archivo python tiene los siguientes errores', errores: err})
-          return;
+          var pythonExecutable = "python";
+          var uint8arrayToString = function(data){
+              return String.fromCharCode.apply(null, data);
+          };
+          const scriptExecution = spawn(pythonExecutable, [carpeta+archivo]);
+          scriptExecution.stderr.on('data', (data) => {
+              var str = uint8arrayToString(data).substring(uint8arrayToString(data).indexOf(",") + 1);
+              res.status(200).json({success: false, message: 'el archivo python tiene los siguientes errores', errores: str})
+              return;
+          });
+          return
         };
         var valido = probrarValidezEjercicio(results, ejercicio.salidas);
         if (valido) {

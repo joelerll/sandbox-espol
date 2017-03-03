@@ -13,31 +13,39 @@ function EjercicioEscogidoController($rootScope,auth,$http,Upload,$css) {
     vm.ejercicio = $rootScope.ejercicio
   }
   vm.file = ''
+  vm.alerts = []
+  $rootScope.limpiarErrores = () => {
+    $( ".errores" ).hide();
+  }
+
+  vm.eliminarVentanaErrores = () => {
+    vm.mostrar_errores = false
+  }
   vm.subirEjercicio = () => {
-    console.log(vm.file)
     Upload.upload({
       url: '/api/v1/estudiantes/ejercicio/' + $rootScope.ejercicio._id + '/file',
       headers: {'Authorization': auth.getToken()},
       data: {'ejercicio': vm.file}
     }).then((res) => {
-      console.log(res);
       if (res.data.resuelto) {
         $rootScope.ejercicio = {}
         vm.file = ''
-        vm.errores = ''
         notie.alert('success', 'ejercicio correctamente resuelto', 2)
+        $( ".errores" ).hide();
         $rootScope.resuelto() //usada en perfil
       } else {
-        console.log('no resuleto');
         if (!res.data.success) {
           notie.alert('warning', res.data.message, 2)
+          vm.alerts.push({type: 'danger', msg: res.data.errores})
           vm.errores = res.data.errores
+          $( ".errores" ).show();
           vm.file = ''
+          res.data = ''
         } else {
           notie.alert('warning', 'ejercicio no resuleto correctamente', 2)
-          vm.errores = ''
           vm.file = ''
           $rootScope.ejercicio = {}
+          $( ".errores" ).hide();
           $rootScope.resuelto() //usada en perfil
         }
       }

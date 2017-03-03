@@ -45,14 +45,14 @@
   </div>
   <form name="form">
     <div class="etiquetas">
-      <div class="button" ngf-select ng-model="$ctrl.file" name="archivo" ngf-pattern="'*/*'"
-        ngf-accept="'*/*'"><button type="button" name="button" class="btn btn-primary"><i class="fa fa-cloud-upload "></i> subir</button>
-      </div>
+      <button class="button btn btn-primary" ngf-select ng-model="$ctrl.file" name="archivo" ngf-pattern="'*/*'"
+        ngf-accept="'*/*'" type="button" name="button"><i class="fa fa-cloud-upload "></i> subir</button>
       <br>
-      <div ng-show="$ctrl.file != ''"class="enviar">
-        <button type="submit" ng-click="$ctrl.subirEjercicio()" class="btn btn-success">enviar archivo</button>
-      </div>
+      <button ng-show="$ctrl.file != ''" class="enviar btn btn-success" type="submit" ng-click="$ctrl.subirEjercicio()">enviar archivo</button>
     </div>
   </form>
-  <p style="color: red;">{{$ctrl.errores}}</p>
+  <div class="errores">
+    <p style="color: rgb(218, 82, 90);">Su archivo contiene los siguientes errores</p>
+    <textarea rows="8" style="color: rgb(218, 82, 90); width: 100%; heigth: 50%" disabled>{{$ctrl.errores}}</textarea>
+  </div>
 </div>
