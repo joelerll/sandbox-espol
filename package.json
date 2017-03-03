@@ -9,8 +9,9 @@
     "test-a": "npm run mocha ./tests/api/admin.test.js",
     "test-p": "npm run mocha ./tests/api/profesores.test.js",
     "test-ay": "npm run mocha ./tests/api/ayudantes.test.js",
+    "postinstall": "bower install",
     "gulp": "gulp",
-    "start": "npm install && npm run bower install && npm run gulp",
+    "start": "node app.js",
     "bower": "bower",
     "aglio": "aplio",
     "webdriver-manager": "webdriver-manager",
@@ -21,6 +22,9 @@
     "webpack": "webpack",
     "eslint": "eslint",
     "lt": "localtunnel"
+  },
+  "engines": {
+    "node": "6.9.4"
   },
   "repository": {
     "type": "git",

@@ -40,3 +40,7 @@ app.run(function($rootScope, $state,auth,$window) {
     }
   });
 })
+
+app.run(function(amMoment) {
+    amMoment.changeLocale('es');
+});

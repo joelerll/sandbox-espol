@@ -2,7 +2,7 @@
 
   <div class="row-perfil">
     <div class="col-xs-4 col-xs-offset-4 useravatar col-perfil">
-      <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="img-responsive img-perfil">
+      <i class="fa fa-terminal fa-5x"></i>
       <p>{{$ctrl.estudiante.nombres + " " + $ctrl.estudiante.apellidos}}</p>
       <p>{{$ctrl.estudiante.correo}}</p>
       <p>{{$ctrl.estudiante.carrera}}</p>
@@ -10,7 +10,7 @@
   </div>
 
   <div class="row-perfil" id="rowEjercicios">
-    <div class="col-xs-6 col-numero-ejercicios">
+    <div class="col-xs-12 col-numero-ejercicios">
       <p>{{$ctrl.ejercicios.resueltos.length}}</p>
       <p class="tag">Ejercicios resueltos</p>
     </div>
@@ -20,25 +20,25 @@
       <p class="tag">Ejercicios no resueltos</p>
     </div>
     -->
-    <div class="col-xs-6 col-puntaje">
-      <p>{{$ctrl.estudiante.puntaje}}</p>
-      <p class="tag">Puntaje</p>
-    </div>
-    
   </div>
 
-  <div class="row-perfil" id="rowInsignias">
-    <div class="col-xs-6 col-insignias">
-      <p>{{$ctrl.estudiante.insignia}}</p>
-      <p class="tag">Insignias</p>
-    </div>
-    <div class="col-xs-6 col-badges">
-      <p>{{$ctrl.estudiante.badge}}</p>
-      <p class="tag">Badge</p>
-    </div>
+  <div class="row-perfil row" id="rowInsignias">
+      <div class="col-xs-4 col-puntaje">
+        <p class="insignia-data">{{$ctrl.estudiante.puntaje}}</p>
+        <p class="insignias-letras">Puntaje</p>
+      </div>
+      <div class="col-xs-4 col-insignias">
+        <p class="insignia-data">{{$ctrl.estudiante.insignia}}</p>
+        <p class="insignias-letras">Insignias</p>
+      </div>
+      <div class="col-xs-4 col-badges">
+        <p class="insignia-data">{{$ctrl.estudiante.badge}}</p>
+        <p ng-if="!$ctrl.estudiante.badge"> no tiene</p>
+        <p class="insignias-letras">Badge</p>
+      </div>
   </div>
 
-  <div class="row-texto" id="rowTexto">
+  <div style="cursor: pointer" class="row-texto" id="rowTexto">
     <div class="col-xs-4 col-xs-offset-4 col-texto" data-toggle="collapse" data-target="#lista-ejercicios">
       <h3 id="h3texto">Ejercicios Completados <span class="glyphicon glyphicon-chevron-right"></span></h3>
 
@@ -59,12 +59,43 @@
         </div>
       </div>
       <div class="col-xs-3" id="fechaResuelto">
-        <p>{{ejercicio.fecha_resuelto}}</p>
+        <!-- <span am-time-ago="ejercicio.fecha_resuelto | amParse:'YYYY.MM.DD HH:mm:ss'"></span> -->
+        <span>{{ejercicio.fecha_resuelto | amDateFormat:'dddd, MMMM D YYYY HH:mm:ss'}}</span>
       </div>
       <span class="divider"></span>
     </div>
   </div>
-  
+
+
+
+  <div style="cursor: pointer" class="row-texto" id="rowTexto">
+    <div class="col-xs-4 col-xs-offset-4 col-texto" data-toggle="collapse" data-target="#lista-ejercicios-no">
+      <h3 id="h3texto">Ejercicios Errores <span class="glyphicon glyphicon-chevron-right"></span></h3>
+
+    </div>
+  </div>
+
+  <div  class="lista-ejercicios-no collapse" id="lista-ejercicios-no">
+    <div ng-repeat="ejercicio in $ctrl.ejercicios.noResueltos" class="row-ejercicios">
+      <div class="col-xs-3" id="colTitulo">
+        <p>{{ejercicio.ejercicio.titulo}}</p>
+      </div>
+      <div class="col-xs-6" id="colGrafico">
+        <div class="progress">
+          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">100% Complete (success)</span>
+            <i class="fa fa-close" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-3" id="fechaResuelto">
+        <!-- <span am-time-ago="ejercicio.fecha_resuelto | amParse:'YYYY.MM.DD HH:mm:ss'"></span> -->
+        <span>{{ejercicio.fecha_resuelto | amDateFormat:'dddd, MMMM Do YYYY HH:mm:ss'}}</span>
+      </div>
+      <span class="divider"></span>
+    </div>
+  </div>
+
   <!--
   <div class="row-ejercicios-resueltos">
     <h2>Resueltos</h2>

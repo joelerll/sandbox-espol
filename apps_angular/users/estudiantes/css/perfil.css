@@ -21,7 +21,7 @@ a.cursor {
 
 .col-perfil, .col-numero-ejercicios, .col-puntaje, .col-insignias, .col-badges{
     text-align: center;
-    margin-top: 
+    margin-top:
 }
 
 .col-perfil p{
@@ -92,4 +92,20 @@ a.cursor {
 #h3texto{
   font-weight: bold;
 
+}
+
+p.insignias-letras {
+  font-size: 1.3em;
+}
+
+div.row-perfil {
+  background-color: white;
+}
+
+p.insignia-data {
+
+}
+
+div.margen-insignias {
+  
 }
