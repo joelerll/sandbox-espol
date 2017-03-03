@@ -19,7 +19,7 @@ a.cursor {
     margin: 0 auto;
 }
 
-.col-perfil, .col-numero-ejercicios, .col-puntaje{
+.col-perfil, .col-numero-ejercicios, .col-puntaje, .col-insignias, .col-badges{
     text-align: center;
     margin-top: 
 }
@@ -60,4 +60,17 @@ a.cursor {
 
 .estudiante{
     margin: 0 50px;
+}
+
+.row-perfil{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+
+.row-perfil > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }

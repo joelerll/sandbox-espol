@@ -21,9 +21,14 @@ function PerfilController(Estudiante,$css,$rootScope) {
   Estudiante.perfil((res) => {
     if (res.data.success) {
       vm.estudiante = res.data.estudiante
+        console.log(vm.estudiante)
       return;
     }
     console.log(res)
   })
+
+
+
+
 }
 
