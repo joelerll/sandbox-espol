@@ -12,6 +12,7 @@ function PerfilController(Estudiante,$css,$rootScope) {
   var perfilCargar = () => {
     Estudiante.perfil((res) => {
       if (res.data.success) {
+
         res.data.estudiante._ejercicios.forEach((ejercicio) => {
           if (ejercicio.resuelto) {
             vm.ejercicios.resueltos.push(ejercicio)
@@ -20,6 +21,7 @@ function PerfilController(Estudiante,$css,$rootScope) {
           }
         })
         vm.estudiante = res.data.estudiante
+          console.log(vm.estudiante)
         return;
       }
       console.log(res)
@@ -33,7 +35,9 @@ function PerfilController(Estudiante,$css,$rootScope) {
   }
   $rootScope.resuelto = () => {
     perfilCargar()
+
   }
   perfilCargar()
+
 
 }

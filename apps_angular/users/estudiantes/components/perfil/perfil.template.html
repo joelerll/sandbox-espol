@@ -5,22 +5,26 @@
       <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="img-responsive img-perfil">
       <p>{{$ctrl.estudiante.nombres + " " + $ctrl.estudiante.apellidos}}</p>
       <p>{{$ctrl.estudiante.correo}}</p>
+      <p>{{$ctrl.estudiante.carrera}}</p>
     </div>
   </div>
 
   <div class="row-perfil" id="rowEjercicios">
-    <div class="col-xs-3 col-numero-ejercicios">
+    <div class="col-xs-6 col-numero-ejercicios">
       <p>{{$ctrl.ejercicios.resueltos.length}}</p>
       <p class="tag">Ejercicios resueltos</p>
     </div>
-    <div class="col-xs-3 col-numero-ejercicios">
+    <!--
+    <div class="col-xs-6 col-numero-ejercicios">
       <p>{{$ctrl.ejercicios.noResueltos.length}}</p>
       <p class="tag">Ejercicios no resueltos</p>
     </div>
+    -->
     <div class="col-xs-6 col-puntaje">
       <p>{{$ctrl.estudiante.puntaje}}</p>
       <p class="tag">Puntaje</p>
     </div>
+    
   </div>
 
   <div class="row-perfil" id="rowInsignias">
@@ -34,6 +38,34 @@
     </div>
   </div>
 
+  <div class="row-texto" id="rowTexto">
+    <div class="col-xs-4 col-xs-offset-4 col-texto" data-toggle="collapse" data-target="#lista-ejercicios">
+      <h3 id="h3texto">Ejercicios Completados <span class="glyphicon glyphicon-chevron-right"></span></h3>
+
+    </div>
+  </div>
+
+  <div class="lista-ejercicios collapse" id="lista-ejercicios">
+    <div ng-repeat="ejercicio in $ctrl.ejercicios.resueltos" class="row-ejercicios">
+      <div class="col-xs-3" id="colTitulo">
+        <p>{{ejercicio.ejercicio.titulo}}</p>
+      </div>
+      <div class="col-xs-6" id="colGrafico">
+        <div class="progress">
+          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">100% Complete (success)</span>
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-3" id="fechaResuelto">
+        <p>{{ejercicio.fecha_resuelto}}</p>
+      </div>
+      <span class="divider"></span>
+    </div>
+  </div>
+  
+  <!--
   <div class="row-ejercicios-resueltos">
     <h2>Resueltos</h2>
     <div ng-repeat="ejercicio in $ctrl.ejercicios.resueltos" class="col-md-12">
@@ -51,5 +83,6 @@
       </div>
     </div>
   </div>
+  -->
 
 </div>

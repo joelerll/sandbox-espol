@@ -62,7 +62,7 @@ a.cursor {
     margin: 0 50px;
 }
 
-.row-perfil{
+.row-perfil, .row-texto, .row-ejercicios{
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -73,4 +73,23 @@ a.cursor {
 .row-perfil > [class*='col-'] {
   display: flex;
   flex-direction: column;
+}
+
+#rowTexto{
+  margin-bottom: 2%;
+  margin-top: 2%;
+  padding: 2%;
+}
+
+#rowTexto:hover {
+  background-color: white
+}
+
+.row-ejercicios{
+  margin-bottom: 1%;
+}
+
+#h3texto{
+  font-weight: bold;
+
 }
