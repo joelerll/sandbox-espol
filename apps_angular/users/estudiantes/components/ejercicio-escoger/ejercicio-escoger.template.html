@@ -14,7 +14,7 @@
       </div>
       <div class="etiquetas">
         <div class="row">
-          <div ng-repeat="etiqueta in $ctrl.etiquetas  | filter: etiq" class="col-md-3 etiquetas">
+          <div ng-repeat="etiqueta in $ctrl.etiquetas  | filter: etiq" class="col-md-12 etiquetas">
                 <a   ng-click="$ctrl.etiqueta_escogida(etiqueta,$index)" ng-class="{sel: $index == $ctrl.selected}"  class="etiqueta-nombre">{{etiqueta}}</a>
           </div>
         </div>
