@@ -45,6 +45,7 @@
     "async": "^2.1.5",
     "bcryptjs": "^2.4.0",
     "body-parser": "~1.15.2",
+    "bower": "^1.8.0",
     "colors": "^1.1.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
@@ -84,7 +85,6 @@
   },
   "devDependencies": {
     "aglio": "^2.3.0",
-    "bower": "^1.8.0",
     "bower-webpack-plugin": "^0.1.9",
     "browser-sync": "^2.18.7",
     "browserify": "^14.1.0",
