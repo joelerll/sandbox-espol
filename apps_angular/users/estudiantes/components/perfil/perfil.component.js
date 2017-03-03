@@ -8,7 +8,7 @@ PerfilController.$inyect = ['Estudiante','$css','$rootScope']
 function PerfilController(Estudiante,$css,$rootScope) {
   var vm = this;
   $css.add('./css/perfil.css');
-  
+
   var perfilCargar = () => {
     Estudiante.perfil((res) => {
       if (res.data.success) {
