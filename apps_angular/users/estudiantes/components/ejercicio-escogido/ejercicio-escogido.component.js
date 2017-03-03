@@ -65,6 +65,7 @@ function EjercicioEscogidoController($rootScope,auth,$http,Upload,$css) {
       headers: {'Authorization': auth.getToken()},
       data: {'nofile': vm.content}
     }).then((res) =>  {
+      console.log('fsdffs');
       if (res.data.resuelto) {
         $rootScope.ejercicio = {}
         vm.file = ''

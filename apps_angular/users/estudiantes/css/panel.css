@@ -1,3 +1,8 @@
+a.cursor {
+  cursor: pointer;
+  cursor: hand;
+}
+
 h1 {
   text-align: center;
 }
@@ -6,18 +11,20 @@ button.login {
   content: inherit;
 }
 
-#logout{
-	margin: auto;
-	margin-top: 12px;
+.navbar-default .navbar-nav > .active > a:focus {
+      color: #000;
+      background: #d65c14;
 }
 
-
-
+.selecionado {
+   background-color: #454547
+}
+/*
 .btn.active[data-active-class="primary"] {
     color: #fff;
     background-color: #286090;
     border-color: #204d74;
-}
+}*/
 
 .navbar-fixed-left {
   width: 140px;

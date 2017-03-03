@@ -1,45 +1,46 @@
-<div class="container">
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">
-          <p>Profesor   {{vm.correo}}</p>
-        </a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li  ng-class="{'selecionado': vm.tabs.nuevo}" ><a ng-click="vm.tabs.clicks.nuevo()" class="cursor">Nuevo Ejercicio</a></li>
-          <li  ng-class="{'selecionado': vm.tabs.mis}"><a ng-click="vm.tabs.clicks.mis()" class="cursor">Mis Ejercicios</a></li>
-          <li  ng-class="{'selecionado': vm.tabs.todos}"><a ng-click="vm.tabs.clicks.todos()" class="cursor">Todos los Ejercicios</a></li>
-          <li  ng-class="{'selecionado': vm.tabs.clave}"><a ng-click="vm.tabs.clicks.clave()" class="cursor">Cambiar Clave</a></li>
-        </ul>
-        <ul style="cursor: pointer;" class="nav navbar-nav navbar-right" id="logout">
-          <li>
-            <span  class="glyphicon glyphicon-log-out"></span>
-            <strong  ng-click="vm.logout()">Logout</strong>
-          </li>
-        </ul>
-      </div>
+<nav class="navbar navbar-inverse navbar-fixed-left">
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <p>Profesor</p>
+      </a>
     </div>
 
-  </nav>
+    <ul style="cursor: pointer;" class="nav navbar-nav">
+      <li  ng-class="{'selecionado': vm.tabs.nuevo}" >
+        <a ng-click="vm.tabs.clicks.nuevo()" class="cursor">Nuevo Ejercicio</a>
+      </li>
+      <li  ng-class="{'selecionado': vm.tabs.mis}">
+        <a ng-click="vm.tabs.clicks.mis()" class="cursor">Mis Ejercicios</a>
+      </li>
+      <li  ng-class="{'selecionado': vm.tabs.todos}">
+        <a ng-click="vm.tabs.clicks.todos()" class="cursor">Todos los Ejercicios</a>
+      </li>
+      <li  ng-class="{'selecionado': vm.tabs.clave}">
+        <a ng-click="vm.tabs.clicks.clave()" class="cursor">Cambiar Clave</a>
+      </li>
+      <li>
+        <a>
+          <i class="fa fa-sign-out"></i><label ng-click="vm.logout()">  Salir</label>
+        </a>
+      </li>
+    </ul>
+
+</nav>
+
+<div class="wrapper">
 
   <div class="contenerdor">
-    <div ng-show="vm.tabs.nuevo" class="nuevo">
+    <div ng-show="vm.tabs.nuevo" class="nuevo container">
       <nuevo-ejercicio></nuevo-ejercicio>
     </div>
-    <div ng-show="vm.tabs.mis" class="mis">
+    <div ng-show="vm.tabs.mis" class="mis container">
       <mis-ejercicios show="true"></mis-ejercicios>
     </div>
-    <div ng-show="vm.tabs.todos" class="todos">
+    <div ng-show="vm.tabs.todos" class="todos container">
       <todos-ejercicios></todos-ejercicios>
     </div>
-    <div ng-show="vm.tabs.editar" class="editar">
+    <div ng-show="vm.tabs.editar" class="editar container">
       <editar-ejercicio></editar-ejercicio>
     </div>
     <div ng-show="vm.tabs.clave">
