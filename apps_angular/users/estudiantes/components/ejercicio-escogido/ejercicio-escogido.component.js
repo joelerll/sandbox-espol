@@ -23,6 +23,8 @@ function EjercicioEscogidoController($rootScope,auth,$http,Upload,$css) {
       console.log(res);
       if (res.data.resuelto) {
         $rootScope.ejercicio = {}
+        vm.file = ''
+        vm.errores = ''
         notie.alert('success', 'ejercicio correctamente resuelto', 2)
         $rootScope.resuelto() //usada en perfil
       } else {
@@ -30,9 +32,11 @@ function EjercicioEscogidoController($rootScope,auth,$http,Upload,$css) {
         if (!res.data.success) {
           notie.alert('warning', res.data.message, 2)
           vm.errores = res.data.errores
+          vm.file = ''
         } else {
           notie.alert('warning', 'ejercicio no resuleto correctamente', 2)
           vm.errores = ''
+          vm.file = ''
           $rootScope.ejercicio = {}
           $rootScope.resuelto() //usada en perfil
         }

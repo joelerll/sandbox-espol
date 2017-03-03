@@ -164,10 +164,20 @@ function probrarValidezEjercicio(results, args) {
     return false
   }
   for (var i = 0; i < results.length; i++) {
-    console.log(results[i].toString().localeCompare(args[i]));
-    console.log(results[i].toString());
+    // console.log(results[i].toString());
+    // var a = new String(results[i].toString())
+    // var b = new String(args[i].toString())
+    // console.log(a.valueOf() == b.valueOf())
+    // console.log(a.valueOf() === b.valueOf());
+    // console.log(args[i].toString());
+    console.log(typeof results[i]);
+    console.log(typeof args[i]);
+    console.log(results[i].split(/\r/)[0]);
     console.log(args[i]);
-    if (results[i].toString().localeCompare(args[i]) === -1) {
+    console.log(results[i].split(/\r/)[0] == args[i]);
+    // console.log(results[i].toString().localeCompare(args[i].toString()));
+    console.log('---------------------------');
+    if (results[i].split(/\r/)[0] != args[i]) {
       return false
     }
   }
