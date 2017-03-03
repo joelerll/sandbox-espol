@@ -218,6 +218,11 @@ function perfil (req, res, next) {
 }
 var bcrypt = require('bcryptjs')
 function cambiarClave(req, res, next) {
+  console.log(req.body);
+  if (req.body.clave_nueva == '' || req.body.clave_confirmacion == '' || req.body.clave == '') {
+    res.status(200).json({success: false, message: 'no deben estar en blanco'})
+    return;
+  }
   if (req.body.clave_nueva != req.body.clave_confirmacion) {
     res.status(200).json({success: false, message: 'no esta confirmado la clave'})
     return
@@ -230,17 +235,17 @@ function cambiarClave(req, res, next) {
       }
       bcrypt.genSalt(10, function (err, salt) {
         if (err) {
-          res.status(400).json({message: 'error al cambiar clave', success: false});
+          res.status(400).json({message: 'error al cambiar clave s', success: false});
           return;
         }
         bcrypt.hash(req.body.clave_nueva, salt, function(err, hash) {
           if (err) {
-            res.status(400).json({message: 'error al cambiar clave', success: false});
+            res.status(400).json({message: 'error al cambiar clave h', success: false});
             return;
           }
           Estudiante.cambioClave(req.user._id,hash, (err) => {
             if (err) {
-              res.status(400).json({message: 'error al cambiar clave', success: false});
+              res.status(400).json({message: 'error al cambiar clave c', success: false});
             } else {
               res.status(200).json({message: 'se pudo cambiar correctamente la clave', success: true});
             }

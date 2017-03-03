@@ -109,57 +109,93 @@ function getByEtiquetaYDificultad(req, res, next) {
 
 const spawn = require('child_process').spawn;
 function comprobarEjercicio(req, res ,next) {
-  if (!req.file) {
-    res.status(200).json({message: 'archivo null'})
-    return;
+  if (!req.params.id_ejercicio ) {
+
+    res.status(200).json({success: false, message: 'no valido el id'})
+    return
   }
   var carpeta = path.join(__dirname, '../../public/upload/ejercicios/');
   var archivo = req.user._id +'@'+ req.params.id_ejercicio + '.py';
   Ejercicio.getById(req.params.id_ejercicio, (err, ejercicio) => {
-    if (err || ejercicio.entradas == null) {
+    if (err) {
       res.status(400).json({success: false, message: 'ejercicio no existe'})
       return;
     }
     var entradas = []
-    ejercicio.entradas.forEach((dato) => {
-      entradas.push(parseInt(dato))
-    })
+    var ejercicio_existe = true
+    if (ejercicio) {
+      ejercicio.entradas.forEach((dato) => {
+        entradas.push(parseInt(dato))
+      })
+    } else {
+      res.status(200).json({success: false, error: true,message: 'no se encontro el ejericio'})
+      ejercicio_existe = false
+      return
+    }
+
     var options = {
       mode: 'text',
       args: entradas,
       scriptPath: carpeta
     };
-    fs.readFile( carpeta + archivo, function (err,data) {
-      if (err) {
-        res.status(400).json({success: false, message: 'error al leer archivo subido'})
-        return;
-      }
-      PythonShell.run(archivo, options,function (err, results) {
-        if (err) {
-          var pythonExecutable = "python";
-          var uint8arrayToString = function(data){
-              return String.fromCharCode.apply(null, data);
-          };
-          const scriptExecution = spawn(pythonExecutable, [carpeta+archivo]);
-          scriptExecution.stderr.on('data', (data) => {
-              var str = uint8arrayToString(data).substring(uint8arrayToString(data).indexOf(",") + 1);
-              res.status(200).json({success: false, message: 'el archivo python tiene los siguientes errores', errores: str})
-              return;
-          });
-          return
-        };
-        var valido = probrarValidezEjercicio(results, ejercicio.salidas);
-        if (valido) {
-          var guardado = EstudianteController.registrarEjercicio('/upload/ejercicios/',archivo,ejercicio,req.user);
-          res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no',resuelto: valido})
-          return
-        } else {
-          var guardado = EstudianteController.registrarEjercicioMal('/upload/ejercicios/',archivo,ejercicio,req.user);
-          res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no', resuelto: false})
+    if (req.body.nofile && req.body.nofile != ``) {
+      fs.writeFile(carpeta + archivo, req.body.nofile, function(err) {
+        if(err) {
+            return console.log(err);
         }
-      })
+        console.log("The file was saved!");
+        if (ejercicio_existe) {
+          comprobarEjercicioNofile(req, res, carpeta ,options, archivo,ejercicio)
+        }
+      });
+    } else {
+      if (!req.file && ejercicio_existe) {
+        res.status(200).json({success: false, error: true, message: 'archivo null'})
+        return;
+      } else {
+        comprobarEjercicioNofile(req, res, carpeta ,options, archivo,ejercicio)
+      }
+    }
 
+  })
+}
+
+function comprobarEjercicioNofile(req, res, carpeta, options, archivo,ejercicio) {
+  fs.readFile( carpeta + archivo, function (err,data) {
+    if (err) {
+      res.status(400).json({success: false, message: 'error al leer archivo subido'})
+      return;
+    }
+    // var otro =  data.write("Simply Easy Learning");
+    // const buf6 = Buffer.from('print(\'joel\')', 'utf8');
+    // var newBuffer = Buffer.concat([data, buf6]);
+    // console.log(newBuffer.toString("utf8"));
+    // res.send('hoal')
+    PythonShell.run(archivo, options,function (err, results) {
+      if (err) {
+        var pythonExecutable = "python";
+        var uint8arrayToString = function(data){
+            return String.fromCharCode.apply(null, data);
+        };
+        const scriptExecution = spawn(pythonExecutable, [carpeta+archivo]);
+        scriptExecution.stderr.on('data', (data) => {
+            var str = uint8arrayToString(data).substring(uint8arrayToString(data).indexOf(",") + 1);
+            res.status(200).json({success: false, message: 'el archivo python tiene los siguientes errores', errores: str})
+            return;
+        });
+        return
+      };
+      var valido = probrarValidezEjercicio(results, ejercicio.salidas);
+      if (valido) {
+        var guardado = EstudianteController.registrarEjercicio('/upload/ejercicios/',archivo,ejercicio,req.user);
+        res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no',resuelto: valido})
+        return
+      } else {
+        var guardado = EstudianteController.registrarEjercicioMal('/upload/ejercicios/',archivo,ejercicio,req.user);
+        res.status(200).json({success: true, message: 'resultado del ejercicio su es valido o no', resuelto: false})
+      }
     })
+
   })
 }
 

@@ -13,18 +13,27 @@ function PanelController (Estudiante,auth,$location) {
   }
 
   vm.tabs = {
-    perfil : false,
-    resolver : true
+    perfil : true,
+    resolver : false,
+    clave: false
   }
 
-  vm.clicks = {
-    perfil: () => {
-      vm.tabs.perfil = true
-      vm.tabs.resolver = false
+  vm.tabs.clicks = {
+    perfil: function () {
+      console.log('Dio click en perfil')
+      vm.tabs.perfil = true;
+      vm.tabs.resolver = false;
+      vm.tabs.clave = false;
     },
-    resolver : () => {
-      vm.tabs.perfil = false,
-      vm.tabs.resolver = true
+    resolver : function () {
+      vm.tabs.perfil = false;
+      vm.tabs.resolver = true;
+      vm.tabs.clave = false;
+    },
+    clave : function () {
+      vm.tabs.perfil = false;
+      vm.tabs.resolver = false;
+      vm.tabs.clave = true;
     }
   }
 }
