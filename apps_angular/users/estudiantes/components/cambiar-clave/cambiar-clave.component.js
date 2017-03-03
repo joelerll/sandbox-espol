@@ -23,9 +23,11 @@ function CambiarClaveController(Estudiante,$css) {
       if (res.data.success) {
         console.log('clave cambiada');
         vm.claves = {}
-          vm.alerts.push({type: 'success', msg: res.data.message});
+          //vm.alerts.push({type: 'success', msg: res.data.message});
+        notie.alert('success', 'Clave cambiada correctamente', 1)
       } else {
-        vm.alerts.push({type: 'danger', msg: res.data.message});
+        //vm.alerts.push({type: 'danger', msg: res.data.message});
+        notie.alert('error', 'Error al cambiar la clave', 1)
       }
     })
   }

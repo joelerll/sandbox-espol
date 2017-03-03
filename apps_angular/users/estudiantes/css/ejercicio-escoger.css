@@ -1,12 +1,21 @@
+.row{
+  /*border: 1px solid red;*/
+  margin: 0;
+}
+
+.contenedor-ejercicios{
+  /*border: 1px solid blue;*/
+  padding: 2%;
+  background-color: #f5f5f5;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
 div.escogidos {
   border: black solid 1px;
   padding-top: 1%;
   padding-bottom: 1%;
   margin-bottom: 1%;
-}
-
-div.contenedor {
-  margin: 2%;
 }
 
 div.ejercicios {
