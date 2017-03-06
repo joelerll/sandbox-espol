@@ -46,6 +46,14 @@ function AyudantesConfiguration ($stateProvider, $urlRouterProvider, $locationPr
     name: 'navbar.hello',
     url: '/{personId}',
     component: 'hello',
+    resolve: {
+        person: function(people, $stateParams) {
+          return people.find(function(person) {
+            console.log(person)
+            return person.id === $stateParams.personId;
+          });
+        }
+      },
     data: {
       authorization: false,
     }
