@@ -28,35 +28,26 @@ function AyudantesConfiguration ($stateProvider, $urlRouterProvider, $locationPr
       memory: false,
     }
   })
-  $stateProvider.state('navbar', {
-    name: 'navbar',
-    url: '/navbar',
-    component: 'navbar',
-    resolve: {
-      people: function(PeopleService) {
-          return PeopleService.getAllPeople();
-        }
-    },
-    data: {
-      customData1: 44,
-      authorization: false,
-    }
+  $stateProvider.state('perfil', {
+    name: 'perfil',
+    parent: 'panel',
+    url: '/perfil',
+    component: 'perfil'
   })
-  $stateProvider.state('navbar.hello', {
-    name: 'navbar.hello',
-    url: '/{personId}',
-    component: 'hello',
-    resolve: {
-        person: function(people, $stateParams) {
-          return people.find(function(person) {
-            console.log(person)
-            return person.id === $stateParams.personId;
-          });
-        }
-      },
-    data: {
-      authorization: false,
-    }
+  $stateProvider.state('panel.menu-resolver', {
+    name: 'panel.menu-resolver',
+    url: '/menu-resolver',
+    component: 'menuResolver'
+  })
+  $stateProvider.state('panel.menu-resolver.resolver-ejercicio', {
+    name: 'panel.menu-resolver.resolver-ejercicio',
+    url: '/resolver-ejercicio',
+    component: 'resolverEjercicio'
+  })
+  $stateProvider.state('panel.cambio-clave', {
+    name: 'panel.cambio-clave',
+    url: '/cambio-clave',
+    component: 'cambioClave'
   })
 }
 
@@ -79,3 +70,35 @@ app.run(function($http) {
 // app.run(function(amMoment) {
 //     amMoment.changeLocale('es');
 // });
+
+  /*$stateProvider.state('navbar.hello', {
+    name: 'navbar.hello',
+    url: '/{personId}',
+    component: 'hello',
+    resolve: {
+        person: function(people, $stateParams) {
+          return people.find(function(person) {
+            console.log(person)
+            return person.id === $stateParams.personId;
+          });
+        }
+      },
+    data: {
+      authorization: false,
+    }
+  })
+    $stateProvider.state('navbar', {
+    name: 'navbar',
+    url: '/navbar',
+    component: 'navbar',
+    resolve: {
+      people: function(PeopleService) {
+          return PeopleService.getAllPeople();
+        }
+    },
+    data: {
+      customData1: 44,
+      authorization: false,
+    }
+  })
+*/
