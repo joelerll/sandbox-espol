@@ -1,67 +1,39 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Estudiante Login</title>
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bower_components/angular-bootstrap/ui-bootstrap-csp.css">
-    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/bower_components/notie/dist/notie.min.css">
-    <!-- <link rel="stylesheet" href="/bower_components/angular-xeditable/dist/css/xeditable.min.css"> -->
-    <!-- <link rel="stylesheet" href="/bower_components/ng-tags-input/ng-tags-input.min.css"> -->
-    <!-- <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.min.css"> -->
-    <link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="/bower_components/codemirror/theme/icecoder.css">
-  </head>
-  <body ng-app="estudiantesApp">
-    <ui-view></ui-view>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Estudiante Sandbox</title>
+</head>
+<body ng-app="estudiantesApp">
+  <h1>Estudiante login</h1>
+  <ui-view></ui-view>
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+  <script src="/bower_components/angular-css/angular-css.min.js"></script>
+  <script src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
+  <script src="/bower_components/moment/min/moment.min.js"></script>
+  <script src="/bower_components/moment/locale/es.js"></script>
+  <script src="/bower_components/angular-moment/angular-moment.min.js"></script>
 
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/codemirror/lib/codemirror.js"></script>
-    <script src="/bower_components/codemirror/mode/python/python.js"></script>
-    <!-- <script src="/bower_components/codemirror/addon/display/autorefresh.js"></script> -->
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="/bower_components/angular-css/angular-css.min.js"></script>
-    <script src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
-    <script src="/bower_components/validator-js/validator.min.js"></script>
-    <script src="/bower_components/moment/min/moment.min.js"></script>
-    <script src="/bower_components/moment/locale/es.js"></script>
-    <script src="/bower_components/angular-moment/angular-moment.min.js"></script>
-    <!-- <script src="/bower_components/angular-ui-select/dist/select.min.js"></script> -->
-    <script src="/bower_components/notie/dist/notie.min.js"></script>
+  <script src="./app.module.js"></script>
+  <script src="./app.router.js"></script>
 
-    <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
-    <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+  <!-- services -->
+  <script src="./services/auth.js"></script>
+  <script src="./services/estudiante.js"></script>
+  <script src="./services/people.js"></script>
+
+  <script src="./components/hello/hello.js"></script>
+  <script src="./components/navbar/navbar.js"></script>
+
+  <!-- controllers -->
+  <script src="./login/login.controller.js"></script>
+  <script src="./panel/panel.controller.js"></script>
 
 
-
-
-    <!-- configuracion inicial -->
-    <script src="./app.module.js"></script>
-    <script src="./app.router.js"></script>
-
-    <!-- services -->
-    <script src="./services/auth.js"></script>
-    <script src="./services/estudiante.js"></script>
-
-    <!-- controllers -->
-    <script src="./login/login.controller.js"></script>
-    <script src="./panel/panel.controller.js"></script>
-
-    <!-- components -->
-    <script src="./components/ejercicio-escoger/ejercicio-escoger.module.js"></script>
-    <script src="./components/ejercicio-escoger/ejercicio-escoger.component.js"></script>
-    <script src="./components/ejercicio-escogido/ejercicio-escogido.module.js"></script>
-    <script src="./components/ejercicio-escogido/ejercicio-escogido.component.js"></script>
-    <script src="./components/perfil/perfil.model.js"></script>
-    <script src="./components/perfil/perfil.component.js"></script>
-    <script src="./components/cambiar-clave/cambiar-clave.module.js"></script>
-    <script src="./components/cambiar-clave/cambiar-clave.component.js"></script>
-  </body>
+</body>
 </html>

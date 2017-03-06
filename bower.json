@@ -24,27 +24,26 @@
   "dependencies": {
     "angular-animate": "^1.6.2",
     "angular-bootstrap": "^2.5.0",
-    "angular-jwt": "^0.1.9",
     "angular-css": "^1.0.8",
+    "angular-jwt": "^0.1.9",
+    "angular-moment": "^1.0.1",
     "angular-route": "^1.6.2",
     "angular-sanitize": "^1.6.2",
-    "angular-strap": "^2.3.12",
-    "angular-moment": "^1.0.1",
     "angular-smart-table": "^2.1.8",
-    "angular-ui-router": "ui-router#^0.4.2",
+    "angular-strap": "^2.3.12",
     "angular-ui-codemirror": "^0.3.0",
+    "angular-ui-router": "1.0.0-beta.2",
     "angular-ui-select": "^0.19.6",
     "angular-xeditable": "^0.6.0",
     "bootstrap": "^3.3.7",
     "echarts": "^3.4.0",
-    "codemirror": "^5.24.2",
     "font-awesome": "^4.7.0",
     "jquery-awesome-cursor": "^0.3.1",
     "ng-file-upload": "^12.2.13",
     "ng-tags-input": "^3.1.1",
-    "moment": "^2.17.1",
     "notie": "git://github.com/jaredreich/notie#^3.9.5",
+    "validator-js": "^6.2.1",
     "xss": "^0.3.3",
-    "validator-js": "^6.2.1"
+    "angular-resource": "^1.6.2"
   }
 }

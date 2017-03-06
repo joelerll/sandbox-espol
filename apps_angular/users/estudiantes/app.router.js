@@ -28,6 +28,28 @@ function AyudantesConfiguration ($stateProvider, $urlRouterProvider, $locationPr
       memory: false,
     }
   })
+  $stateProvider.state('navbar', {
+    name: 'navbar',
+    url: '/navbar',
+    component: 'navbar',
+    resolve: {
+      people: function(PeopleService) {
+          return PeopleService.getAllPeople();
+        }
+    },
+    data: {
+      customData1: 44,
+      authorization: false,
+    }
+  })
+  $stateProvider.state('navbar.hello', {
+    name: 'navbar.hello',
+    url: '/{personId}',
+    component: 'hello',
+    data: {
+      authorization: false,
+    }
+  })
 }
 
 app.run(function($rootScope, $state,auth,$window) {
@@ -41,6 +63,11 @@ app.run(function($rootScope, $state,auth,$window) {
   });
 })
 
-app.run(function(amMoment) {
-    amMoment.changeLocale('es');
+app.run(function($http) {
+
+  $http.get('data/people.json', { cache: true });
 });
+
+// app.run(function(amMoment) {
+//     amMoment.changeLocale('es');
+// });
