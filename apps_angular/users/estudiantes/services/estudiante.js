@@ -1,8 +1,8 @@
-angular.module('estudiantesApp').service('Estudiante', AyudanteController);
+angular.module('estudiantesApp').service('Estudiante', Controller);
 
-AyudanteController.$inyect = ['auth','$http'];
+Controller.$inyect = ['auth','$http'];
 
-function AyudanteController(auth,$http) {
+function Controller(auth,$http) {
 
   var getEtiquetas = function(cb) {
     $http({

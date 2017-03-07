@@ -3,9 +3,11 @@ angular.module('estudiantesApp').component('menuResolver', {
   controller: Controller
 })
 
-Controller.$inyect = ['$stateParams']
+Controller.$inyect = ['Estudiante']
 
-function Controller($stateParams) {
+function Controller(Estudiante) {
   var vm = this;
-  
+  Estudiante.getEjerciciosEtiquetaYDificultad('uno','facil', (res) => {
+    
+  })
 }

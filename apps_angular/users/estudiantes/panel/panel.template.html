@@ -1,13 +1,25 @@
-<h1>Panel</h1>
-<nav>
-	<li>
-		<a ui-sref="perfil" ui-sref-active="active">Perfil</a>
-	<li>
-	<li>
-		<a ui-sref="panel.menu-resolver" ui-sref-active="active">Resolver Ejercicio</a>
-	</li>
-	<li>
-		<a ui-sref="panel.cambio-clave" ui-sref-active="active">Cambiar Clave</a>
-	</li>
-</nav>
-<ui-view></ui-view>
+<div class="panel">
+  <nav class="navbar navbar-default">
+    <div class="navbar-header">
+      <a class="navbar-brand" ui-sref="perfil">
+        <p>Estudiante</p>
+      </a>
+    </div>
+    <ul style="cursor: pointer;"  class="nav navbar-nav">
+      <li>
+        <a ui-sref="perfil" ui-sref-active="active">Perfil</a>
+      <li>
+      <li>
+        <a ui-sref="menu-resolver" ui-sref-active="active">Resolver Ejercicio</a>
+      </li>
+      <li>
+        <a ui-sref="cambio-clave" ui-sref-active="active">Cambiar Clave</a>
+      </li>
+    </ul>
+
+  </nav>
+  <ui-view></ui-view>
+  <div class="wrapper">
+
+  </div>
+</div>

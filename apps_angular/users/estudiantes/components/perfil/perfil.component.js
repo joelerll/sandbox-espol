@@ -1,11 +1,16 @@
 angular.module('estudiantesApp').component('perfil', {
   templateUrl:  './components/perfil/perfil.template.html',
-  controller: HelloController
+  controller: Controller
 })
 
-HelloController.$inyect = ['$stateParams']
+Controller.$inyect = ['Estudiante']
 
-function HelloController($stateParams) {
+function Controller(Estudiante) {
   var vm = this;
-  
+
+  Estudiante.perfil((res) => {
+    if (res.data.success) {
+      vm.estudiante = res.data.estudiante
+    }
+  })
 }

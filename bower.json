@@ -27,6 +27,7 @@
     "angular-css": "^1.0.8",
     "angular-jwt": "^0.1.9",
     "angular-moment": "^1.0.1",
+    "angular-resource": "^1.6.2",
     "angular-route": "^1.6.2",
     "angular-sanitize": "^1.6.2",
     "angular-smart-table": "^2.1.8",
@@ -38,12 +39,11 @@
     "bootstrap": "^3.3.7",
     "echarts": "^3.4.0",
     "font-awesome": "^4.7.0",
-    "jquery-awesome-cursor": "^0.3.1",
+    "log": "git://github.com/adamschwartz/log#^0.3.0",
     "ng-file-upload": "^12.2.13",
     "ng-tags-input": "^3.1.1",
     "notie": "git://github.com/jaredreich/notie#^3.9.5",
     "validator-js": "^6.2.1",
-    "xss": "^0.3.3",
-    "angular-resource": "^1.6.2"
+    "xss": "^0.3.3"
   }
 }

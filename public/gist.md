@@ -66,3 +66,57 @@ module.exports.getEjercicios = (req,res,next) => {
   return;
 });
 }
+
+
+
+// app.run(function(amMoment) {
+//     amMoment.changeLocale('es');
+// });
+
+  /*$stateProvider.state('navbar.hello', {
+    name: 'navbar.hello',
+    url: '/{personId}',
+    component: 'hello',
+    resolve: {
+        person: function(people, $stateParams) {
+          return people.find(function(person) {
+            console.log(person)
+            return person.id === $stateParams.personId;
+          });
+        }
+      },
+    data: {
+      authorization: false,
+    }
+  })
+    $stateProvider.state('navbar', {
+    name: 'navbar',
+    url: '/navbar',
+    component: 'navbar',
+    resolve: {
+      people: function(PeopleService) {
+          return PeopleService.getAllPeople();
+        }
+    },
+    data: {
+      customData1: 44,
+      authorization: false,
+    }
+  })
+*/
+
+
+  var deferred = $q.defer(); //devido a que es async las llamadas http, el primise evita q se llame la funcion antes que se obtenga la data
+  
+// var perfil = function() {
+//   $http({
+//     method: 'GET',
+//     url: '/api/v1/estudiantes/perfil',
+//     headers: {'Authorization': auth.getToken()}
+//   }).then(function(res) {
+//     deferred.resolve(res.data.estudiante)
+//   }).catch(function(res) {
+//     deferred.reject(res)
+//   })
+//   return deferred.promise
+// }

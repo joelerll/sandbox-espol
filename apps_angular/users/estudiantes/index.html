@@ -4,19 +4,36 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Estudiante Sandbox</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="/bower_components/codemirror/theme/icecoder.css">
+  <title>Estudiante Sandbox</title>
 </head>
 <body ng-app="estudiantesApp">
   <ui-view></ui-view>
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/codemirror/lib/codemirror.js"></script>
+  <script src="/bower_components/codemirror/mode/python/python.js"></script>
   <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
-  <script src="/bower_components/angular-css/angular-css.min.js"></script>
   <script src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
   <script src="/bower_components/moment/min/moment.min.js"></script>
+  <script src="/bower_components/validator-js/validator.min.js"></script>
   <script src="/bower_components/moment/locale/es.js"></script>
   <script src="/bower_components/angular-moment/angular-moment.min.js"></script>
+  <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+  <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+  <script src="/bower_components/log/log.min.js"></script>
+
 
   <script src="./app.module.js"></script>
   <script src="./app.router.js"></script>
@@ -24,11 +41,8 @@
   <!-- services -->
   <script src="./services/auth.js"></script>
   <script src="./services/estudiante.js"></script>
-  <script src="./services/people.js"></script>
 
-  <script src="./components/hello/hello.js"></script>
-  <script src="./components/navbar/navbar.js"></script>
-
+  <!-- components -->
   <script src="./components/perfil/perfil.component.js"></script>
   <script src="./components/menu-resolver/menu-resolver.component.js"></script>
   <script src="./components/cambio-clave/cambio-clave.component.js"></script>
