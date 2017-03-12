@@ -107,7 +107,7 @@ module.exports.getEjercicios = (req,res,next) => {
 
 
   var deferred = $q.defer(); //devido a que es async las llamadas http, el primise evita q se llame la funcion antes que se obtenga la data
-  
+
 // var perfil = function() {
 //   $http({
 //     method: 'GET',
@@ -120,3 +120,15 @@ module.exports.getEjercicios = (req,res,next) => {
 //   })
 //   return deferred.promise
 // }
+
+
+/*http://stackoverflow.com/questions/16129157/countdown-timer-using-moment-js*/
+var eventTime= 1366549200; // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
+var currentTime = 1366547400; // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
+var diffTime = eventTime - currentTime;
+var duration = moment.duration(diffTime*1000, 'milliseconds');
+var interval = 1000;
+setInterval(function(){
+duration = moment.duration(duration - interval, 'milliseconds');
+res.io.emit('messages', duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());
+}, interval);

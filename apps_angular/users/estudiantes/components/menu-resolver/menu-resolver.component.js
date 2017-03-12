@@ -8,6 +8,6 @@ Controller.$inyect = ['Estudiante']
 function Controller(Estudiante) {
   var vm = this;
   Estudiante.getEjerciciosEtiquetaYDificultad('uno','facil', (res) => {
-    
+
   })
 }

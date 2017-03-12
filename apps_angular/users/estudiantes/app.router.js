@@ -51,6 +51,12 @@ function AyudantesConfiguration ($stateProvider, $urlRouterProvider, $locationPr
     url: '/cambio-clave',
     component: 'cambioClave'
   })
+  .state('desafio', {
+    parent: 'panel',
+    name: 'desafio',
+    url: '/desafio',
+    component: 'desafio'
+  })
 }
 
 // app.run($trace => $trace.enable(1))
