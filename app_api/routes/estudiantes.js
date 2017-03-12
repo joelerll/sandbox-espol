@@ -22,7 +22,6 @@ router.get('/ejercicios',auth, EjercicioController.getByEtiquetaYDificultad);
 router.get('/perfil',auth, EstudianteController.perfil);
 router.post('/clave', auth,EstudianteController.cambiarClave)
 router.post('/ejercicio/:id_ejercicio/file',auth, upload.single('ejercicio'), EjercicioController.comprobarEjercicio);
-
 require('../config/passport.estudiante.login.js')(passport);
 require('../config/passport.estudiante.jwt.js')(passport);
 router.post('/login', EstudianteController.login);

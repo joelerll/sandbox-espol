@@ -65,11 +65,13 @@ var EstudianteSchema = mongoose.Schema({
       fecha_iniciado: {type: Date, 'default': Date.now},
       fecha_resuelto: {type: Date},
       ganador: {type: Boolean},
+      participando: {type: Boolean},
       insignia: {type: String, enum: ['bronce','plata','oro']},
       ejercicios: [{
         _ejercicio: {type: String, ref: 'Ejercicio'},
         fecha_iniciado: {type: Date},
-        tiempo_resuelto: {type: Date},
+        fecha_resuelto: {type: Date},
+        resuelto: {type: Boolean}
       }]
     }]
 },{ versionKey: false, timestamps: true, collection: 'estudiantes'})

@@ -1,3 +1,4 @@
+/*sockets https://github.com/onedesign/express-socketio-tutorial*/
 var express      = require('express'),
 path             = require('path'),
 logger           = require('morgan'),
@@ -7,10 +8,9 @@ passport         = require('passport'),
 nunjucks         = require('nunjucks'),
 cors             = require('cors'),
 expressValidator = require('express-validator'),
-app              = express(),
 validator        = require('validator'),
 shortid          = require('shortid');
-
+var expressWs = require('express-ws');
 //database
 require('./app_api/models/db');
 
@@ -19,13 +19,26 @@ admin_api          = require('./app_api/routes/admin');
 ayudante_api = require('./app_api/routes/ayudantes');
 estudiante_api = require('./app_api/routes/estudiantes');
 profesor_api = require('./app_api/routes/profesores');
+
+// var expressWs = expressWs(express());
+// var app = expressWs.app;
+var app              = express()
+// expressWs(app)
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+io.set('transports',['websocket'])
+
 // nunjucks
 nunjucks.configure('./errors/views', {
 	autoescape: true,
 	express: app
 });
 app.set('view engine', 'nunjucks');
-
+app.use(function(req, res, next){
+  //app.set('io',io)
+  res.io = io;
+  next();
+});
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -78,8 +91,6 @@ app.use('/api/v1/admin', admin_api);
 app.use('/api/v1/ayudantes', ayudante_api);
 app.use('/api/v1/estudiantes', estudiante_api);
 app.use('/api/v1/profesores', profesor_api);
-// app.use('/api/v1/estudiante', estudiante_api);
-// app.user('/api/v1/ayudante', ayudante_api);
 app.use('/docs', express.static(path.join(__dirname + "/public/documentacion")));
 app.use('/profesores', express.static(path.join(__dirname + "/apps_angular/users/profesores")));
 app.use('/ayudantes', express.static(path.join(__dirname + "/apps_angular/users/ayudantes")));
@@ -105,4 +116,4 @@ app.use(function(err, req, res, next) {
   res.render('./errors/error');
 });
 
-module.exports = app;
+module.exports = {app: app, server: server};
