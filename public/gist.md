@@ -1,3 +1,11 @@
+	eduardo@gmail.com
+rylXlLnQsg
+
+	joel@gmail.com
+Syli0BnXsx
+
+
+
 ctrl.linkExternal = function (url){
   $window.location.href = url;
 }

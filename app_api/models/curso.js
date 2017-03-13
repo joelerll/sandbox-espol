@@ -20,6 +20,12 @@ var CursoSchema = mongoose.Schema({
 
 CursoSchema.plugin(uniqueValidator);
 
+CursoSchema.statics.getCursoEstudiante = function(id_estudiante) {
+  this.model('Curso').findOne({'_estudiantes': id_estudiante}, (err, curso) => {
+    console.log(curso)
+  })
+}
+
 CursoSchema.methods.create = function(cb) {
   this.save(cb)
 }
