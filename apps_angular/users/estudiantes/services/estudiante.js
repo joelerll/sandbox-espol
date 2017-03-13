@@ -37,10 +37,19 @@ function Controller(auth,$http) {
     }).then(cb)
   }
 
+  var desafio = function(cb) {
+    $http({
+      method: 'GET',
+      url: '/api/v1/estudiantes/desafio',
+      headers: {'Authorization': auth.getToken()}
+    }).then(cb)
+  }
+
   return {
     getEtiquetas: getEtiquetas,
     getEjerciciosEtiquetaYDificultad: getEjerciciosEtiquetaYDificultad,
     perfil: perfil,
-    cambiarClave: cambiarClave
+    cambiarClave: cambiarClave,
+    desafio: desafio
   }
 }

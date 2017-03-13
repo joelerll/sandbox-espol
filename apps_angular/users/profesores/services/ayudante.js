@@ -45,6 +45,14 @@ function AyudanteController(auth,$http) {
       }).then(cb)
     }
 
+    var perfil = function (cb) {
+      $http({
+        method: 'GET',
+        url: '/api/v1/profesores/perfil',
+        headers: {'Authorization': auth.getToken()}
+      }).then(cb)
+    }
+
     var updateEjercicio = function (id_ejercicio,ejercicio, cb) {
       $http({
         method: 'PUT',
@@ -63,6 +71,15 @@ function AyudanteController(auth,$http) {
       }).then(cb)
     }
 
+    var createDesafio = function (desafio, cb) {
+      $http({
+        method: 'POST',
+        url: '/api/v1/profesores/desafio',
+        headers: {'Authorization': auth.getToken()},
+        data: desafio
+      }).then(cb)
+    }
+
 
   return {
     misEjercicios: misEjercicios,
@@ -71,6 +88,8 @@ function AyudanteController(auth,$http) {
     eliminarEjercicio: eliminarEjercicio,
     getEjercicioById: getEjercicioById,
     updateEjercicio: updateEjercicio,
-    cambiarClave: cambiarClave
+    cambiarClave: cambiarClave,
+    createDesafio: createDesafio,
+    perfil: perfil
   }
 }

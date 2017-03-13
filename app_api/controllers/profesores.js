@@ -4,6 +4,7 @@ passport     = require('passport'),
 jwt          = require('jsonwebtoken'),
 bcrypt       = require('bcryptjs'),
 Ejercicio    = require('../models/ejercicio'),
+Curso = require('../models/curso'),
 Profesor     = require('../models/profesor');
 
 module.exports.login = function(req, res,next) {
@@ -185,4 +186,18 @@ module.exports.cambiarClave = function (req, res, next) {
       })
     })
   }
+}
+
+module.exports.cursos = function(req, res, next) {
+
+}
+
+module.exports.perfil = function(req, res, next) {
+	Profesor.getProfesorById(req.user.id, (err, user) => {
+    if(err) {
+      res.status(404).json({message: 'error al encontrar profesor', success: false})
+      return;
+    }
+    res.status(200).json({message: 'profesor encontrado', success: true, profesor: user})
+  })
 }

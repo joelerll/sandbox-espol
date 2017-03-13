@@ -49,6 +49,13 @@ function addProfesor(req, res, next) {
           return;
         } else {
           Curso.populateCurso(req.params.id_curso, (err, profesor_curso) => {
+            Profesor.addCurso(req.params.id_profesor,req.params.id_curso, (err, res) => {
+              if(err) {
+                res.status(400).json({success: false, message: 'no anadido profesor error'})
+                return;
+              }
+              console.log('curso agregado a profesor')
+            })
             if (err) {
               res.status(400).json({success: false, message: 'no anadido profesor error'})
               return;
@@ -144,6 +151,13 @@ function deleteProfesor(req, res, next) {
       res.send('no borado')
       return;
     }
+    Profesor.deleteCurso(req.params.id_profesor,req.params.id_curso, (err, res) => {
+      if(err) {
+        res.status(400).json({success: false, message: 'no anadido profesor error'})
+        return;
+      }
+      console.log('borrado curso de profesor')
+    })
     res.status(200).json({success: true, message: 'eliminado profesor de curso'})
   })
 }

@@ -6,5 +6,6 @@ angular.module('ayudantesApp',[
   'misEjercicios',
   'todosEjercicios',
   'editarEjercicio',
-  'cambioClave'
+  'cambioClave',
+  'desafio'
 ])

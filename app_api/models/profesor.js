@@ -55,10 +55,11 @@ var ProfesorSchema = mongoose.Schema({
     type: String,
     required: [true, 'apellidos son requeridos']
   },
-  _desafios:[{
+  _desafio:{
     type: String,
     ref: 'Desafio'
-  }]
+  },
+	_cursos: [{type: String, ref: 'Curso'}]
 },{collection: 'profesores', versionKey: false, timestamps: true})  //desafios: [{ type : ObjectId, ref: 'Desafio' }]
 
 ProfesorSchema.plugin(uniqueValidator);
@@ -146,7 +147,7 @@ ProfesorSchema.statics.getProfesor = function(correo, cb) {
 }
 
 ProfesorSchema.statics.getProfesorById = function(id, cb) {
-  this.model('Profesor').findOne({_id: id},{clave: 0},cb);
+  this.model('Profesor').findOne({_id: id}).populate({path: '_cursos', select: '-updatedAt -createdAt -desafios -clave'}).exec(cb)
 }
 
 ProfesorSchema.statics.delete = function(id, cb) {
@@ -159,6 +160,14 @@ ProfesorSchema.statics.getProfesores = function(cb) {
 
 ProfesorSchema.statics.getProfesorLike = function(query, cb) {
   this.model('Profesor').find({$or: [{nombres:  {'$regex': query, '$options': 'i' }}, {apellidos: {'$regex': query, '$options': 'i' }}]}, cb);
+}
+
+ProfesorSchema.statics.addCurso = function(id_profesor,id_curso,cb) {
+  this.model('Profesor').update({_id: id_profesor},{$addToSet: {'_cursos': id_curso}},cb )
+}
+
+ProfesorSchema.statics.deleteCurso = function(id_profesor,id_curso,cb) {
+  this.model('Profesor').findOneAndUpdate({_id: id_profesor}, {$pull: {'_cursos': id_curso}},{ safe: true },cb)
 }
 
 module.exports = mongoose.model('Profesor', ProfesorSchema);

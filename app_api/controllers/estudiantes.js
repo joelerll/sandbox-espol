@@ -256,6 +256,15 @@ function cambiarClave(req, res, next) {
   })
 }
 
+function desafio(req, res, next) {
+  res.io.on('connection', function(socket) {
+    console.log('conectado')
+    socket.disconnect(true)
+  })
+  res.status(200).json({success: true, message: 'conectado a web socket'})
+  //res.status(404).json({success: false, message: 'no conectado a socket'})
+}
+
 module.exports = {
   // admin control
   create: create,
@@ -269,5 +278,6 @@ module.exports = {
   updateClave: updateClave,
   registrarEjercicio: registrarEjercicio,
   registrarEjercicioMal: registrarEjercicioMal,
-  cambiarClave: cambiarClave
+  cambiarClave: cambiarClave,
+	desafio: desafio
 }
