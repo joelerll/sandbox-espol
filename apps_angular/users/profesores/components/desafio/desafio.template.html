@@ -1,0 +1,33 @@
+<h1>Desafio</h1>
+
+<h3>Escoja ejercicios</h3>
+<div class="curso">
+  <select ng-model="$ctrl.desafio.curso"class="" name="">
+    <option ng-repeat="curso in $ctrl.cursos" value="{{curso._id}}">{{curso.numero_paralelo}}</option>
+  </select>
+</div>
+<div class="ejercicios">
+  <div ng-repeat="ejercicio in $ctrl.todosEjercicios" class="ejercicio">
+    <input type="checkbox" checklist-model="$ctrl.desafio.ejercicios" checklist-value="ejercicio._id"> {{ejercicio.titulo}}
+  </div>
+</div>
+<div class="fecha">
+  <p class="input-group">
+    <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}" ng-model="$ctrl.tiempo.fecha" is-open="$ctrl.popup1.opened" datepicker-options="$ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="$ctrl.altInputFormats" />
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="$ctrl.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+    </span>
+  </p>
+</div>
+<div class="hora">
+   <div uib-timepicker ng-model="$ctrl.tiempo.hora" ng-change="$ctrl.changed()" hour-step="$ctrl.hstep" minute-step="$ctrl.mstep" show-meridian="$ctrl.ismeridian"></div>
+   <button ng-click="$ctrl.update()">set 12</button>
+</div>
+<div class="titulo">
+  <h2>Titulo</h2>
+  <input type="text" name="" value="" ng-model="$ctrl.desafio.titulo" placeholder="titulo">
+</div>
+<div class="crear">
+  <button ng-click="$ctrl.crear()" class="btn btn-success">crear</button>
+</div>
+<p>{{$ctrl.desafio}}</p>

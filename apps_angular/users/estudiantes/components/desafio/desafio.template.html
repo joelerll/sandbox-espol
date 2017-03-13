@@ -1,1 +1,11 @@
 <p>Desafios</p>
+<p>{{$ctrl.desafio_tomado}}</p>
+<div ng-show="!$ctrl.desafio_tomado" class="no-existe-desafio">
+  <p>desafio no existe</p>
+</div>
+<div ng-show="$ctrl.desafio_tomado" class="desafio-no-tomado">
+  <button ng-click="$ctrl.tomarDesafio()">tomar desafio</button>
+</div>
+<div class="desafio-tomado">
+
+</div>

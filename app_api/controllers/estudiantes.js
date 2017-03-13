@@ -255,6 +255,38 @@ function cambiarClave(req, res, next) {
     })
   })
 }
+var Curso = require('../models/curso')
+function desafio(req, res, next) {
+  Curso.getCursoEstudiante(req.user._id)
+  res.io.on('connection', function(socket) {
+    console.log('conectado')
+    console.log(req.user)
+    if(req.user.desafio.participa) {
+      console.log('participa')
+    } else {
+      res.io.emit(req.user._id,{conectado: false})
+      console.log('no participa')
+    }
+    // Estudiante.participaDesafio(req.user._id, (match) => {
+    //   const mat = match
+    //   console.log('---------')
+    //   if (mat) {
+    //     console.log('participa' + req.user.nombres)
+    //     console.log('1')
+    //   } else {
+    //     console.log('2')
+    //     console.log('no participa'  + req.user.nombres )
+    //   }
+    // })
+    //socket.disconnect(true)
+  })
+  res.status(200).json({success: true, message: 'conectado a web socket'})
+  //res.status(404).json({success: false, message: 'no conectado a socket'})
+}
+
+function EstudianteAula(id) {
+
+}
 
 module.exports = {
   // admin control
@@ -269,5 +301,6 @@ module.exports = {
   updateClave: updateClave,
   registrarEjercicio: registrarEjercicio,
   registrarEjercicioMal: registrarEjercicioMal,
-  cambiarClave: cambiarClave
+  cambiarClave: cambiarClave,
+	desafio: desafio
 }

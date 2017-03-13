@@ -19,10 +19,11 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
   //navegacion
   vm.tabs = {
     nuevo: false,
-    mis: true,
+    mis: false,
     todos: false,
     editar: false,
     clave: false,
+    desafio: true
   }
 
   vm.tabs.clicks = {
@@ -33,6 +34,7 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
       vm.tabs.todos = false
       vm.tabs.editar = false
       vm.tabs.clave = false
+      vm.tabs.desafio = false
     },
     mis: () => {
       vm.tabs.nuevo = false
@@ -40,6 +42,7 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
       vm.tabs.todos = false
       vm.tabs.editar = false
       vm.tabs.clave = false
+      vm.tabs.desafio = false
     },
     todos: () => {
       vm.tabs.nuevo = false
@@ -47,6 +50,7 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
       vm.tabs.todos = true
       vm.tabs.editar = false
       vm.tabs.clave = false
+      vm.tabs.desafio = false
     },
     editar: () => {
       vm.tabs.nuevo = false
@@ -54,6 +58,7 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
       vm.tabs.todos = false
       vm.tabs.editar = true
       vm.tabs.clave = false
+      vm.tabs.desafio = false
     },
     clave: () => {
       vm.tabs.nuevo = false
@@ -61,6 +66,15 @@ function PanelController (Ayudante,auth,$location,$rootScope) {
       vm.tabs.todos = false
       vm.tabs.editar = false
       vm.tabs.clave = true
+      vm.tabs.desafio = false
+    },
+    desafio: () => {
+      vm.tabs.nuevo = false
+      vm.tabs.mis = false
+      vm.tabs.todos = false
+      vm.tabs.editar = false
+      vm.tabs.clave = false
+      vm.tabs.desafio = true
     }
   }
 

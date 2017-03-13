@@ -7,8 +7,9 @@ var DesafioSchema = mongoose.Schema({
   _id: {
     type: String,
     unique: true,
-    'defult': shortId.generate
+    'default': shortId.generate
   },
+  _curso: {type: String, ref: 'Curso'},
   titulo: {
     type: String
   },
@@ -20,8 +21,12 @@ var DesafioSchema = mongoose.Schema({
   insignia: {
     type: String,
     enum: ['bronce','plata','oro'],
-  }
-
+  },
+  _ejercicios: [{type: String, ref: 'Ejercicio'}],
 },{collection: 'desafios', timestamps: true, versionKey: false})
 
-exports.module = mongoose.model('Desafio', DesafioSchema)
+DesafioSchema.methods.create = function(cb) {
+  this.save(cb);
+}
+
+module.exports = mongoose.model('Desafio', DesafioSchema)

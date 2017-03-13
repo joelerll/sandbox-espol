@@ -60,20 +60,19 @@ var EstudianteSchema = mongoose.Schema({
       },
       _id: {id: false}
   }],
-    desafios: [{
+    desafio: {
       _desafio: {type: String, ref: 'Desafio'},
-      fecha_iniciado: {type: Date, 'default': Date.now},
-      fecha_resuelto: {type: Date},
+      fecha_iniciado: {type: Date},
+      fecha_terminado: {type: Date},
       ganador: {type: Boolean},
-      participando: {type: Boolean},
-      insignia: {type: String, enum: ['bronce','plata','oro']},
+      participa: {type: Boolean, 'default': false},
       ejercicios: [{
         _ejercicio: {type: String, ref: 'Ejercicio'},
         fecha_iniciado: {type: Date},
-        fecha_resuelto: {type: Date},
+        fecha_terminado: {type: Date},
         resuelto: {type: Boolean}
       }]
-    }]
+    }
 },{ versionKey: false, timestamps: true, collection: 'estudiantes'})
 
 EstudianteSchema.plugin(uniqueValidator);
@@ -82,6 +81,15 @@ EstudianteSchema.plugin(uniqueValidator);
 //   console.log('editado')
 //   next()
 // })
+
+EstudianteSchema.statics.participaDesafio = function(id,cb) {
+  this.model('Estudiante').findOne({_id: id},(err, est) => {
+    if(!est.desafio.participa) {
+      cb(true)
+    }
+    cb(false)
+  })
+}
 
 EstudianteSchema.statics.registrarEjercicio = function(user,ejercicio,nombre_archivo,path_archivo,cb) {
   let ejercicio_nuevo = {

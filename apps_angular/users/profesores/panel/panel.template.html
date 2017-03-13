@@ -7,7 +7,7 @@
     </div>
 
     <ul style="cursor: pointer;" class="nav navbar-nav">
-      
+
       <li  ng-class="{'selecionado': vm.tabs.nuevo}" >
         <a ng-click="vm.tabs.clicks.nuevo()" class="cursor">Nuevo Ejercicio</a>
       </li>
@@ -19,6 +19,9 @@
       </li>
       <li  ng-class="{'selecionado': vm.tabs.clave}">
         <a ng-click="vm.tabs.clicks.clave()" class="cursor">Cambiar Clave</a>
+      </li>
+      <li  ng-class="{'selecionado': vm.tabs.desafio}">
+        <a ng-click="vm.tabs.clicks.desafio()" class="cursor">Desafio</a>
       </li>
       <li>
         <a>
@@ -46,6 +49,9 @@
     </div>
     <div ng-show="vm.tabs.clave">
       <cambio-clave></cambio-clave>
+    </div>
+    <div ng-show="vm.tabs.desafio">
+      <desafio></desafio>
     </div>
   </div>
 
